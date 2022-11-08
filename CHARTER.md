@@ -4,6 +4,8 @@
 
 ## Method of communication: Discord
 
+## Meeting Time: Tues 2:30-4:20
+
 1. Availability for meeting expectations
 2. Response time to communication expectations
 3. Definition of done: when is a task complete? (hint: "I'm done with that but I didn't check it in to github" is not done.)
