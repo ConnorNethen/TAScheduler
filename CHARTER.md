@@ -1,5 +1,7 @@
 # Group 361 TA Scheduler!
 
+## Group Members: Usama Khan, Connor Nethen, James Moyer, Hudson See, Chris Faber
+
 1. Availability for meeting expectations
 2. Response time to communication expectations
 3. Definition of done: when is a task complete? (hint: "I'm done with that but I didn't check it in to github" is not done.)
