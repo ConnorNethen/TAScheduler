@@ -1,4 +1,4 @@
-# group name
+# Group 361 TA Scheduler!
 
 1. Availability for meeting expectations
 2. Response time to communication expectations
