@@ -1,10 +1,39 @@
-# Group 361 TA Scheduler!
+# Team Charter: Group 802-2
 
-## Group Members: Usama Khan, Connor Nethen, James Moyer, Hudson See, Chris Faber
+<details open>
+<summary> Table of Contents </summary>
 
-## Method of communication: Discord
+- [Group Members](#group-members)
+- [Goals](#goals)
+
+</details>
+
+---
+
+## Group Members
+
+Usama Khan, Connor Nethen, James Moyer, Hudson See, Chris Faber
+
+## Goals
+
+<table>
+<tr><td>
+To gain working knowledge of the software life cycle.
+</td></tr>
+<tr><td>
+To gain practical knowledge and experience in software engineering.
+</td></tr>
+<tr><td>
+To work well as a group, respecting and supporting each member by working together to accomplish the goals of the project.
+</td></tr>
+<tr><td>
+To familiarize ourselves with the methods and practices that are required to pull together a team project.
+</td></tr>
+</table>
 
 ## Meeting Time: Tues 2:30-4:20
+
+![Discord Shield](https://discordapp.com/api/guilds/1037760541491474452/widget.png)
 
 ## Response Time: 1 Day response for messages on discord.
 
