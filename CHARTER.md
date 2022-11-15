@@ -10,6 +10,9 @@
     - [Locations](#locations)
     - [Meeting Times](#meeting-times)
     - [Meeting Guidelines](#meeting-guidelines)
+  - [Communication](#communication)
+    - [Methods of Communication](#methods-of-communication)
+    - [Communication Guidelines](#communication-guidelines)
   - [Response Time: 1 Day response for messages on discord.](#response-time-1-day-response-for-messages-on-discord)
 
 </details>
@@ -37,9 +40,6 @@ To familiarize ourselves with the methods and practices that are required to pul
 </td></tr>
 </table>
 
-<img src="https://discordapp.com/api/guilds/1037760541491474452/widget.png" align="right"
-     alt="Discord Shield" style="padding-top:14px">
-
 ## Meetings
 
 ### Locations
@@ -63,6 +63,27 @@ To familiarize ourselves with the methods and practices that are required to pul
 
 2. **Tardiness:**  
    A member who is late to a meeting must notify the team leader before the meeting begins. Being late to a meeting without prior notice will be considered a violation of the team charter. See [Minor Offense](#minor-offense).
+
+## Communication
+
+### Methods of Communication
+
+- Discord
+- Email
+
+### Communication Guidelines
+
+1. **Regular Communication:**  
+   The team will communicate regularly to ensure that everyone is on the same page. This includes:
+   - Regularly checking the team's Discord channel
+   - Regularly checking the team's email
+   - Regularly checking the team's GitHub repository
+
+2. **Responsiveness:**  
+   Members are expected to respond to messages within 24 hours. If a member is unable to respond within 24 hours, they must notify the team leader. Failure to respond within 24 hours will be considered a violation of the team charter. See [Minor Offense](#minor-offense).
+
+3. **Respect:**
+   Respectful communication is expected at all times. It should be understood that all members are working together to accomplish a common goal. Members are expected to be respectful of each other's opinions and ideas, even if they disagree. If a member feels that another member is not being respectful, they should notify the team leader. If a member is found to be disrespectful, they will be given a warning (See [Disciplinary Log](#disciplinary-log)). If the member continues to be disrespectful, the team leader will notify the instructor.
 
 ## Response Time: 1 Day response for messages on discord.
 
