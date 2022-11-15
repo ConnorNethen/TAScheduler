@@ -17,6 +17,9 @@
   - [Communication](#communication)
     - [Methods of Communication](#methods-of-communication)
     - [Communication Guidelines](#communication-guidelines)
+  - [Work Standards](#work-standards)
+    - [Participation](#participation)
+    - [Documentation & Code Standards](#documentation--code-standards)
   - [Response Time: 1 Day response for messages on discord.](#response-time-1-day-response-for-messages-on-discord)
 
 </details>
@@ -110,6 +113,21 @@ All responsibilities will be delegated equally among the team members. If a team
 
 3. **Respect:**  
    Respectful communication is expected at all times. It should be understood that all members are working together to accomplish a common goal. Members are expected to be respectful of each other's opinions and ideas, even if they disagree. If a member feels that another member is not being respectful, they should notify the team leader. If a member is found to be disrespectful, they will be given a warning (See [Disciplinary Log](#disciplinary-log)). If the member continues to be disrespectful, the team leader will notify the instructor.
+
+## Work Standards
+
+### Participation
+
+1. **Lack of Participation:**  
+   If a member isn't participating enough, they will be politely asked by the leader to share more. If the member continues to underperform, they will be given a warning (See [Disciplinary Log](#disciplinary-log)). If the member continues to underperform, based on group consensus, it will be considered a violation of the team charter (See [Minor Offense](#minor-offense)) and/or the team leader will notify the instructor.
+
+2. **Unpreparedness:**  
+   It is understood that members will have busy schedules. However, members are expected to be prepared for meetings. If a member is consistently unprepared for meetings, causing a disruption to the meeting, they will be given a warning (See [Disciplinary Log](#disciplinary-log)) and will be considered a violation of the team charter for further offenses (See [Minor Offense](#minor-offense)). If the member continues to be unprepared, the team leader will notify the instructor.
+
+3. **Disproportionate Workload:**  
+   If the team finds that, due to the time constraints of the project and the number of members actively participating, the workload cannot be completed, the team leader will notify the instructor via email and in person with detailed logs of the team's progress and reasons for the workload being too much.
+
+### Documentation & Code Standards
 
 ## Response Time: 1 Day response for messages on discord.
 
