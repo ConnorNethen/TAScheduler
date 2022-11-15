@@ -20,7 +20,13 @@
   - [Work Standards](#work-standards)
     - [Participation](#participation)
     - [Documentation & Code Standards](#documentation--code-standards)
-  - [Response Time: 1 Day response for messages on discord.](#response-time-1-day-response-for-messages-on-discord)
+  - [Disciplinary Procedures](#disciplinary-procedures)
+    - [Regarding Disciplinary Actions](#regarding-disciplinary-actions)
+    - [Disciplinary Log](#disciplinary-log)
+    - [Minor Offense](#minor-offense)
+    - [Major Offense](#major-offense)
+    - [Punishment and Dismissal](#punishment-and-dismissal)
+  - [Team Member Signatures](#team-member-signatures)
 
 </details>
 
@@ -135,14 +141,26 @@ We will be using [Google Style Guids](https://google.github.io/styleguide/) for 
 - [HTML/CSS](https://google.github.io/styleguide/htmlcssguide.html)
 - [Python](https://google.github.io/styleguide/pyguide.html)
 
-## Response Time: 1 Day response for messages on discord.
+## Disciplinary Procedures
 
-1. Availability for meeting expectations
-2. Response time to communication expectations
-3. Definition of done: when is a task complete? (hint: "I'm done with that but I didn't check it in to github" is not done.)
-4. Scrum meeting format/frequency and distribution of documentation tasks (meeting minutes, updating task board)
-5. Procedure for adopting policies (e.g. code style, code check-in steps, documentation updates)
-    - if you adopt such a policy during the initial meeting, put it here
-6. Procedure for handling a member who is not meeting expectations
-    - must include at least 3 actions before involving the instructor
-7. Signatures: each member must sign their name by typing their name at the bottom of the document.
+### Regarding Disciplinary Actions
+
+Any disciplinary action to be administered can be overridden by group conscience, if decided by a majority vote.
+
+### Disciplinary Log
+
+The recorder will be responsible for logging any information on offenses committed by any member. This report will be sent out with the meeting notes every week so each member knows where they stand.
+
+### Minor Offense
+
+A minor group offence can occur for breaking indicated statutes of the charter. Minor offences require the offender to be labeled as “Storm trooper” for their stupidity. The storm trooper is required to prepare a delicious baked treat good either homemade or store bought within the next two meetings. Failure to do so will escalate them to the next level of offence. A record of the minor offence and when the delicious baked treat arrived will be recorded by the group assigned note taker.
+
+### Major Offense
+
+A major group offence can occur by breaking indicated statutes of the charter, or for accumulation of 3 or more minor offences. Major offences require that the offender be labeled as “Anakin Skywalker” for his treachery. Anakin Skywalker is on probation and his probation status is to be clearly documented by email including a detailed description of his offence. Anakin Skywalker may return to regular group member status upon a group consensus. If Anakin Skywalker commits another offence constituted as either minor or major, he will become a candidate for punishment and dismissal.
+
+### Punishment and Dismissal
+
+A group member committing enough minor and major offences will finally have gone to the dark side and demoted to Darth Vader. They will be referred to punishment and dismissal and will be given over to review by the TA and governing bodies (the Rock). An email describing the offences leading up to punishment and dismissal will be displayed along with testimonies from at least 2 other group members and a log of offenses. If available, the offending members work will be confiscated and termed as “belonging to the group”.
+
+## Team Member Signatures
