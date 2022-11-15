@@ -3,8 +3,14 @@
 <details open>
 <summary> Table of Contents </summary>
 
-- [Group Members](#group-members)
-- [Goals](#goals)
+- [Team Charter: Group 802-2](#team-charter-group-802-2)
+  - [Group Members](#group-members)
+  - [Goals](#goals)
+  - [Meetings](#meetings)
+    - [Locations](#locations)
+    - [Meeting Times](#meeting-times)
+    - [Meeting Guidelines](#meeting-guidelines)
+  - [Response Time: 1 Day response for messages on discord.](#response-time-1-day-response-for-messages-on-discord)
 
 </details>
 
@@ -31,9 +37,32 @@ To familiarize ourselves with the methods and practices that are required to pul
 </td></tr>
 </table>
 
-## Meeting Time: Tues 2:30-4:20
+<img src="https://discordapp.com/api/guilds/1037760541491474452/widget.png" align="right"
+     alt="Discord Shield" style="padding-top:14px">
 
-![Discord Shield](https://discordapp.com/api/guilds/1037760541491474452/widget.png)
+## Meetings
+
+### Locations
+
+- In Person: EMS E270
+
+### Meeting Times
+
+- In Person: Tues 2:30 - 4:20
+
+### Meeting Guidelines
+
+1. **Attendance:**  
+   Missing an occasional meeting is acceptable, but consistent absences without prior notice and/or explanation will be considered a violation of the team charter. For 2 violations, see [Minor Offense](#minor-offense). For 3+ violations, see [Major Offence](#major-offense). Acceptable reasons for missing a meeting include:
+   - Injury
+   - Illness
+   - Family emergency
+   - Work
+   - Conflicting class schedule
+   - Death (yourself or other)  
+
+2. **Tardiness:**  
+   A member who is late to a meeting must notify the team leader before the meeting begins. Being late to a meeting without prior notice will be considered a violation of the team charter. See [Minor Offense](#minor-offense).
 
 ## Response Time: 1 Day response for messages on discord.
 
