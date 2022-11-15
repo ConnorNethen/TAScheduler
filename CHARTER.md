@@ -6,6 +6,10 @@
 - [Team Charter: Group 802-2](#team-charter-group-802-2)
   - [Group Members](#group-members)
   - [Goals](#goals)
+  - [Team Structure](#team-structure)
+    - [Member Roles](#member-roles)
+    - [Decision Making](#decision-making)
+    - [Deligation of Responsibilities](#deligation-of-responsibilities)
   - [Meetings](#meetings)
     - [Locations](#locations)
     - [Meeting Times](#meeting-times)
@@ -39,6 +43,28 @@ To work well as a group, respecting and supporting each member by working togeth
 To familiarize ourselves with the methods and practices that are required to pull together a team project.
 </td></tr>
 </table>
+
+## Team Structure
+
+### Member Roles
+The team will be structured as follows:
+| Role | Description |
+| --- | --- |
+| Leader | The leader is responsible for the flow of the meeting and has a helpful role in the delegation of responsibilities. They are responsible for making sure that the team is on track to meet the goals of the project. They are also responsible for making sure that the team is working well together. |
+| Recorder | The recorder is responsible for taking notes during the meeting, making sure that the notes are accurate, and that they are posted to the #meating-notes channel on Discord. They are also responsible for recording any disceplinary actions that are taken towards any team member. |
+| Agenda Setter | The agenda setter is responsible for making sure that the agenda is posted to the #meeting-notes channel on Discord at least 3 days before the meeting. They are also responsible for making sure that the agenda is followed during the meeting. |
+
+***Note:** If a team member is unable to attend a meeting, they are responsible for making sure that their role is filled by another team member. If any member is unable to fulfill the responsibilities of their role on a regular basis, they shall be replaced by group consensus.*
+
+### Decision Making
+
+The team will make all decisions by consensus. If a decision cannot be made by consensus, the team will vote on the decision. The decision will be made by a simple majority vote. If a tie occurs, the leader will make the decision. If the leader is unable to make the decision, the decision will be referred to the instructor.
+
+### Deligation of Responsibilities
+
+All responsibilities will be discussed and decided on by the team. Each team member will have the opportunity to volunteer for a responsibility. If there are no volunteers for a task, the team leader will assign the responsibility to a team member.
+
+All responsibilities will be delegated equally among the team members. If a team member feels that they are being overburdened with responsibilities, they will bring it to the attention of the team. The team will then discuss the issue and decide on a solution.
 
 ## Meetings
 
@@ -82,7 +108,7 @@ To familiarize ourselves with the methods and practices that are required to pul
 2. **Responsiveness:**  
    Members are expected to respond to messages within 24 hours. If a member is unable to respond within 24 hours, they must notify the team leader. Failure to respond within 24 hours will be considered a violation of the team charter. See [Minor Offense](#minor-offense).
 
-3. **Respect:**
+3. **Respect:**  
    Respectful communication is expected at all times. It should be understood that all members are working together to accomplish a common goal. Members are expected to be respectful of each other's opinions and ideas, even if they disagree. If a member feels that another member is not being respectful, they should notify the team leader. If a member is found to be disrespectful, they will be given a warning (See [Disciplinary Log](#disciplinary-log)). If the member continues to be disrespectful, the team leader will notify the instructor.
 
 ## Response Time: 1 Day response for messages on discord.
