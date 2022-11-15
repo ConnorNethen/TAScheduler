@@ -129,6 +129,12 @@ All responsibilities will be delegated equally among the team members. If a team
 
 ### Documentation & Code Standards
 
+We will be using [Google Style Guids](https://google.github.io/styleguide/) for our documentation and code standards.
+
+- [Documentation](https://google.github.io/styleguide/docguide/style.html)
+- [HTML/CSS](https://google.github.io/styleguide/htmlcssguide.html)
+- [Python](https://google.github.io/styleguide/pyguide.html)
+
 ## Response Time: 1 Day response for messages on discord.
 
 1. Availability for meeting expectations
