@@ -1,3 +1,9 @@
+---
+pdf_options:
+  format: a4
+  margin: 30mm 20mm
+---
+
 # Team Charter: We Are Groot!
 
 <details open>
@@ -19,7 +25,7 @@
     - [Communication Guidelines](#communication-guidelines)
   - [Work Standards](#work-standards)
     - [Participation](#participation)
-    - [Documentation & Code Standards](#documentation--code-standards)
+    - [Documentation \& Code Standards](#documentation--code-standards)
   - [Disciplinary Procedures](#disciplinary-procedures)
     - [Regarding Disciplinary Actions](#regarding-disciplinary-actions)
     - [Disciplinary Log](#disciplinary-log)
@@ -52,6 +58,8 @@ To work well as a group, respecting and supporting each member by working togeth
 To familiarize ourselves with the methods and practices that are required to pull together a team project.
 </td></tr>
 </table>
+
+<div class="page-break"></div>
 
 ## Team Structure
 
@@ -162,6 +170,8 @@ A major group offence can occur by breaking indicated statutes of the charter, o
 ### Punishment and Dismissal
 
 A group member committing enough minor and major offences will be referred to punishment and dismissal and will be given over to review by the TA and governing bodies (the Rock). An email describing the offences leading up to punishment and dismissal will be displayed along with testimonies from at least 2 other group members and a log of offenses. If available, the offending members work will be confiscated and termed as “belonging to the group”.
+
+<div class="page-break"></div>
 
 ## Team Member Signatures
 
