@@ -24,6 +24,9 @@ class ContactInfo(models.Model):
     phone = models.CharField(max_length=100)
     address = models.ForeignKey(Address, on_delete=models.CASCADE)
 
+class Status(models.Model):
+    status = models.CharField(max_length=100)
+
 
 class User(models.Model):
     fname = models.CharField(max_length=50)
@@ -31,6 +34,7 @@ class User(models.Model):
     pID = models.CharField(max_length=50)
     login = models.ForeignKey(Login, on_delete=models.CASCADE)
     contactInfo = models.ForeignKey(ContactInfo, on_delete=models.CASCADE)
+    status = models.ForeignKey(Status, on_delete=models.CASCADE)
 
 
 class Course(models.Model):
@@ -38,7 +42,8 @@ class Course(models.Model):
     name = models.CharField(max_length=100)
     description = models.CharField(max_length=1000)
     instructor = models.ForeignKey(User, on_delete=models.CASCADE)
-    students = models.ManyToManyField(User, related_name="students")
+    semester = models.CharField(max_length=50)
+    year = models.CharField(max_length=50)
 
     def __str__(self):
         return self.number + " - " + self.name
