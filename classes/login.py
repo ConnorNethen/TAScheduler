@@ -1,6 +1,12 @@
-import self as self
+class Login:
+    def setUsername(self):
+        pass
 
+    def setPassword(self):
+        pass
 
-class verifyLogin(self):
-    pass
+    def setUsername(self):
+        pass
 
+    def setPassword(self):
+        pass
