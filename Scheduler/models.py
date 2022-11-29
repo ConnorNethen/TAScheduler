@@ -33,7 +33,6 @@ class User(models.Model):
     password = models.CharField(max_length=100)
     fname = models.CharField(max_length=50)
     lname = models.CharField(max_length=50)
-    login = models.ForeignKey(Login, on_delete=models.CASCADE)
     contactInfo = models.ForeignKey(ContactInfo, on_delete=models.CASCADE)
     status = models.ForeignKey(Status, on_delete=models.CASCADE)
 
