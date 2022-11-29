@@ -5,8 +5,8 @@ class Login:
     def setPassword(self):
         pass
 
-    def setUsername(self):
+    def getUsername(self):
         pass
 
-    def setPassword(self):
+    def getPassword(self):
         pass
