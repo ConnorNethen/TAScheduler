@@ -23,3 +23,9 @@ class Section:
     def getTime(self):
         pass
 
+    ######################################
+
+    def createSection(self):
+        pass
+
+    
