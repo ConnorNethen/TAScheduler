@@ -1,3 +1,4 @@
+import Scheduler.models
 from classes.course import Course
 import unittest
 from Scheduler.models import Course
@@ -15,6 +16,22 @@ class TestCreate(unittest.TestCase):
     def test_InvalidArg(self):
         with self.assertRaises(TypeError, msg="wrong Arg Type"):
             Course.createCourse(Course, "Fall", "2022")
+
+    def test_OneArg(self):
+        with self.assertRaises(TypeError, msg="not enough Arg"):
+            Course.createCourse("CS361")
+
+    def test_TwoArg(self):
+        with self.assertRaises(TypeError, msg="not enough Arg"):
+            Course.createCourse("CS361", "2022")
+
+    def test_InvalidName(self):
+        Course.createCourse("CS361", "Fall", "2022")
+        with self.assertRaises():
+            for i in Scheduler.models.Course:
+                pass
+
+
 
 
 class TestEditCourse(unittest.TestCase):
