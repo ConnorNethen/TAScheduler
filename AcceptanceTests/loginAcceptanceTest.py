@@ -6,8 +6,10 @@ class LoginTest(TestCase):
 
     def setup(self):
         tester = Client()
-        User(1234, username, password, first, last,ContactInfo("email@abc.com" , "123456789", Address("street1", "street2" , "city", "state", "12345")))
-
+        User("1234", "username", "password", "first", "last",
+             ContactInfo("email@abc.com", "123456789", Address("street1", "street2", "city", "state", "12345")),
+             Status("A"))
+        tester.post('/login/', {"username": "username", "password": "password"}, follow=true)
     def test_loginSuccess(self):
         response = tester.post('/login/', {"username": "username", "password": "password"}, follow= true)
         self.assertRedircts(response, 'index', msg= "Did not redirect to home page")
