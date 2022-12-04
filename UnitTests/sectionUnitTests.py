@@ -15,6 +15,16 @@ class TestCreate(unittest.TestCase):
     def test_InvalidArg(self):
         with self.assertRaises(TypeError, msg="wrong Arg Type"):
             Section.createSection(Section, "CS361", "Lab", "Tuesday 2:30")
+        with self.assertRaises(TypeError, msg="wrong Arg Type"):
+            Section.createSection("001", Section, "Lab", "Tuesday 2:30")
+        with self.assertRaises(TypeError, msg="wrong Arg Type"):
+            Section.createSection("001", "CS361", Section, "Tuesday 2:30")
+        with self.assertRaises(TypeError, msg="wrong Arg Type"):
+            Section.createSection("001", "CS361", "Lab", Section)
+
+    def test_NoArg(self):
+        with self.assertRaises(TypeError, msg="not enough Arg"):
+            Section.createSection()
 
     def test_OneArg(self):
         with self.assertRaises(TypeError, msg="not enough Arg"):
@@ -27,6 +37,10 @@ class TestCreate(unittest.TestCase):
     def test_ThreeArg(self):
         with self.assertRaises(TypeError, msg="not enough Arg"):
             Section.createSection("001", "CS361", "Lab")
+
+    def test_FiveArg(self):
+        with self.assertRaises(TypeError, msg="too many Arg"):
+            Section.createSection("001", "CS361", "Lab", "Tuesday 2:30", "Tornado")
 
     def test_InvalidName(self):
         Section.createSection("001", "CS361", "Lab", "Tuesday 2:30")
