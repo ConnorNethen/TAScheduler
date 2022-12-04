@@ -18,3 +18,13 @@ class Course:
         pass
 
 
+###############################################
+    def createCourse(self):
+        pass
+
+    def editCourse(self):
+        pass
+
+    def deleteCourse(self):
+        pass
+
