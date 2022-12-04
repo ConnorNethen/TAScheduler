@@ -36,6 +36,12 @@ class User:
     def getStatus(self):
         pass
 
-    
+    ################################
+
+    def createAccount(self):
+        pass
+
+    def deleteAccount(self):
+        pass
 
 

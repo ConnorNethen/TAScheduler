@@ -17,9 +17,6 @@ class Address():
     def setZip(self):
         pass
 
-    def setContactInfo(self):
-        pass
-
     def getUniqueID(self):
         pass
 
@@ -36,8 +33,5 @@ class Address():
         pass
 
     def getZip(self):
-        pass
-
-    def getContactInfo(self):
         pass
 
