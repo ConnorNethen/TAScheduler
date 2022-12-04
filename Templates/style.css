@@ -1,0 +1,29 @@
+*{
+    margin: 0;
+    padding:0;
+}
+.header{
+    height: 70vh;
+
+}
+.navbar-style{
+    box-shadow: 0 5px 10px black;
+    background: goldenrod;
+}
+.container-sm{
+    box-shadow: 0 5px 10px black;
+    background: gray;
+    margin-outside: 10%;
+    margin-top: 10%;
+    padding: 2%;
+}
+.bigtext{
+
+}
+.LoginTable{
+    margin: 20px;
+    padding: 10px;
+}
+.dataRow1{
+    width: 20px;
+}
