@@ -28,3 +28,43 @@ class Login(View):
             return redirect("/index/")
         else:
             return render(request, "login.html", {"message": "Username or password is incorrect, try again!"})
+
+
+class Index(View):
+    def get(self, request):
+        return render(request, "index.html", {"message": None})
+
+    def post(self, request):
+        return redirect(request.POST['Submit'])
+
+
+class Createuser(View):
+    def get(self, request):
+        pass
+
+    def post(self, request):
+        pass
+
+
+class Createcourse(View):
+    def get(self, request):
+        pass
+
+    def post(self, request):
+        pass
+
+
+class Userpage(View):
+    def get(self, request):
+        pass
+
+    def post(self, request):
+        pass
+
+
+class Allusers(View):
+    def get(self, request):
+        pass
+
+    def post(self, request):
+        pass
