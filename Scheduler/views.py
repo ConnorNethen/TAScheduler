@@ -38,7 +38,7 @@ class Index(View):
         return redirect(request.POST['Submit'])
 
 
-class Createuser(View):
+class CreateUser(View):
     def get(self, request):
         pass
 
@@ -46,7 +46,7 @@ class Createuser(View):
         pass
 
 
-class Createcourse(View):
+class CreateCourse(View):
     def get(self, request):
         pass
 
@@ -54,7 +54,7 @@ class Createcourse(View):
         pass
 
 
-class Userpage(View):
+class UserPage(View):
     def get(self, request):
         pass
 
@@ -62,7 +62,7 @@ class Userpage(View):
         pass
 
 
-class Allusers(View):
+class AllUsers(View):
     def get(self, request):
         pass
 
