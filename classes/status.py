@@ -1,4 +1,13 @@
-class Status():
+from Scheduler.models import Status
+
+
+class Status:
+    def __init__(self, status):
+        self.status = status
+
+    def save(self):
+        Status.objects.create(status=self.status)
+
     def setUniqueID(self):
         pass
 
