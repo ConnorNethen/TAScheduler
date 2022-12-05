@@ -1,6 +1,22 @@
-class Address():
-    def setUniqueID(self):
-        pass
+from Scheduler.models import Address
+
+
+class Address:
+    def __init__(self, street1, street2, city, state, zip):
+        self.street1 = street1
+        self.street2 = street2
+        self.city = city
+        self.state = state
+        self.zip = zip
+
+    def save(self):
+        Address.objects.create(
+            street1=self.street1,
+            street2=self.street2,
+            city=self.city,
+            state=self.state,
+            zip=self.zip,
+        )
 
     def setStreet1(self):
         pass
@@ -40,4 +56,3 @@ class Address():
 
     def getContactInfo(self):
         pass
-
