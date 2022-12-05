@@ -44,4 +44,17 @@ class User:
     def deleteAccount(self):
         pass
 
+    def editAccount(self):
+        pass
+
+    def isUser(self):
+        pass
+
+    def isAdmin(self):
+        pass
+
+    # maybe?
+    def isAdminPath(self):
+        pass
+
 
