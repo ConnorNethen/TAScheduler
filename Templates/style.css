@@ -24,7 +24,7 @@
     padding: 10px;
 }
 .log-dataRow1{
-    width: 20px;
+    width: 10px;
 }
 a.btn{
     margin: 30px 10px;
@@ -40,7 +40,30 @@ a.btn{
     height: 110%;
 }
 .home-btn-1{
-    width: auto;
-    height: auto;
+    padding: 20px;
     text-align: center;
 }
+.home-btn-2{
+    padding: 20px;
+    text-align: center;
+}
+.home-btn-3{
+    padding: 20px;
+    text-align: center;
+}
+.home-btn-4{
+    padding: 20px;
+    text-align: center;
+}.home-btn-5{
+    padding: 20px;
+    text-align: center;
+}.home-btn-6{
+    padding: 20px;
+    text-align: center;
+}.home-btn-7{
+    padding: 20px;
+    text-align: center;
+}
+
+
+
