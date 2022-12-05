@@ -24,6 +24,10 @@
     margin: 20px;
     padding: 10px;
 }
-.dataRow1{
+.log-dataRow1{
     width: 20px;
+}
+a.btn{
+    margin: 30px 10px;
+    background: goldenrod;
 }
