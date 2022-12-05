@@ -5,27 +5,32 @@ class Address(models.Model):
     street1 = models.CharField(max_length=100)
     street2 = models.CharField(max_length=100)
     city = models.CharField(max_length=100)
-    state = models.USStateField()
-    zip = models.CharField(max_length=5)
+    state = models.CharField(max_length=100)
+    zip = models.CharField(max_length=100)
 
     def __str__(self):
-        return self.street1 + ", " + self.city + ", " + self.state + " " + self.zip
+        return self.street + ", " + self.city + ", " + self.state + " " + self.zip
 
 
 class ContactInfo(models.Model):
     email = models.EmailField(max_length=100)
-    phone = models.PhoneNumberField()
+    phone = models.CharField(max_length=100)
     address = models.ForeignKey(Address, on_delete=models.CASCADE)
 
 
 class Status(models.Model):
-    STATUS = (("Admin", "Admin"), ("Instructor", "Instructor"), ("TA", "TA"))
+    STATUS = (
+        ('A', 'Admin'),
+        ('I', 'Instructor'),
+        ('T', 'TA')
+    )
     status = models.CharField(max_length=1, choices=STATUS)
 
 
-class AppUser(models.Model):
+class User(models.Model):
     pID = models.CharField(max_length=50, primary_key=True)
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    username = models.EmailField(max_length=100)
+    password = models.CharField(max_length=100)
     fname = models.CharField(max_length=50)
     lname = models.CharField(max_length=50)
     contactInfo = models.ForeignKey(ContactInfo, on_delete=models.CASCADE)
