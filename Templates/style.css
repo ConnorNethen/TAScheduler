@@ -4,7 +4,6 @@
 }
 .header{
     height: 70vh;
-
 }
 .navbar-style{
     box-shadow: 0 5px 10px black;
@@ -30,4 +29,18 @@
 a.btn{
     margin: 30px 10px;
     background: goldenrod;
+}
+.container-lg{
+    box-shadow: 0 5px 10px black;
+    background: gray;
+    margin-outside: 2%;
+    margin-top: 2%;
+    margin-bottom: 2%;
+    padding: 2%;
+    height: 110%;
+}
+.home-btn-1{
+    width: auto;
+    height: auto;
+    text-align: center;
 }
