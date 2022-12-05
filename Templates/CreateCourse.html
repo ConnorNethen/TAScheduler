@@ -19,23 +19,24 @@
 
         <div class="container-sm">
             <h1 class="bigtext"> Create Course </h1>
+            <p> Fields marked with "*" are required</p>
                 <table class="CreateCourseTable">
                     <tr>
                         <td>
-                            <label for="CourseNumber">Course Number:</label>
+                            <label for="CourseNumber">*Course Number:</label>
                         </td>
                         <td class="log-dataRow1"></td>
                         <td>
-                            <input type="text" id="myCourseNum" name="myCourseNum">
+                            <input type="text" id="myCourseNum" name="myCourseNum" required>
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <label for="Semester">Semester:</label>
+                            <label for="Semester">*Semester:</label>
                         </td>
                         <td class="log-dataRow1"></td>
                         <td>
-                            <input type="text" id="mySemester" name="mySemester" list="semesterList">
+                            <input type="text" id="mySemester" name="mySemester" list="semesterList" required>
                             <datalist id="semesterList">
                                 <option value="Spring">
                                 <option value="Summer">
@@ -46,11 +47,38 @@
                     </tr>
                     <tr>
                         <td>
-                            <label for="Year">Year:</label>
+                            <label for="Year">*Year:</label>
                         </td>
                         <td class="log-dataRow1"></td>
                         <td>
-                            <input type="text" id="myYear" name="myYear">
+                            <input type="text" id="myYear" name="myYear" required>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="Name">Course Name:</label>
+                        </td>
+                        <td class="log-dataRow1"></td>
+                        <td>
+                            <input type="text" id="myName" name="myName">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="Description">Course Description:</label>
+                        </td>
+                        <td class="log-dataRow1"></td>
+                        <td>
+                            <input type="text" id="myDescription" name="myDescription">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="Instructor">Instructor's pID:</label>
+                        </td>
+                        <td class="log-dataRow1"></td>
+                        <td>
+                            <input type="text" id="myInstructor" name="myInstructor">
                         </td>
                     </tr>
                     <tr>
@@ -68,7 +96,7 @@
     <footer>
         <div class="container-md">
             <div class="footerclass">
-                <a href="{% url 'Footer' %}"
+                <a href="{% url 'Footer' %}"></a>
             </div>
         </div>
     </footer>

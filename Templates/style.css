@@ -13,11 +13,8 @@
     box-shadow: 0 5px 10px black;
     background: gray;
     margin-outside: 10%;
-    margin-top: 10%;
+    margin-top: 5%;
     padding: 2%;
-}
-.bigtext{
-
 }
 .LoginTable{
     margin: 20px;
@@ -39,30 +36,18 @@ a.btn{
     padding: 2%;
     height: 110%;
 }
-.home-btn-1{
+home.btn{
+    margin: 18px 10px;
+    background: goldenrod;
     padding: 20px;
     text-align: center;
 }
-.home-btn-2{
+notDone.btn{
+    margin: 18px 10px;
+    background: darkred;
     padding: 20px;
     text-align: center;
-}
-.home-btn-3{
-    padding: 20px;
-    text-align: center;
-}
-.home-btn-4{
-    padding: 20px;
-    text-align: center;
-}.home-btn-5{
-    padding: 20px;
-    text-align: center;
-}.home-btn-6{
-    padding: 20px;
-    text-align: center;
-}.home-btn-7{
-    padding: 20px;
-    text-align: center;
+    color: white;
 }
 
 
