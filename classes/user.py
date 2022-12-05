@@ -1,13 +1,30 @@
-from Scheduler.models import User, Address, ContactInfo, Status, Course, Section, UserToSection
+from Scheduler.models import User
+from contactInfo import ContactInfo
+from status import Status
+
 
 class User:
-    def __init__(self, pID, username, password, fname, lname, email, phone, street1, street2, city, state, zip, status):
+    def __init__(
+        self,
+        pID,
+        username,
+        password,
+        fname,
+        lname,
+        email,
+        phone,
+        street1,
+        street2,
+        city,
+        state,
+        zip,
+        status,
+    ):
         self.pID = pID
         self.username = username
         self.password = password
         self.fname = fname
         self.lname = lname
-        self.contactInfo = ContactInfo(email=email, phone=phone, address=Address(street1=street1, street2=street2, city=city, state=state, zip=zip))
         self.email = email
         self.phone = phone
         self.street1 = street1
@@ -18,14 +35,30 @@ class User:
         self.status = status
 
     def save(self):
-        address = Address(street1=self.street1, street2=self.street2, city=self.city, state=self.state, zip=self.zip)
-        address.save()
-        contactInfo = ContactInfo(email=self.email, phone=self.phone, address=address)
+        contactInfo = ContactInfo(
+            email=self.email,
+            phone=self.phone,
+            street1=self.street1,
+            street2=self.street2,
+            city=self.city,
+            state=self.state,
+            zip=self.zip,
+        )
         contactInfo.save()
+
         status = Status(status=self.status)
         status.save()
-        user = User(pID=self.pID, username=self.username, password=self.password, fname=self.fname, lname=self.lname, contactInfo=contactInfo, status=status)
-        user.save()
+
+        User.objects.create(
+            pID=self.pID,
+            username=self.username,
+            password=self.password,
+            fname=self.fname,
+            lname=self.lname,
+            contactInfo=contactInfo,
+            status=status,
+        )
+        return f"User {self.username} created successfully"
 
     # Getters
     def getFirstName(self):
@@ -42,7 +75,7 @@ class User:
 
     def getStreet1(self):
         return self.street1
-        
+
     def getStreet2(self):
         return self.street2
 
@@ -55,20 +88,14 @@ class User:
     def getZip(self):
         return self.zip
 
-    def getStatus(self):
-        return self.status
-
     def getUsername(self):
         return self.username
 
     def getPassword(self):
         return self.password
 
-    def getAddresses(self):
-        return Address.objects.get(street1=self.street1, street2=self.street2, city=self.city, state=self.state, zip=self.zip)
-
-    def getContactInfo(self):
-        return ContactInfo.objects.get(email=self.email)
+    def getStatus(self):
+        return self.status
 
     # Setters
     def setPID(self, pID):
