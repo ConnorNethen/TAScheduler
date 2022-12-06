@@ -1,37 +1,49 @@
-class Address():
-    def setUniqueID(self):
-        pass
+from Scheduler.models import Address
 
-    def setStreet1(self):
-        pass
 
-    def setStreet2(self):
-        pass
+class Address:
+    def __init__(self, street1, street2, city, state, zip):
+        self.street1 = street1
+        self.street2 = street2
+        self.city = city
+        self.state = state
+        self.zip = zip
 
-    def setCity(self):
-        pass
+    def save(self):
+        Address.objects.create(
+            street1=self.street1,
+            street2=self.street2,
+            city=self.city,
+            state=self.state,
+            zip=self.zip,
+        )
 
-    def setState(self):
-        pass
+    def setStreet1(self, street1):
+        self.street1 = street1
 
-    def setZip(self):
-        pass
+    def setStreet2(self, street2):
+        self.street2 = street2
 
-    def getUniqueID(self):
-        pass
+    def setCity(self, city):
+        self.city = city
+
+    def setState(self, state):
+        self.state = state
+
+    def setZip(self, zip):
+        self.zip = zip
 
     def getStreet1(self):
-        pass
+        return self.street1
 
     def getStreet2(self):
-        pass
+        return self.street2
 
     def getCity(self):
-        pass
+        return self.city
 
     def getState(self):
-        pass
+        return self.state
 
     def getZip(self):
-        pass
-
+        return self.zip

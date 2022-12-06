@@ -1,60 +1,134 @@
+from Scheduler.models import User
+from contactInfo import ContactInfo
+
 
 class User:
-    def setPantherID(self):
-        pass
+    def __init__(
+        self,
+        pID,
+        username,
+        password,
+        fname,
+        lname,
+        email,
+        phone,
+        street1,
+        street2,
+        city,
+        state,
+        zip,
+        status,
+    ):
+        self.pID = pID
+        self.username = username
+        self.password = password
+        self.fname = fname
+        self.lname = lname
+        self.email = email
+        self.phone = phone
+        self.street1 = street1
+        self.street2 = street2
+        self.city = city
+        self.state = state
+        self.zip = zip
+        self.status = status
 
-    def setFirstName(self):
-        pass
+    def save(self):
+        contactInfo = ContactInfo(
+            email=self.email,
+            phone=self.phone,
+            street1=self.street1,
+            street2=self.street2,
+            city=self.city,
+            state=self.state,
+            zip=self.zip,
+        )
+        contactInfo.save()
 
-    def setLastName(self):
-        pass
+        User.objects.create(
+            pID=self.pID,
+            username=self.username,
+            password=self.password,
+            fname=self.fname,
+            lname=self.lname,
+            contactInfo=contactInfo,
+            status=self.status,
+        )
+        return f"User {self.username} created successfully"
 
-    def setAddress(self):
-        pass
-
-    def setContactInfo(self):
-        pass
-
-    def setStatus(self):
-        pass
-
-    def getPantherID(self):
-        pass
-
+    # Getters
     def getFirstName(self):
-        pass
+        return self.fname
 
     def getLastName(self):
-        pass
+        return self.lname
 
-    def getAddress(self):
-        pass
+    def getEmail(self):
+        return self.email
 
-    def getContactInfo(self):
-        pass
+    def getPhone(self):
+        return self.phone
+
+    def getStreet1(self):
+        return self.street1
+
+    def getStreet2(self):
+        return self.street2
+
+    def getCity(self):
+        return self.city
+
+    def getState(self):
+        return self.state
+
+    def getZip(self):
+        return self.zip
+
+    def getUsername(self):
+        return self.username
+
+    def getPassword(self):
+        return self.password
 
     def getStatus(self):
-        pass
+        return self.status
 
-    ################################
+    # Setters
+    def setPID(self, pID):
+        self.pID = pID
 
-    def createAccount(self):
-        pass
+    def setFirstName(self, fname):
+        self.fname = fname
 
-    def deleteAccount(self):
-        pass
+    def setLastName(self, lname):
+        self.lname = lname
 
-    def editAccount(self):
-        pass
+    def setEmail(self, email):
+        self.email = email
 
-    def isUser(self):
-        pass
+    def setPhone(self, phone):
+        self.phone = phone
 
-    def isAdmin(self):
-        pass
+    def setStreet1(self, street1):
+        self.street1 = street1
 
-    # maybe?
-    def isAdminPath(self):
-        pass
+    def setStreet2(self, street2):
+        self.street2 = street2
 
+    def setCity(self, city):
+        self.city = city
 
+    def setState(self, state):
+        self.state = state
+
+    def setZip(self, zip):
+        self.zip = zip
+
+    def setStatus(self, status):
+        self.status = status
+
+    def setUsername(self, username):
+        self.username = username
+
+    def setPassword(self, password):
+        self.password = password
