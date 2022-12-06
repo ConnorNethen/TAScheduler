@@ -43,29 +43,20 @@ class Index(View):
             return render(request, "HomeScreen.html", {"message": "Access Denied"})
         return redirect(path)
 
-    def isAdminPath(self, path):
-        for i in self.urlpatters:
-            if path == i.__str__():
-                return True
-
-    def isAdmin(self, username):
-        if username.Status() == "A":
-            return True
-        return False
-
 
 class CreateUser(View):
     def get(self, request):
         return render(request, "CreateUser.html", {"message": request.GET["message"]})
 
     def post(self, request):
-        ContactInfo(request.POST["email"], request.POST["number"], )
-        message = User.createAccount(request.POST["pID"], request.POST["username"], request.post["password"],
-                                     request.POST["fname"], request.POST["lname"], request.POST["email"],
-                                     request.post["status"])
-        if message == "":
+        message = User(request.POST["pID"], request.POST["username"], request.post["password"], request.POST["fname"],
+                       request.POST["lname"], request.POST["email"], request.POST["number"], request.POST["street1"],
+                       request.POST["street2"], request.POST["city"], request.POST["state"], request.POST["zip"],
+                       request.post["status"])
+        if message == request.POST["username"] + " created successfully":
             return redirect('index/', {"message": message})
-        return render(request, "CreateUser.html", {"message": "Account Created Successfully"})
+        return render(request, "CreateUser.html", {"message": "Account Creation Error"})
+
 
 
 class CreateCourse(View):
@@ -77,8 +68,32 @@ class CreateCourse(View):
         for section in request.POST["sections"]:
             message += Section.createSection(section[0], section[1], section[2], section[3])
         if message == "":
-            return redirect("index/", {"message": "Course created Succesfully"})
+            return redirect("index/", {"message": "Course created Successfully"})
         return render(request, "CreateCourse.html", {"message": "Error created course"})
+
+
+class new_section(View):
+    def get(self, request):
+        return render(request, "CreateSection.html", {"message": request.GET["message"]})
+
+    def post(self, request):
+        message = Section.createSection(request.POST["mySectionNum"], request.POST["myAssocCourse"],
+                                        request.POST["myType"], request.POST["mydayOfWeek"],
+                                        request.POST["myStartTime"])
+        if message == "":
+            return redirect("index/", {"message": "Section created Successfully"})
+        return render(request, "CreateSection.html", {"message": message})
+
+
+class DeleteUser(View):
+    def get(self, request):
+        return render(request, "DeleteUser.html", {"message": request.GET["message"]})
+
+    def post(self, request):
+        message = User.deleteAccount(request.POST["userPID"])
+        if message == "":
+            return redirect("index/", {"message": "User deleted successfully"})
+        return render(request, "DeleteUser.html", {"message": message})
 
 
 class UserPage(View):
@@ -105,7 +120,7 @@ class AllUsers(View):
 
     def post(self, request):
         path = request.POST["Submit"]
-        if (not User.isAdmin(request.Session["pID"]) and (path == "user/new/")):
+        if not User.isAdmin(request.Session["pID"]) and (path == "user/new/"):
             return render(request, "users.html", {"message": "Access Denied"})
         if path[:10] == "users/user":
             return redirect(path, {"userPID": path[10:]})
@@ -127,7 +142,7 @@ class UserEdit(View):
             if option == "delete" and User.isUSer(myPID, userPID):
                 return render(request, "user_edit.html", {"message": "Can't Delete your own Account"})
             elif option == "delete" and User.deleteAccount(userPID):
-                return redirect("index/", {"message": "Account Succesfully Deleted"})
+                return redirect("index/", {"message": "Account Successfully Deleted"})
             else:
                 return render(request, "user.html", {"message": "Account didnt delete"})
             editAccount(request.POST["fname"], request.POST["lname"], request.POST["username"],
@@ -137,5 +152,5 @@ class UserEdit(View):
         elif User.isUser(myPID, userPID):
             User.editAccount(None, None, None, None, request.POST["email"], request.post["phone"], request.POST["address"],
                         None)
-            message = "user updated succesfully"
+            message = "user updated successfully"
         return redirect("users/user/" + userPID, {"message": message})
