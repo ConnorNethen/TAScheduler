@@ -19,6 +19,7 @@
 
         <div class="container-sm">
             <h1 class="bigtext"> Login </h1>
+            <form action="login/" method="post">
                 <table class="LoginTable">
                     <tr>
                         <td>
@@ -40,6 +41,11 @@
                     </tr>
                     <tr>
                         <td>
+                            {{ message }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
                             <a class="btn log-btn-first" href="HomeScreen.html"> Login </a>
                         </td>
                         <td class="log-dataRow1"></td>
@@ -48,6 +54,7 @@
                         </td>
                     </tr>
                 </table>
+            </form>
         </div>
     </header>
     <footer>

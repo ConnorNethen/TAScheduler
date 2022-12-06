@@ -20,76 +20,84 @@
         <div class="container-sm">
             <h1 class="bigtext"> Create User </h1>
             <p> Fields marked with "*" are required</p>
-                <table class="CreateUserTable">
-                    <tr>
+                <form action="users/new/" method="post">
+                    <table class="CreateUserTable">
+                        <tr>
+                            <td>
+                                <label for="pantherID">*PantherID:</label>
+                            </td>
+                            <td class="log-dataRow1"></td>
+                            <td>
+                                <input type="text" id="myPID" name="myPID" required>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label for="AssocCourse">*Username:</label>
+                            </td>
+                            <td class="log-dataRow1"></td>
+                            <td>
+                                <input type="text" id="myUsername" name="myUsername" required>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label for="password">*Password:</label>
+                            </td>
+                            <td class="log-dataRow1"></td>
+                            <td>
+                                <input type="text" id="myPassword" name="myPassword" required>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label for="status">*Status:</label>
+                            </td>
+                            <td class="log-dataRow1"></td>
+                            <td>
+                                <input type="text" id="myStatus" name="myStatus" list="statusList" required>
+                                <datalist id="statusList">
+                                    <option value="Admin"></option>
+                                    <option value="Instructor"></option>
+                                    <option value="TA"></option>
+                                </datalist>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label for="fname">First Name:</label>
+                            </td>
+                            <td class="log-dataRow1"></td>
+                            <td>
+                                <input type="text" id="myFName" name="myFName">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label for="lname">Last Name:</label>
+                            </td>
+                            <td class="log-dataRow1"></td>
+                            <td>
+                                <input type="text" id="myLName" name="myLName">
+                            </td>
+                        </tr>
+                        <tr>
                         <td>
-                            <label for="pantherID">*PantherID:</label>
-                        </td>
-                        <td class="log-dataRow1"></td>
-                        <td>
-                            <input type="text" id="myPID" name="myPID" required>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <label for="AssocCourse">*Username:</label>
-                        </td>
-                        <td class="log-dataRow1"></td>
-                        <td>
-                            <input type="text" id="myUsername" name="myUsername" required>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <label for="password">*Password:</label>
-                        </td>
-                        <td class="log-dataRow1"></td>
-                        <td>
-                            <input type="text" id="myPassword" name="myPassword" required>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <label for="status">*Status:</label>
-                        </td>
-                        <td class="log-dataRow1"></td>
-                        <td>
-                            <input type="text" id="myStatus" name="myStatus" list="statusList" required>
-                            <datalist id="statusList">
-                                <option value="Admin"></option>
-                                <option value="Instructor"></option>
-                                <option value="TA"></option>
-                            </datalist>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <label for="fname">First Name:</label>
-                        </td>
-                        <td class="log-dataRow1"></td>
-                        <td>
-                            <input type="text" id="myFName" name="myFName">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <label for="lname">Last Name:</label>
-                        </td>
-                        <td class="log-dataRow1"></td>
-                        <td>
-                            <input type="text" id="myLName" name="myLName">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <a class="btn log-btn-first" href="CreateUser.html"> Submit </a>
-                        </td>
-                        <td class="log-dataRow1"></td>
-                        <td>
-                            <a class="btn log-btn-second" href="HomeScreen.html"> Cancel </a>
+                            {{ message }}
                         </td>
                     </tr>
-                </table>
+                        <tr>
+                            <td>
+                                <a class="btn log-btn-first" href="CreateUser.html"> Submit </a>
+                            </td>
+                            <td class="log-dataRow1"></td>
+                            <td>
+                                <a class="btn log-btn-second" href="HomeScreen.html"> Cancel </a>
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+
         </div>
     </header>
     <footer>

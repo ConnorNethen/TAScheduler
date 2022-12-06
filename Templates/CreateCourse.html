@@ -20,6 +20,7 @@
         <div class="container-sm">
             <h1 class="bigtext"> Create Course </h1>
             <p> Fields marked with "*" are required</p>
+            <form action="courses/new/" method="post">
                 <table class="CreateCourseTable">
                     <tr>
                         <td>
@@ -83,6 +84,16 @@
                     </tr>
                     <tr>
                         <td>
+                            {{ message }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            {{ message }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
                             <a class="btn log-btn-first" href="CreateCourse.html"> Submit </a>
                         </td>
                         <td class="log-dataRow1"></td>
@@ -91,6 +102,7 @@
                         </td>
                     </tr>
                 </table>
+            </form>
         </div>
     </header>
     <footer>

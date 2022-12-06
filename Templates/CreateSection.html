@@ -20,7 +20,8 @@
         <div class="container-sm">
             <h1 class="bigtext"> Create Section </h1>
             <p> Fields marked with "*" are required</p>
-                <table class="CreateSectionable">
+            <form action="courses/<str:course_number>/new-section/" method="post">
+                <table class="CreateSectionTable">
                     <tr>
                         <td>
                             <label for="SectionNumber">*Section Number:</label>
@@ -75,8 +76,13 @@
                         </td>
                          <td class="log-dataRow1"></td>
                         <td>
-                            <input type="datetime" id="myDayOfWeek" name="myDayOfWeek" >
+                            <input type="datetime" id="myStartTime" name="myStartTime" >
 
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            {{ message }}
                         </td>
                     </tr>
                     <tr>
@@ -89,6 +95,7 @@
                         </td>
                     </tr>
                 </table>
+            </form>
         </div>
     </header>
     <footer>
