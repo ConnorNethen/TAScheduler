@@ -46,9 +46,6 @@ class User:
         )
         contactInfo.save()
 
-        status = Status(status=self.status)
-        status.save()
-
         User.objects.create(
             pID=self.pID,
             username=self.username,
@@ -56,7 +53,7 @@ class User:
             fname=self.fname,
             lname=self.lname,
             contactInfo=contactInfo,
-            status=status,
+            status=self.status,
         )
         return f"User {self.username} created successfully"
 
