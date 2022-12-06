@@ -8,7 +8,7 @@ from classes.user import User
 
 class Login(View):
     def get(self, request):
-        return render(request, "login.html", {"message": None})
+        return render(request, "LoginScreen.html", {"message": None})
 
     def post(self, request):
         validCred = True
@@ -30,17 +30,17 @@ class Login(View):
             request.session["pID"] = myUsername
             return redirect("/index/")
         else:
-            return render(request, "Lhtml", {"message": "Username or password is incorrect, try again!"})
+            return render(request, "LoginScreen.html", {"message": "Username or password is incorrect, try again!"})
 
 
 class Index(View):
     def get(self, request):
-        return render(request, "index.html", {"message": None})
+        return render(request, "HomeScreen.html", {"message": None})
 
     def post(self, request):
         path = request.POST['Submit']
         if self.isAdminPath(path) and (not self.isAdmin(request.Session["username"])):
-            return render(request, "index.html", {"message": "Access Denied"})
+            return render(request, "HomeScreen.html", {"message": "Access Denied"})
         return redirect(path)
 
     def isAdminPath(self, path):
@@ -56,7 +56,7 @@ class Index(View):
 
 class CreateUser(View):
     def get(self, request):
-        return render(request, "users_new.html", {"message": request.GET["message"]})
+        return render(request, "CreateUser.html", {"message": request.GET["message"]})
 
     def post(self, request):
         ContactInfo(request.POST["email"], request.POST["number"], )
@@ -65,12 +65,12 @@ class CreateUser(View):
                                      request.post["status"])
         if message == "":
             return redirect('index/', {"message": message})
-        return render(request, "users_new.html", {"message": "Account Created Successfully"})
+        return render(request, "CreateUser.html", {"message": "Account Created Successfully"})
 
 
 class CreateCourse(View):
     def get(self, request):
-        return render(request, "course_new.html", {"message": request.GET["message"]})
+        return render(request, "CreateCourse.html", {"message": request.GET["message"]})
 
     def post(self, request):
         message = Course.createCourse(request.POST["courseNumber"], request.POST["semester"], request.POST["year"])
@@ -78,7 +78,7 @@ class CreateCourse(View):
             message += Section.createSection(section[0], section[1], section[2], section[3])
         if message == "":
             return redirect("index/", {"message": "Course created Succesfully"})
-        return render(request, "course_new.html", {"message": message})
+        return render(request, "CreateCourse.html", {"message": "Error created course"})
 
 
 class UserPage(View):
@@ -93,7 +93,7 @@ class UserPage(View):
         path = request.POST["Submit"]
         myPID = request.Session["pID"]
         userPID = request.POST["userPID"]
-        if ((not User.isUser(myPID, userPID)) and (not User.isAdmin(myPID)) and (str(path) == "users/edit")):
+        if (not User.isUser(myPID, userPID)) and (not User.isAdmin(myPID)) and (str(path) == "users/edit"):
             return render(request, "user.html", {"message": "Access Denied"})
         return redirect(path)
 
