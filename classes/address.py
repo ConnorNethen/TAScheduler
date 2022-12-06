@@ -18,41 +18,32 @@ class Address:
             zip=self.zip,
         )
 
-    def setStreet1(self):
-        pass
+    def setStreet1(self, street1):
+        self.street1 = street1
 
-    def setStreet2(self):
-        pass
+    def setStreet2(self, street2):
+        self.street2 = street2
 
-    def setCity(self):
-        pass
+    def setCity(self, city):
+        self.city = city
 
-    def setState(self):
-        pass
+    def setState(self, state):
+        self.state = state
 
-    def setZip(self):
-        pass
-
-    def setContactInfo(self):
-        pass
-
-    def getUniqueID(self):
-        pass
+    def setZip(self, zip):
+        self.zip = zip
 
     def getStreet1(self):
-        pass
+        return self.street1
 
     def getStreet2(self):
-        pass
+        return self.street2
 
     def getCity(self):
-        pass
+        return self.city
 
     def getState(self):
-        pass
+        return self.state
 
     def getZip(self):
-        pass
-
-    def getContactInfo(self):
-        pass
+        return self.zip
