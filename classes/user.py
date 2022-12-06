@@ -1,6 +1,5 @@
 from Scheduler.models import User
 from contactInfo import ContactInfo
-from status import Status
 
 
 class User:
