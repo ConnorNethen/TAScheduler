@@ -1,0 +1,54 @@
+*{
+    margin: 0;
+    padding:0;
+}
+.header{
+    height: 70vh;
+}
+.navbar-style{
+    box-shadow: 0 5px 10px black;
+    background: goldenrod;
+}
+.container-sm{
+    box-shadow: 0 5px 10px black;
+    background: gray;
+    margin-outside: 10%;
+    margin-top: 5%;
+    padding: 2%;
+}
+.LoginTable{
+    margin: 20px;
+    padding: 10px;
+}
+.log-dataRow1{
+    width: 10px;
+}
+a.btn{
+    margin: 30px 10px;
+    background: goldenrod;
+}
+.container-lg{
+    box-shadow: 0 5px 10px black;
+    background: gray;
+    margin-outside: 2%;
+    margin-top: 2%;
+    margin-bottom: 2%;
+    padding: 2%;
+    height: 110%;
+}
+home.btn{
+    margin: 18px 10px;
+    background: goldenrod;
+    padding: 20px;
+    text-align: center;
+}
+notDone.btn{
+    margin: 18px 10px;
+    background: darkred;
+    padding: 20px;
+    text-align: center;
+    color: white;
+}
+
+
+
