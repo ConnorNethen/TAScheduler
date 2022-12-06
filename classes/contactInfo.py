@@ -22,21 +22,38 @@ class ContactInfo():
     def setPhone(self, phone):
         self.phone = phone
 
-    def setAddress(self, address):
-        self.address = address
-        
-    def getUniqueID(self):
-        pass
+    def setStreet1(self, street1):
+        self.street1 = street1
+
+    def setStreet2(self, street2):
+        self.street2 = street2
+
+    def setCity(self, city):
+        self.city = city
+
+    def setState(self, state):
+        self.state = state
+
+    def setZip(self, zip):
+        self.zip = zip
 
     def getEmail(self):
-        pass
+        return self.email
 
     def getPhone(self):
-        pass
+        return self.phone
 
-    def getAddress(self):
-        pass
+    def getStreet1(self):
+        return self.street1
 
-    def getUser(self):
-        pass
+    def getStreet2(self):
+        return self.street2
 
+    def getCity(self):
+        return self.city
+
+    def getState(self):
+        return self.state
+
+    def getZip(self):
+        return self.zip
