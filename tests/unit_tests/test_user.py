@@ -1,6 +1,8 @@
 from django.contrib.auth import get_user_model
 from django.test import TestCase
 from Scheduler.models import AppUser
+from Scheduler.models import UserCourse
+from Scheduler.models import Course
 from Scheduler.classes import app_user
 
 
@@ -10,7 +12,7 @@ class TestInit(TestCase):
             a = app_user()
 
     def test_required_arg(self):
-        a = app_user(12345)
+        a = app_user(12345, "test@test.com", "goodpassword")
         self.assertTrue(AppUser.objects.filter(pID=12345).exists())
 
     def test_all_arg(self):
@@ -352,18 +354,31 @@ class TestSetZip(TestCase):
 
 class TestGetCourses(TestCase):
     def setUp(self):
-        self.user = app_user(pID=123456789,
-                            email='user@user.com',
-                            password='foo',
-                            first_name='John',
-                            last_name='Doe',
-                            phone_number='1234567890',
-                            address='123 Main St',
-                            city='New York',
-                            state='NY',
-                            zip_code='12345')
+        #create a couple users
+        self.user = app_user(123, "user@test.com", "pass")
+        self.user2 = app_user(456, "user2@test.com", "pass")
+
+        #create a couple courses
+        a = Course(courseID="CS 361 XX", name="Intro to SE", semester="F", year=2022)
+        a.save()
+
+        b = Course(courseID="CS 337 XX", name="System Programming", semester="F", year=2022)
+        b.save()
+
+        c = Course(courseID="CS 361 X", name="Intro to SE", semester="F", year=2022)
+        c.save()
+
+        #create some connections between them
+        a = UserCourse(user=123, course="CS 361 XX")
+        a.save()
+
+        b = UserCourse(user=123, course="CS 337 XX")
+        b.save()
     def test_successful_call(self):
-        self.assertEqual(self.user.getAddress, '123 Main St')
+
+        list = self.user.getCourses()
+        self.assertEqual(list[0], "CS 361 XX")
+        self.assertEqual(list[1], "CS 337 XX")
 
 
 
