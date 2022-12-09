@@ -3,10 +3,17 @@
     padding: 0;
 }
 .header{
-    height: 100vh;
+    height: 10%;
 }
 .navbar-style{
-    box-shadow: 0 5px 10px #efefef;
-    height: 20vh;
+    box-shadow: 0 5px 10px black;
+    height: 10%;
+    background-color: goldenrod;
+}
+.container-md{
+    background-color: red;
+}
+.btn-login{
+    background-color: aqua;
 }
 
