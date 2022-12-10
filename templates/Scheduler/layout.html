@@ -46,29 +46,20 @@
             </div>
         </nav>
     </header>
-    <div class="container-md g-3 align-items-start" >
+    {% block body %}
+    {% endblock %}
+    <footer>
         {% if request.path == '/login/' %}
-            <form method="post">
-                {% csrf_token %}
-                <div class="mb-3">
-                    <div class="col-auto">
-                        <label for="inputUsername" class="col-form-label">Username</label>
-                        <input type="text" id="inputUsername" class="form-control" placeholder="Username" required>
+            <div class="footer">
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                            <a> <img height="100px" class="logoUWM" src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fuwm.edu%2Fmavrc%2Fwp-content%2Fuploads%2Fsites%2F158%2F2016%2F01%2Fuwm-logo.png&f=1&nofb=1&ipt=08363adc0e5a40c3038e0fc6a66d8af4eb75be127278d1de28ebfbafb45647c7&ipo=images"> </a>
+                        </div>
                     </div>
                 </div>
-                <div class="mb-3">
-                    <div class="col-auto">
-                        <label for="inputPassword" class="col-form-label">Password</label>
-                        <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
-                    </div>
-                </div>
-                <div class="col-auto">
-                    <button class="btn btn-login" type="submit">Login</button>
-                    <button class="btn btn-login" type="button">Forgot Password</button>
-                </div>
-
-            </form>
+            </div>
         {% endif %}
-    </div>
+    </footer>
 </body>
 </html>
