@@ -3,6 +3,7 @@ from django.test import TestCase
 from Scheduler.models import AppUser
 from Scheduler.models import UserCourse
 from Scheduler.models import Course
+from Scheduler.models import Section
 from Scheduler.classes import app_user
 
 
@@ -380,15 +381,169 @@ class TestGetCourses(TestCase):
         self.assertEqual(list[0], "CS 361 XX")
         self.assertEqual(list[1], "CS 337 XX")
 
+class TestAddCourse(TestCase):
+    def setUp(self):
+        # create a couple users
+        self.user = app_user(123, "user@test.com", "pass")
+        self.user2 = app_user(456, "user2@test.com", "pass")
+
+        # create a couple courses
+        a = Course(courseID="CS 361 XX", name="Intro to SE", semester="F", year=2022)
+        a.save()
+
+        b = Course(courseID="CS 337 XX", name="System Programming", semester="F", year=2022)
+        b.save()
+
+        c = Course(courseID="CS 361 X", name="Intro to SE", semester="F", year=2022)
+        c.save()
+
+        # create some connections between them
+        a = UserCourse(user=123, course="CS 361 XX")
+        a.save()
+
+        b = UserCourse(user=123, course="CS 337 XX")
+        b.save()
+
+    def test_successful_add(self):
+        self.user.addCourse("CS 317 XX")
+        list = self.user.getCourses()
+        self.assertEqual(list[0], "CS 361 XX")
+        self.assertEqual(list[1], "CS 337 XX")
+        self.assertEqual(list[2], "CS 317 XX")
+
+    def test_invalid_course(self):
+        with self.assertRaises(TypeError, msg="Invalid section"):
+            self.user.addCourse("Something")
+
+class TestRemoveCourse(TestCase):
+    def setUp(self):
+        # create a couple users
+        self.user = app_user(123, "user@test.com", "pass")
+        self.user2 = app_user(456, "user2@test.com", "pass")
+
+        # create a couple courses
+        a = Course(courseID="CS 361 XX", name="Intro to SE", semester="F", year=2022)
+        a.save()
+
+        b = Course(courseID="CS 337 XX", name="System Programming", semester="F", year=2022)
+        b.save()
+
+        c = Course(courseID="CS 361 X", name="Intro to SE", semester="F", year=2022)
+        c.save()
+
+        # create some connections between them
+        a = UserCourse(user=123, course="CS 361 XX")
+        a.save()
+
+        b = UserCourse(user=123, course="CS 337 XX")
+        b.save()
+
+    def test_successful_remove(self):
+        self.user.removeCourse("CS 361 XX")
+        list = self.user.getCourses()
+        self.assertEqual(list.len(), 1)
+        self.assertEqual(list[0], "CS 337 XX")
+
+    def test_invalid_course(self):
+        with self.assertRaises(TypeError, msg="Invalid section"):
+            self.user.removeCourse("Something")
 
 
+class TestGetSections(TestCase):
+    def setUp(self):
+        #create a couple users
+        self.user = app_user(123, "user@test.com", "pass")
+        self.use2 = app_user(456, "user2@test.com", "pass")
+
+        #create a couple courses
+        a = Course(courseID="CS 361 XX", name="Intro to SE", semester="F", year=2022)
+        a.save()
+
+        b = Course(courseID="CS 337 XX", name="System Programming", semester="F", year=2022)
+        b.save()
+
+        c = Course(courseID="CS 361 X", name="Intro to SE", semester="F", year=2022)
+        c.save()
+
+        #create a couple sections
+        d = Section(sectionID="CS 361 802", courseID="CS 361 XX", user=123)
+        e = Section(sectionID="CS 337 801", courseID="CS 337 XX", user=123)
+        f = Section(sectionID="CS 361 803", courseID="CS 361 XX", user=456)
+
+    def test_successful_call(self):
+        #assumes getSections works
+        list = self.user.getSections()
+        self.assertEqual(list[0], "CS 361 802")
+        self.assertEqual(list[1], "CS 337 801")
+
+class TestAddSection(TestCase):
+    def setUp(self):
+        #create a couple users
+        self.user = app_user(123, "user@test.com", "pass")
+        self.use2 = app_user(456, "user2@test.com", "pass")
+
+        #create a couple courses
+        a = Course(courseID="CS 361 XX", name="Intro to SE", semester="F", year=2022)
+        a.save()
+
+        b = Course(courseID="CS 337 XX", name="System Programming", semester="F", year=2022)
+        b.save()
+
+        c = Course(courseID="CS 361 X", name="Intro to SE", semester="F", year=2022)
+        c.save()
+
+        #create a couple sections
+        d = Section(sectionID="CS 361 802", courseID="CS 361 XX", user=123)
+        e = Section(sectionID="CS 337 801", courseID="CS 337 XX", user=123)
+        f = Section(sectionID="CS 361 803", courseID="CS 361 XX", user=456)
+        g = Section(sectionID="CS 337 802", courseID="CS 337 XX", user=None)
+
+    def test_successful_add(self):
+        self.user.addSection("CS 337 802")
+        #assumes getSections() works
+        list = self.user.getSections()
+        self.assertEqual(list.len(), 3)
+        self.assertEqual(list[0], "CS 361 802")
+        self.assertEqual(list[1], "CS 337 801")
+        self.assertEqual(list[2], "CS 337 802")
+
+    def test_invalid_section(self):
+        with self.assertRaises(TypeError, msg="Invalid section"):
+            self.user.addSection("Something")
 
 
+class TestRemoveSection(TestCase):
+    def setUp(self):
+        # create a couple users
+        self.user = app_user(123, "user@test.com", "pass")
+        self.use2 = app_user(456, "user2@test.com", "pass")
+
+        # create a couple courses
+        a = Course(courseID="CS 361 XX", name="Intro to SE", semester="F", year=2022)
+        a.save()
+
+        b = Course(courseID="CS 337 XX", name="System Programming", semester="F", year=2022)
+        b.save()
+
+        c = Course(courseID="CS 361 X", name="Intro to SE", semester="F", year=2022)
+        c.save()
+
+        # create a couple sections
+        d = Section(sectionID="CS 361 802", courseID="CS 361 XX", user=123)
+        e = Section(sectionID="CS 337 801", courseID="CS 337 XX", user=123)
+        f = Section(sectionID="CS 361 803", courseID="CS 361 XX", user=456)
+
+    def test_successful_remove(self):
+        self.user.removeSection("CS 361 802")
+        # assumes getSections() works
+        list = self.user.getSections()
+        self.assertEqual(list.len(), 1)
+        self.assertEqual(list[0], "CS 337 801")
 
 
-
-
-
+    def test_invalid_section(self):
+        with self.assertRaises(TypeError, msg="Invalid section"):
+            self.user.removeSection("Something")
 
 
 
