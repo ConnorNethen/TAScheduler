@@ -29,11 +29,14 @@ class AppCourse():
     def setYear(self, year):
         pass
 
-    def getUsers(self):
+    def getUsers(self, courseID):
         pass
 
-    def getSection(self):
+    def addSection(self, sectionID):
         pass
 
-    def removeCourse(self):
+    def getSections(self, courseID):
+        pass
+
+    def removeCourse(self, courseID):
         pass
