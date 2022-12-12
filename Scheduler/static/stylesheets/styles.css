@@ -32,6 +32,10 @@
 .btn-login{
     background-color: goldenrod;
 }
+.btn-login:hover{
+    color: white !important;
+    background-color: white !important;
+}
 .footer{
     background-color: goldenrod;
     height: 60%;
