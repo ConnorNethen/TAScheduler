@@ -104,7 +104,7 @@ class TestGetUser(TestCase):
 
     def test_noUserInSection(self):
         mySection = section("002", "CS 361 XX")
-        with self.assertIsNone(mySection.getUser, msg= "none not returned with no user in section")
+        self.assertIsNone(mySection.getUser, msg= "none not returned with no user in section")
 
     def test_oneArg(self):
         mySection = section("001", "CS 361 XX")
