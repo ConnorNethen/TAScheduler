@@ -45,6 +45,19 @@ class CourseCreationTests(TestCase):
         with self.assertRaises(TypeError, msg="CourseID is Not Unique"):
             Course02 = AppCourse("CS361", "Systems Programing", "F", 2022)
 
+    def test_Invalid_Name_Type(self):
+        with self.assertRaises(TypeError, msg="Name is of Invalid Type"):
+            Course01 = AppCourse("CS345", 123, "F", 2022)
+
+    def test_Invalid_Semester_Type(self):
+        with self.assertRaises(TypeError, msg="Semester is of Invalid Type"):
+            Course01 = AppCourse("CS345", "Intro", 123, 2022)
+
+    def test_Invalid_Year_Type(self):
+        with self.assertRaises(TypeError, msg="Year is of Invalid Type"):
+            Course01 = AppCourse("CS345", "Intro", "F", "2022")
+
+
 
 class CourseGetTests(TestCase):
     def setup(self):
