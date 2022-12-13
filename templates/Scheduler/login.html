@@ -3,5 +3,31 @@
 {% block title %}Login - TA Scheduler{% endblock %}
 
 {% block body %}
-    Login
+    <div class="container-fluid">
+        <div class="row"></div>
+        <div class="container-md g-6" >
+            <h2>Login:</h2>
+            <form action="{% url "login" %}" method="post">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <div class="col-auto">
+                        <label for="inputUsername" class="col-form-label">Username</label>
+                        <input type="email" name="email" id="inputUsername" class="form-control" placeholder="Username" required>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <div class="col-auto">
+                        <label for="inputPassword" class="col-form-label">Password</label>
+                        <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required>
+                    </div>
+                </div>
+                <div class="col-auto">
+                    <input type="submit" class="btn btn-login" value="Login">
+                    <button class="btn btn-login" type="button">Forgot Password</button>
+                </div>
+            </form>
+        </div>
+        <div class="row"></div>
+    </div>
+
 {% endblock %}
