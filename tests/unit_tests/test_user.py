@@ -296,3 +296,5 @@ class UserUpdateTests(TestCase):
         with self.assertRaises(ValueError, msg='Zip code must be set'):
             user.zip_code = None
             user.save()
+
+ 
