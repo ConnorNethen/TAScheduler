@@ -106,7 +106,8 @@ class TestGetUser(TestCase):
 
     def test_noUserInSection(self):
         mySection = AppSection("002", "CS 361 XX")
-        self.assertIsNone(mySection.getUser(), msg= "none not returned with no user in section")
+        with self.assertRaises(TypeError, msg= "Type Error not raised, when no user assigned."):
+            mySection.getUser()
 
     def test_oneArg(self):
         mySection = AppSection("001", "CS 361 XX")

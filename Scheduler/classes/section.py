@@ -10,11 +10,11 @@ class AppSection:
     def __init__(self, section="", course=""):
         noUser = True
         if not isinstance(section, str) or not isinstance(course, str):
-            return TypeError
+            raise TypeError
         try :
             myCourse = Course.objects.get(courseID= course)
         except Exception:
-            return TypeError
+            raise TypeError
         try:
             mySection = Section.objects.get(courseID=myCourse, sectionID=section)
             if mySection.user is not None: noUser = False
@@ -36,7 +36,7 @@ class AppSection:
 
     def getUser(self):
         if self.userPID == "":
-            return None
+            raise TypeError("No User assigned to Section.")
         else:
             return AppUserClass(self.userPID)
 
