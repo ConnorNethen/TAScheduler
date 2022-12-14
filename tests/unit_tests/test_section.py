@@ -1,6 +1,7 @@
 
 from django.test import TestCase
 
+from Scheduler.classes.app_user import AppUserClass
 from Scheduler.classes.section import AppSection
 from Scheduler.models import Section, Course, AppUser
 from Scheduler.classes import section, app_user
@@ -11,7 +12,7 @@ class TestInitSection(TestCase):
         testCourse = Course(courseID="CS 361 XX", name="Intro to SE", semester="F", year= 2022)
         testCourse.save()
 
-        testSection = Section(courseID= "CS 361 XX", sectionID= "001")
+        testSection = Section(courseID= testCourse, sectionID= "001", user= None)
         testSection.save()
 
     def test_sectionIDinDatabase(self):
@@ -28,7 +29,8 @@ class TestInitSection(TestCase):
 
     def test_sectionDoesNotExistInDBSectionID(self):
         AppSection("002", "CS 361 XX")
-        sectionList = Section.objects.filter(courseID= "CS 361 XX")
+        myCourse = Course.objects.get(courseID="CS 361 XX")
+        sectionList = Section.objects.filter(courseID= myCourse)
         inSectionList = False
         for i in sectionList:
             if i.sectionID == "002": inSectionList = True
@@ -88,76 +90,76 @@ class TestGetCourseID(TestCase):
 class TestGetUser(TestCase):
 
     def setUp(self):
-        user = AppUser("123", "user@test.com", "pass")
+        user = AppUser(pID= "123",email= "user@test.com")
         user.save()
 
         testCourse = Course(courseID= "CS 361 XX", name= "Intro to SE", semester= "F", year= 2022)
         testCourse.save()
 
-        userSec = Section(courseID= "CS 361 XX", sectionID= "001", user= "123")
+        userSec = Section(courseID= testCourse, sectionID= "001", user= user)
         userSec.save()
 
     def test_userExistsInSection(self):
-        mySection = section("001", "CS 361 XX")
+        mySection = AppSection("001", "CS 361 XX")
         myUser = mySection.getUser()
-        self.assertIsInstance(myUser, app_user, msg= "does not return instance of an app_user")
+        self.assertIsInstance(myUser, AppUserClass, "does not return instance of an AppUserClass")
 
     def test_noUserInSection(self):
-        mySection = section("002", "CS 361 XX")
-        self.assertIsNone(mySection.getUser, msg= "none not returned with no user in section")
+        mySection = AppSection("002", "CS 361 XX")
+        self.assertIsNone(mySection.getUser(), msg= "none not returned with no user in section")
 
     def test_oneArg(self):
-        mySection = section("001", "CS 361 XX")
+        mySection = AppSection("001", "CS 361 XX")
         with self.assertRaises(TypeError, msg= "Exception not raised, when an argument is placed"):
             mySection.getUser("oneArg")
 
 class TestSetUser(TestCase):
 
     def setUp(self):
-        user = AppUser("123", "user@test.com", "pass")
+        user = AppUser(pID="123", email= "user@test.com")
         user.save()
-        user2 = AppUser("456", "user2@test.com", "pass")
+        user2 = AppUser(pID= "456", email= "user2@test.com")
         user2.save()
 
-        testCourse = Course(courseID= "CS 361 XX", name= "Intro to SE", semester= "F", year= 2022)
-        testCourse.save()
+        self.testCourse = Course(courseID= "CS 361 XX", name= "Intro to SE", semester= "F", year= 2022)
+        self.testCourse.save()
 
-        userSec = Section(courseID= "CS 361 XX", sectionID= "001", user= "123")
+        userSec = Section(courseID= self.testCourse, sectionID= "001", user= user)
         userSec.save()
 
     def test_NoUserInSection(self):
         mySection = AppSection("002", "CS 361 XX")
         mySection.setUser("123")
-        sectionInDB = Section.objects.get(sectionID= "002", courseID= "CS 361 XX")
-        self.assertEqual(sectionInDB.user, "123", msg= "user not updated for section in DB")
+        sectionInDB = Section.objects.get(sectionID= "002", courseID= self.testCourse)
+        self.assertEqual(sectionInDB.user.pID, "123", msg= "user not updated for section in DB")
 
     def test_UserInSection(self):
         mySection = AppSection("001", "CS 361 XX")
         mySection.setUser("456")
-        sectionInDB = Section.objects.get(sectionID= "001", courseID= "CS 361 XX")
-        self.assertEqual(sectionInDB.user, "456", msg= "user not updated for section in DB")
+        sectionInDB = Section.objects.get(sectionID= "001", courseID= self.testCourse)
+        self.assertEqual(sectionInDB.user.pID, "456", msg= "user not updated for section in DB")
 
     def test_UserNotInDatabaseAppSection(self):
         mySection = AppSection("001", "CS 361 XX")
         mySection.setUser("789")
-        self.assertIsNone(mySection.userPID, msg= "None is not the sections user pid with no user assigned.")
+        self.assertNotEqual(mySection.userPID, "789", msg= "None is not the sections user pid with no user assigned.")
+
 
     def test_UserNotInDatabaseDbCheck(self):
         mySection = AppSection("001", "CS 361 XX")
         mySection.setUser("789")
-        sectionInDB = Section.objects.get(sectionID="001", courseID="CS 361 XX")
-        self.assertIsNone(sectionInDB.user, msg= "None is not the sections user pid with no user assigned.")
+        sectionInDB = Section.objects.get(sectionID="001", courseID= self.testCourse)
+        self.assertNotEqual(sectionInDB.user.pID,"789", msg= "None is not the sections user pid with no user assigned.")
 
     def test_invalidArgument(self):
         mySection = AppSection("001", "CS 361 XX")
-        with self.assertRaises(TypeError, "Exception not raised with invalid argument type"):
+        with self.assertRaises(TypeError, msg= "Exception not raised with invalid argument type"):
             mySection.setUser(123.456)
 
     def test_noArgs(self):
         mySection = AppSection("001", "CS 361 XX")
-        mySection.setUser()
-        sectionInDB = Section.objects.get(sectionID= "001", courseID= "CS 361 XX")
-        self.assertEqual(sectionInDB.user, "123", msg= "user not updated for section in DB")
+        with self.assertRaises(TypeError, msg= "Type error not raised with no arguments, when expected one."):
+            mySection.setUser()
 
     def test_twoArgs(self):
         mySection = AppSection("001", "CS 361 XX")
