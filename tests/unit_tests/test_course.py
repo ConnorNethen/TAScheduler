@@ -1,62 +1,74 @@
 from django.test import TestCase
 from Scheduler.classes.course import AppCourse
 from Scheduler.models import Course, UserCourse, Section
-from Scheduler.classes import app_user, course, section
+from Scheduler.classes import app_user
 
 
 class CourseCreationTests(TestCase):
-    def test_Init(self):
-        myCourse = AppCourse("CS361", "Introduction to Software Engineering", "F", 2022)
-        self.assertEqual(myCourse.CourseID, Course.objects.get(courseID="CS361").courseID, msg= "Error")
-        self.assertEqual(myCourse.name, Course.objects.get(name="Introduction to Software Engineering"))
-        self.assertEqual(myCourse.semester, Course.objects.get(semster="F"))
-        self.assertEqual(myCourse.year, Course.objects.get(year=2022))
+    def setup(self):
+        self.myCourse = AppCourse("CS361", "Introduction to Software Engineering", "F", 2022)
+        self.myCourse.save()
+
+    def test_Init_CourseID(self):
+        self.assertEqual(self.myCourse.courseID, Course.objects.get(courseID="CS361"))
+
+    def test_Init_Name(self):
+        self.assertEqual(self.myCourse.name, Course.objects.get(name="Introduction to Software Engineering"))
+
+    def test_Init_Semester(self):
+        self.assertEqual(self.myCourse.semester, Course.objects.get(semster="F"))
+
+    def test_Init_Year(self):
+        self.assertEqual(self.myCourse.year, Course.objects.get(year=2022))
 
     def test_No_Arguments(self):
         with self.assertRaises(TypeError, msg="Not Enough Arguments Given"):
-            Course01 = AppCourse()
+            self.Course01 = AppCourse()
 
     def test_One_Argument(self):
         with self.assertRaises(TypeError, msg="Not Enough Arguments Given"):
-            Course01 = AppCourse("CS361")
+            self.Course01 = AppCourse("CS361")
 
     def test_Two_Arguments(self):
         with self.assertRaises(TypeError, msg="Not Enough Arguments Given"):
-            Course01 = AppCourse("CS361", "Introduction to Software Engineering")
+            self.Course01 = AppCourse("CS361", "Introduction to Software Engineering")
 
     def test_Three_Arguments(self):
         with self.assertRaises(TypeError, msg="Not Enough Arguments Given"):
-            Course01 = AppCourse("CS361", "Introduction to Software Engineering", "F")
+            self.Course01 = AppCourse("CS361", "Introduction to Software Engineering", "F")
 
     def test_More_Arguments(self):
         with self.assertRaises(TypeError, msg="Too Many Arguments Given"):
-            Course01 = AppCourse("CS361", "Introduction to Software Engineering", "F", 2022, "Something")
+            self.Course01 = AppCourse("CS361", "Introduction to Software Engineering", "F", 2022, "Something")
 
     def test_Invalid_Id_Type(self):
         with self.assertRaises(TypeError, msg="Invalid CourseID Argument"):
-            CourseA = AppCourse(361, "Introduction to Software Engineering", "F", 2022)
+            self.CourseA = AppCourse(361, "Introduction to Software Engineering", "F", 2022)
 
     def test_Invalid_Id_Value(self):
         with self.assertRaises(ValueError, msg="Invalid CourseID Argument"):
-            CourseA = AppCourse("CS361.5", "Introduction to Software Engineering", "F", 2022)
+            self.CourseA = AppCourse("CS361.5", "Introduction to Software Engineering", "F", 2022)
 
     def test_Repeated_Id(self):
-        Course01 = AppCourse("CS361", "Intro", "F", 2022)
+        self.Course01 = AppCourse("CS361", "Intro", "F", 2022)
         with self.assertRaises(TypeError, msg="CourseID is Not Unique"):
-            Course02 = AppCourse("CS361", "Systems Programing", "F", 2022)
+            self.Course02 = AppCourse("CS361", "Systems Programing", "F", 2022)
 
     def test_Invalid_Name_Type(self):
         with self.assertRaises(TypeError, msg="Name is of Invalid Type"):
-            Course01 = AppCourse("CS345", 123, "F", 2022)
+            self.Course01 = AppCourse("CS345", 123, "F", 2022)
 
     def test_Invalid_Semester_Type(self):
         with self.assertRaises(TypeError, msg="Semester is of Invalid Type"):
-            Course01 = AppCourse("CS345", "Intro", 123, 2022)
+            self.Course01 = AppCourse("CS345", "Intro", 123, 2022)
+
+    def test_Invalid_Semester_Value(self):
+        with self.assertRaises(ValueError, msg="Semester is an Invalid Value"):
+            self.Course01 = AppCourse("CS345", "Intro", "Q", 2022)
 
     def test_Invalid_Year_Type(self):
         with self.assertRaises(TypeError, msg="Year is of Invalid Type"):
-            Course01 = AppCourse("CS345", "Intro", "F", "2022")
-
+            self.Course01 = AppCourse("CS345", "Intro", "F", "2022")
 
 
 class CourseGetTests(TestCase):
@@ -177,23 +189,23 @@ class TestGetUsers(TestCase):
 
     def test_invalid_course(self):
         with self.assertRaises(TypeError, msg="Course does not exist"):
-            listOfUsers = self.getUsers("CS 250")
+            self.listOfUsers = self.getUsers("CS 250")
 
     def test_invalid_course_Value(self):
         with self.assertRaises(ValueError, msg="invalid argument passed into function"):
-            listOfUsers = self.getUsers("invalid")
+            self.listOfUsers = self.getUsers("invalid")
 
     def test_invalid_course_Type(self):
         with self.assertRaises(TypeError, msg="invalid argument passed into function"):
-            listOfUsers = self.getUsers(123)
+            self.listOfUsers = self.getUsers(123)
 
     def test_getUsers_no_arg(self):
         with self.assertRaises(TypeError, msg="no arguments given in function"):
-            listOfUsers = self.getUsers()
+            self.listOfUsers = self.getUsers()
 
     def test_getUsers_many_arg(self):
         with self.assertRaises(TypeError, msg="too many arguments given in function"):
-            listOfUsers = self.getUsers("CS 361", "CS 337")
+            self.listOfUsers = self.getUsers("CS 361", "CS 337")
 
 
 class TestAddSection(TestCase):
@@ -256,23 +268,23 @@ class TestGetSections(TestCase):
 
     def test_invalid_course(self):
         with self.assertRaises(TypeError, msg="Course does not exist"):
-            listOfSections = self.getSections("CS 250")
+            self.listOfSections = self.getSections("CS 250")
 
     def test_invalid_course_Value(self):
         with self.assertRaises(ValueError, msg="invalid argument passed into function"):
-            listOfSections = self.getSections("invalid")
+            self.listOfSections = self.getSections("invalid")
 
     def test_invalid_course_Type(self):
         with self.assertRaises(TypeError, msg="invalid argument passed into function"):
-            listOfSections = self.getSections(123)
+            self.listOfSections = self.getSections(123)
 
     def test_getUsers_no_arg(self):
         with self.assertRaises(TypeError, msg="no arguments given in function"):
-            listOfSections = self.getSections()
+            self.listOfSections = self.getSections()
 
     def test_getUsers_many_arg(self):
         with self.assertRaises(TypeError, msg="too many arguments given in function"):
-            listOfSections = self.getSections("CS 361", "CS 337")
+            self.listOfSections = self.getSections("CS 361", "CS 337")
 
 
 class TestRemoveCourse(TestCase):
