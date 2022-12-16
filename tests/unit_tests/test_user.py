@@ -400,11 +400,11 @@ class TestGetCourses(TestCase):
         c.save()
 
         # create some connections between them
-        a = UserCourse(user="123", course="CS 361 XX")
-        a.save()
+        d = UserCourse(user=self.user, course=a)
+        d.save()
 
-        b = UserCourse(user="123", course="CS 337 XX")
-        b.save()
+        e = UserCourse(user=self.user, course=b)
+        e.save()
 
     def test_successful_call(self):
         list = self.user.getCourses()
@@ -429,11 +429,11 @@ class TestAddCourse(TestCase):
         c.save()
 
         # create some connections between them
-        a = UserCourse(user="123", course="CS 361 XX")
-        a.save()
+        d = UserCourse(user=self.user, course=a)
+        d.save()
 
-        b = UserCourse(user="123", course="CS 337 XX")
-        b.save()
+        e = UserCourse(user=self.user, course=b)
+        e.save()
 
     def test_successful_add(self):
         self.user.addCourse("CS 317 XX")
@@ -464,16 +464,16 @@ class TestRemoveCourse(TestCase):
         c.save()
 
         # create some connections between them
-        a = UserCourse(user="123", course="CS 361 XX")
-        a.save()
+        d = UserCourse(user=self.user, course=a)
+        d.save()
 
-        b = UserCourse(user="123", course="CS 337 XX")
-        b.save()
+        e = UserCourse(user=self.user, course=b)
+        e.save()
 
     def test_successful_remove(self):
         self.user.removeCourse("CS 361 XX")
         list = self.user.getCourses()
-        self.assertEqual(list.len(), 1)
+        self.assertEqual(len(list), 1)
         self.assertEqual(list[0], "CS 337 XX")
 
     def test_invalid_course(self):
@@ -485,7 +485,7 @@ class TestGetSections(TestCase):
     def setUp(self):
         # create a couple users
         self.user = AppUserClass("123", "user@test.com", "pass")
-        self.use2 = AppUserClass("456", "user2@test.com", "pass")
+        self.user2 = AppUserClass("456", "user2@test.com", "pass")
 
         # create a couple courses
         a = Course(courseID="CS 361 XX", name="Intro to SE", semester="F", year=2022)
@@ -498,9 +498,9 @@ class TestGetSections(TestCase):
         c.save()
 
         # create a couple sections
-        d = Section(sectionID="CS 361 802", courseID="CS 361 XX", user="123")
-        e = Section(sectionID="CS 337 801", courseID="CS 337 XX", user="123")
-        f = Section(sectionID="CS 361 803", courseID="CS 361 XX", user=456)
+        d = Section(sectionID="CS 361 802", courseID=a, user=self.user)
+        e = Section(sectionID="CS 337 801", courseID=b, user=self.user)
+        f = Section(sectionID="CS 361 803", courseID=a, user=self.user2)
 
     def test_successful_call(self):
         # assumes getSections works
@@ -535,7 +535,7 @@ class TestAddSection(TestCase):
         self.user.addSection("CS 337 802")
         # assumes getSections() works
         list = self.user.getSections()
-        self.assertEqual(list.len(), 3)
+        self.assertEqual(len(list), 3)
         self.assertEqual(list[0], "CS 361 802")
         self.assertEqual(list[1], "CS 337 801")
         self.assertEqual(list[2], "CS 337 802")
@@ -570,7 +570,7 @@ class TestRemoveSection(TestCase):
         self.user.removeSection("CS 361 802")
         # assumes getSections() works
         list = self.user.getSections()
-        self.assertEqual(list.len(), 1)
+        self.assertEqual(len(list), 1)
         self.assertEqual(list[0], "CS 337 801")
 
     def test_invalid_section(self):
