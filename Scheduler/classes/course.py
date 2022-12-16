@@ -1,14 +1,14 @@
 from Scheduler.models import Course
 
 
-class AppCourse():
+class AppCourse:
     courseID = None
     name = None
     semester = None
     year = None
 
-    def __init__(self, cid=None, n=None, s=None, y=None):
-        repeatedID = False
+    def __init__(self, cid="", n="", s="", y=""):
+        #courseExists = False
         if not isinstance(cid, str) or not isinstance(n, str) or not isinstance(s, str) or not isinstance(y, int):
             raise TypeError
 
@@ -17,28 +17,26 @@ class AppCourse():
 
         try:
             myCourseID = Course.objects.get(courseID=cid)
-        except Exception:
-            raise TypeError
+            #courseExists = True
+        except:
+            # check semester
+            semesterExists = False
+            for i in range(len(Course.SEMESTER_CHOICES)):
+                if s == Course.SEMESTER_CHOICES[i][0]:
+                    semesterExists = True
+            if not semesterExists:
+                raise ValueError
 
-        try:
-            myName = Course.objects.get(name=n)
-        except Exception:
-            raise TypeError
+            # check year
+            if y < 2020 or y > 2100:
+                raise ValueError
+            myCourse = Course(courseID=myCourseID, name=n, semester=s, year=y)
+            myCourse.save()
 
-        try:
-            mySemester = Course.objects.get(semester=s)
-        except Exception:
-            raise TypeError
-
-        try:
-            myYear = Course.objects.get(year=y)
-        except Exception:
-            raise TypeError
-
-        self.courseID = myCourseID
-        self.name = myName
-        self.semester = mySemester
-        self.year = myYear
+        self.courseID = myCourse.courseID
+        self.name = myCourse.name
+        self.semester = myCourse.semester
+        self.year = myCourse.year
 
     def getCourseID(self):
         return self.courseID
@@ -56,27 +54,40 @@ class AppCourse():
         if not isinstance(n, str):
             raise TypeError
         self.name = n
+        self.save()
 
     def setSemester(self, s):
         if not isinstance(s, str):
             raise TypeError
         # if s is one of the SEMESTER_CHOICES ...
+        semesterExists = False
+        for i in range(len(Course.SEMESTER_CHOICES)):
+            if s == Course.SEMESTER_CHOICES[i][0]:
+                semesterExists = True
+        if not semesterExists:
+            raise ValueError
 
         self.semester = s
+        self.save()
 
     def setYear(self, y):
         if not isinstance(y, int):
             raise TypeError
+        # check year
+        if y < 2020 or y > 2100:
+            raise ValueError
+
         self.year = y
+        self.save()
 
-    def getUsers(self, courseID):
+    def getUsers(self, cid):
         pass
 
-    def addSection(self, sectionID):
+    def addSection(self, sid):
         pass
 
-    def getSections(self, courseID):
+    def getSections(self, cid):
         pass
 
-    def removeCourse(self, courseID):
+    def removeCourse(self, cid):
         pass
