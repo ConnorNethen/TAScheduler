@@ -1,5 +1,5 @@
 import Scheduler
-from Scheduler.models import Course, UserCourse
+from Scheduler.models import Course, UserCourse, AppUser
 from Scheduler.classes import app_user
 
 
@@ -13,8 +13,9 @@ class AppCourse:
         if not isinstance(cid, str) or not isinstance(n, str) or not isinstance(s, str) or not isinstance(y, int):
             raise TypeError
 
-        if not cid.isalnum():
-            raise ValueError
+        if cid is not None:
+            if not cid.isalnum():
+                raise ValueError
 
         try:
             myCourse = Course.objects.get(courseID=cid)
@@ -98,8 +99,15 @@ class AppCourse:
         listToReturn = []
         try:
             myCourse = Course.objects.get(courseID=cid)
-        except Exception:
-            myUsers = UserCourse.myCourse.users
+            listOfUserCourse = UserCourse.objects.filter(course=myCourse)
+            for i in len(listOfUserCourse):
+                # listToReturn.append(i.user)
+                listToReturn.append(listOfUserCourse[i])
+        except Scheduler.models.Course.DoesNotExist:
+            raise ValueError
+
+
+
 
     def addSection(self, sid):
         pass
@@ -108,4 +116,18 @@ class AppCourse:
         pass
 
     def removeCourse(self, cid):
-        pass
+        if not isinstance(str, cid):
+            raise TypeError
+        try:
+            myCourse = Course.objects.get(courseID=self.courseID) # course found
+            # change course attributes to None (delete the course)
+            self.courseID = None
+            self.name = None
+            self.semester = None
+            self.year = None
+        except Exception: # course not found
+            raise TypeError("Course does not exist, unable to delete")
+
+
+
+

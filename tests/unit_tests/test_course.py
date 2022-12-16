@@ -282,17 +282,17 @@ class TestGetSections(TestCase):
 
 class TestRemoveCourse(TestCase):
     def setUp(self):
-        self.Course01 = AppCourse(courseID="CS 361", name="Intro to SE", semester="F", year=2022)
-        self.Course01.save()
-        self.Course02 = AppCourse(courseID="CS 337", name="Systems Programming", semester="F", year=2022)
-        self.Course02.save()
+        self.Course01 = AppCourse("CS 361", "Intro to SE", "F", 2022)
+        #self.Course01.save()
+        self.Course02 = AppCourse("CS 337", "Systems Programming", "F", 2022)
+        #self.Course02.save()
 
     def test_successful_remove_one_less_inDB(self):
         self.removeCourse("CS 361")
         self.assertEqual(Course.objects.all().count(), 1, msg="course not removed")
 
     def test_successful_remove_one_less_inDB2(self):
-        self.removeCourse("CS 361")
+        self.removeCourse("CS 337")
         self.assertIsNone(Course.objects.get("CS 361"), msg="course not removed")
 
     def test_invalid_remove(self):
