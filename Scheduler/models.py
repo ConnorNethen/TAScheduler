@@ -51,7 +51,8 @@ class Course(models.Model):
 class Section(models.Model):
     courseID = models.ForeignKey(Course, on_delete=models.CASCADE)
     sectionID = models.CharField(max_length=10, unique=True)
-    user = models.ForeignKey(AppUser, on_delete=models.CASCADE, null=True)
+    user = models.ForeignKey(AppUser, on_delete=models.CASCADE, null= True)
+
 
     def __str__(self):
         return self.sectionID
