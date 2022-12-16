@@ -5,21 +5,20 @@ from Scheduler.classes import app_user
 
 
 class CourseCreationTests(TestCase):
-    def setup(self):
+    def setUp(self):
         self.myCourse = AppCourse("CS361", "Introduction to Software Engineering", "F", 2022)
-        self.myCourse.save()
 
     def test_Init_CourseID(self):
-        self.assertEqual(self.myCourse.courseID, Course.objects.get(courseID="CS361"))
+        self.assertEqual(self.myCourse.courseID, Course.objects.get(courseID="CS361").courseID)
 
     def test_Init_Name(self):
-        self.assertEqual(self.myCourse.name, Course.objects.get(name="Introduction to Software Engineering"))
+        self.assertEqual(self.myCourse.name, Course.objects.get(courseID="CS361").name)
 
     def test_Init_Semester(self):
-        self.assertEqual(self.myCourse.semester, Course.objects.get(semster="F"))
+        self.assertEqual(self.myCourse.semester, Course.objects.get(courseID="CS361").semester)
 
     def test_Init_Year(self):
-        self.assertEqual(self.myCourse.year, Course.objects.get(year=2022))
+        self.assertEqual(self.myCourse.year, Course.objects.get(courseID="CS361").year)
 
     def test_No_Arguments(self):
         with self.assertRaises(TypeError, msg="Not Enough Arguments Given"):
@@ -49,11 +48,6 @@ class CourseCreationTests(TestCase):
         with self.assertRaises(ValueError, msg="Invalid CourseID Argument"):
             self.CourseA = AppCourse("CS361.5", "Introduction to Software Engineering", "F", 2022)
 
-    def test_Repeated_Id(self):
-        self.Course01 = AppCourse("CS361", "Intro", "F", 2022)
-        with self.assertRaises(TypeError, msg="CourseID is Not Unique"):
-            self.Course02 = AppCourse("CS361", "Systems Programing", "F", 2022)
-
     def test_Invalid_Name_Type(self):
         with self.assertRaises(TypeError, msg="Name is of Invalid Type"):
             self.Course01 = AppCourse("CS345", 123, "F", 2022)
@@ -70,11 +64,14 @@ class CourseCreationTests(TestCase):
         with self.assertRaises(TypeError, msg="Year is of Invalid Type"):
             self.Course01 = AppCourse("CS345", "Intro", "F", "2022")
 
+    def test_Invalid_Year_Value(self):
+        with self.assertRaises(ValueError, msg="Year is an Invalid Value"):
+            self.Course01 = AppCourse("CS345", "Intro", "F", 1500)
+
 
 class CourseGetTests(TestCase):
-    def setup(self):
+    def setUp(self):
         self.Course01 = AppCourse("CS361", "Introduction to Software Engineering", "F", 2022)
-        self.Course01.save()
 
     def test_getCourseID(self):
         self.assertEqual(self.Course01.getCourseID(), "CS361")
@@ -106,14 +103,12 @@ class CourseGetTests(TestCase):
 
 
 class CourseSetTests(TestCase):
-    def setup(self):
+    def setUp(self):
         self.Course01 = AppCourse("CS361", "Introduction to Software Engineering", "F", 2022)
-        self.Course01.save()
 
     def test_setName(self):
         self.Course01.setName("Conclusion of Software Engineering")
-        self.Course01.save()
-        self.assertEqual(Course.objects.get(CourseID="CS361").name, "Conclusion of Software Engineering")
+        self.assertEqual(Course.objects.get(courseID="CS361").name, "Conclusion of Software Engineering")
 
     def test_setName_NoArgs(self):
         with self.assertRaises(TypeError, msg="No arguments passed into function"):
@@ -125,8 +120,7 @@ class CourseSetTests(TestCase):
 
     def test_setSemester(self):
         self.Course01.setSemester("U")
-        self.Course01.save()
-        self.assertEqual(Course.objects.get(CourseID="CS361").semester, "U")
+        self.assertEqual(Course.objects.get(courseID="CS361").semester, "U")
 
     def test_setSemester_NoArgs(self):
         with self.assertRaises(TypeError, msg="No arguments passed into function"):
@@ -138,8 +132,7 @@ class CourseSetTests(TestCase):
 
     def test_setYear(self):
         self.Course01.setYear(2025)
-        self.Course01.save()
-        self.assertEqual(Course.objects.get(CourseID="CS361").year, 2025)
+        self.assertEqual(Course.objects.get(courseID="CS361").year, 2025)
 
     def test_setYear_NoArgs(self):
         with self.assertRaises(TypeError, msg="No arguments passed into function"):
@@ -209,7 +202,7 @@ class TestGetUsers(TestCase):
 
 
 class TestAddSection(TestCase):
-    def setup(self):
+    def setUp(self):
         # create a course
         self.Course01 = AppCourse(courseID="CS 361", name="Intro to SE", semester="F", year=2022)
         self.Course01.save()
@@ -241,7 +234,7 @@ class TestAddSection(TestCase):
 
 
 class TestGetSections(TestCase):
-    def setup(self):
+    def setUp(self):
         # create a course
         self.Course01 = AppCourse(courseID="CS 361", name="Intro to SE", semester="F", year=2022)
         self.Course01.save()
@@ -288,7 +281,7 @@ class TestGetSections(TestCase):
 
 
 class TestRemoveCourse(TestCase):
-    def setup(self):
+    def setUp(self):
         self.Course01 = AppCourse(courseID="CS 361", name="Intro to SE", semester="F", year=2022)
         self.Course01.save()
         self.Course02 = AppCourse(courseID="CS 337", name="Systems Programming", semester="F", year=2022)
