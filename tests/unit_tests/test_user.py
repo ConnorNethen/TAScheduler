@@ -544,7 +544,7 @@ class TestAddSection(TestCase):
         self.e.save()
         f = Section(sectionID="CS 361 803", courseID=a, user=u2)
         f.save()
-        self.g = Section(sectionID="CS 337 802", courseID=b)
+        self.g = Section(sectionID="CS 337 802", courseID=b, user=None)
         self.g.save()
 
     def test_successful_add(self):
@@ -582,18 +582,30 @@ class TestRemoveSection(TestCase):
         c.save()
 
         # create a couple sections
-        d = Section(sectionID="CS 361 802", courseID=a, user=u)
-        e = Section(sectionID="CS 337 801", courseID=b, user=u)
+        self.d = Section(sectionID="CS 361 802", courseID=a, user=u)
+        self.d.save()
+        self.e = Section(sectionID="CS 337 801", courseID=b, user=u)
+        self.e.save()
         f = Section(sectionID="CS 361 803", courseID=a, user=u2)
+        f.save()
 
     def test_successful_remove(self):
-        self.user.removeSection("CS 361 802")
+        self.user.removeSection(self.d)
         # assumes getSections() works
         list = self.user.getSections()
         self.assertEqual(len(list), 1)
-        self.assertEqual(list[0], "CS 337 801")
+        self.assertEqual(list[0], self.e)
 
     def test_invalid_section(self):
         with self.assertRaises(TypeError, msg="Invalid section"):
             self.user.removeSection("Something")
 
+
+class TestRemoveAccount(TestCase):
+    def setUp(self):
+        self.user = AppUserClass("123", "test@test.com", "password")
+
+    def test_successful_remove(self):
+        self.user.removeAccount()
+        with self.assertRaises(AppUser.DoesNotExist, msg="Account does not exist"):
+            a = AppUser.objects.get(pID="123")

@@ -209,11 +209,17 @@ class AppUserClass:
         try:
             section = Section.objects.get(sectionID=sectionID)
             section.user = user
+            section.save()
         except Section.DoesNotExist:
             raise TypeError("Section does not exist")
 
     def removeSection(self, sectionID):
-        pass
+        try:
+            section = Section.objects.get(sectionID=sectionID)
+            section.user = None
+            section.save()
+        except Section.DoesNotExist:
+            raise TypeError("Section does not exist")
 
     def removeAccount(self):
-        pass
+        AppUser.objects.get(pID=self.pID).delete()
