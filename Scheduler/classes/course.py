@@ -1,3 +1,4 @@
+import string
 import Scheduler
 from Scheduler.models import Course, UserCourse, AppUser
 from Scheduler.classes import app_user
@@ -13,8 +14,12 @@ class AppCourse:
         if not isinstance(cid, str) or not isinstance(n, str) or not isinstance(s, str) or not isinstance(y, int):
             raise TypeError
 
-        if cid is not None:
-            if not cid.isalnum():
+        if cid == "":
+            raise TypeError
+
+        punctList = string.punctuation
+        for i in cid:
+            if i in punctList:
                 raise ValueError
 
         try:
@@ -93,19 +98,18 @@ class AppCourse:
         myCourse.save()
         self.year = myCourse.year
 
-    def getUsers(self, cid):
-        if not isinstance(str, cid):
-            raise TypeError
+    def getUsers(self):
         listToReturn = []
         try:
-            myCourse = Course.objects.get(courseID=cid)
+            myCourse = Course.objects.get(courseID=self.courseID)
             listOfUserCourse = UserCourse.objects.filter(course=myCourse)
-            for i in len(listOfUserCourse):
-                # listToReturn.append(i.user)
-                listToReturn.append(listOfUserCourse[i])
-        except Scheduler.models.Course.DoesNotExist:
+            for i in listOfUserCourse:
+                listToReturn.append(i.user)
+                # listToReturn.append(listOfUserCourse[i])
+        except Exception:
             raise ValueError
 
+        return listToReturn
 
 
 
@@ -115,17 +119,10 @@ class AppCourse:
     def getSections(self, cid):
         pass
 
-    def removeCourse(self, cid):
-        if not isinstance(str, cid):
-            raise TypeError
+    def removeCourse(self):
         try:
-            myCourse = Course.objects.get(courseID=self.courseID) # course found
-            # change course attributes to None (delete the course)
-            self.courseID = None
-            self.name = None
-            self.semester = None
-            self.year = None
-        except Exception: # course not found
+            Course.objects.filter(courseID=self.courseID).delete() # course found, delete course
+        except Exception:  # course not found
             raise TypeError("Course does not exist, unable to delete")
 
 
