@@ -97,4 +97,9 @@
     padding-bottom: 12%;
     padding-top: 6.5%;
 }
-
+#createCourse-container{
+    margin-top: 0%;
+    height: 100%;
+    width: 100%;
+    background-color: grey;
+}

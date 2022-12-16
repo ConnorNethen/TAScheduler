@@ -31,3 +31,11 @@ def logout_view(request):
     return render(request, "Scheduler/login.html", {
         'message': "Logged out"
     })
+
+
+def createCourse_view(request):
+    pass
+
+
+def createUser_view(request):
+    pass
