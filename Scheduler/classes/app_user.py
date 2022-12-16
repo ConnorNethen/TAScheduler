@@ -1,5 +1,7 @@
+import Scheduler.models
 from Scheduler.models import AppUser
-
+from Scheduler.models import Course
+from Scheduler.models import Section
 
 class AppUserClass:
     pID = None
@@ -23,13 +25,13 @@ class AppUserClass:
             self.password = user.password
             self.first_name = user.first_name
             self.last_name = user.last_name
-            self.phone_number = user.phone_number
+            self.phone_number = user.phone
             self.address = user.address
             self.city = user.city
             self.state = user.state
             self.zip_code = user.zip_code
 
-        except Exception:
+        except Scheduler.models.AppUser.DoesNotExist:
             # need to make a new user
             if pID == "" or email == "" or password == "":
                 raise TypeError("Must pass pID, email, and password")
@@ -117,6 +119,8 @@ class AppUserClass:
             return self.phone_number
 
     def setPhone(self, phone):
+        if not phone.isdigit():
+            raise TypeError("Invalid phone number")
         user = AppUser.objects.get(pID=self.pID)
         user.phone = phone
         self.phone_number = phone
@@ -141,6 +145,8 @@ class AppUserClass:
             return self.city
 
     def setCity(self, city):
+        if not isinstance(city, str):
+            raise TypeError("City must be a string")
         user = AppUser.objects.get(pID=self.pID)
         user.city = city
         self.city = city
@@ -153,6 +159,8 @@ class AppUserClass:
             return self.state
 
     def setState(self, state):
+        if not isinstance(state, str):
+            raise TypeError("City must be a string")
         user = AppUser.objects.get(pID=self.pID)
         user.state = state
         self.state = state
@@ -164,26 +172,45 @@ class AppUserClass:
         else:
             return self.zip_code
 
-    def setZip(self, zip):
+    def setZip(self, zipCode):
         user = AppUser.objects.get(pID=self.pID)
-        user.zip_code = zip
-        self.zip_code = zip
+        user.zip_code = zipCode
+        self.zip_code = zipCode
         user.save()
 
     def getCourses(self):
-        pass
+        user = AppUser.objects.get(pID=self.pID)
+        courses = user.courses.all()
+        return courses
 
     def addCourse(self, courseID):
-        pass
+        try:
+            course = Course.objects.get(courseID=courseID)
+            user = AppUser.objects.get(pID=self.pID)
+            user.courses.add(course)
+        except Scheduler.models.Course.DoesNotExist:
+            raise TypeError("Course does not exist")
 
     def removeCourse(self, courseID):
-        pass
+        try:
+            course = Course.objects.get(courseID=courseID)
+            user = AppUser.objects.get(pID=self.pID)
+            user.courses.remove(course)
+        except Scheduler.models.Course.DoesNotExist:
+            raise TypeError("Course does not exist")
 
     def getSections(self):
-        pass
+        user = AppUser.objects.get(pID=self.pID)
+        sections = Section.objects.filter(user=user)
+        return sections
 
     def addSection(self, sectionID):
-        pass
+        user = AppUser.objects.get(pID=self.pID)
+        try:
+            section = Section.objects.get(sectionID=sectionID)
+            section.user = user
+        except Section.DoesNotExist:
+            raise TypeError("Section does not exist")
 
     def removeSection(self, sectionID):
         pass
