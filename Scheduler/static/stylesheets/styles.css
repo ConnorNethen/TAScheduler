@@ -31,13 +31,20 @@
 }
 .btn-login{
     background-color: goldenrod;
+    transition-duration: 0.1s;
+    border: 2px solid black;
 }
 .btn-login:hover{
-    color: white !important;
-    background-color: white !important;
+    background-color: gray;
+    border: 2px solid black;
 }
 .footer{
     background-color: goldenrod;
     height: 60%;
+}
+btn-header-nav{
+    max-height: 10%;
+    background-color: grey;
+    width: 50px;
 }
 
