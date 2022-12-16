@@ -1,3 +1,4 @@
+import Scheduler.models
 from Scheduler.classes.app_user import AppUserClass
 from Scheduler.models import Course, Section, AppUser
 
@@ -13,12 +14,12 @@ class AppSection:
             raise TypeError
         try :
             myCourse = Course.objects.get(courseID= course)
-        except Exception:
+        except Scheduler.models.Course.DoesNotExist:
             raise TypeError
         try:
             mySection = Section.objects.get(courseID=myCourse, sectionID=section)
             if mySection.user is not None: noUser = False
-        except Exception:
+        except Scheduler.models.Section.DoesNotExist:
             mySection = Section(courseID= myCourse, sectionID=section)
             mySection.save()
         if noUser: self.userPID = ""
