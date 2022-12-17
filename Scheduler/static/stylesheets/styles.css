@@ -14,10 +14,12 @@
     margin-top: 0%;
     height: 100%;
     width: 100%;
+    margin-bottom: 0%;
     background-image: url("https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fuwm.edu%2Fchancellor%2Fwp-content%2Fuploads%2Fsites%2F290%2F2020%2F06%2F20190724_IMC_EH_0010-scaled.jpg&f=1&nofb=1&ipt=8e2e768e3d305154b1777793360c6dcdaeb2bd26c16020afc1a439ef451f64f1&ipo=images");
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: cover;
+    padding-bottom: 10px;
 }
 .container-md{
     background-color: gray;
