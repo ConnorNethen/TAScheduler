@@ -150,29 +150,29 @@ class CourseSetTests(TestCase):
 class TestGetUsers(TestCase):
     def setUp(self):
         # create users
-        user01 = AppUser(pID="123")
-        user02 = AppUser(pID="456")
-        user03 = AppUser(pID="789")
+        user01 = AppUser(pID="123", email="user01@test.com", password="pass")
+        user01.save()
+        user02 = AppUser(pID="456", email="user02@test.com", password="pass")
+        user02.save()
+        user03 = AppUser(pID="789", email="user03@test.com", password="pass")
+        user03.save()
 
-        # create courses
         self.Course01 = AppCourse("CS 361", "Intro to SE", "F", 2022)
         self.Course02 = AppCourse("CS 337", "Systems", "F", 2022)
+        a = Course.objects.get(courseID=self.Course01.getCourseID())
 
         # create connections
-        a = UserCourse(user01, self.Course01, "S")
-        b = UserCourse(user01, self.Course01, "S")
-        c = UserCourse(user01, self.Course01, "S")
+        a1 = UserCourse(user=user01, course=a)
+        a1.save()
+        b1 = UserCourse(user=user02, course=a)
+        b1.save()
+        c1 = UserCourse(user=user03, course=a)
+        c1.save()
 
     def test_successful_call(self):
         listOfUsers = self.Course01.getUsers()
-        print("The list is...")
-        print(listOfUsers)
-        print("End")
-        #self.assertIsInstance(listOfUsers, list, msg="Error creating instance")
         self.assertEqual(listOfUsers[0], "123")
-        #self.assertIsInstance(listOfUsers[1], app_user, msg="Error creating instance")
         self.assertEqual(listOfUsers[1], "456")
-        #self.assertIsInstance(listOfUsers[2], app_user, msg="Error creating instance")
         self.assertEqual(listOfUsers[2], "789")
 
     def test_empty_list(self):
@@ -183,12 +183,10 @@ class TestGetUsers(TestCase):
         with self.assertRaises(TypeError, msg="too many arguments given in function"):
             self.listOfUsers = self.Course01.getUsers("CS 361")
 
-
 class TestAddSection(TestCase):
     def setUp(self):
         # create a course
         self.Course01 = AppCourse("CS 361", "Intro to SE", "F", 2022)
-        # self.Course01.save()
 
     def test_addSection(self):
         self.Course01.addSection("001")
@@ -219,10 +217,8 @@ class TestAddSection(TestCase):
 class TestGetSections(TestCase):
     def setUp(self):
         # create a course
-        self.Course01 = AppCourse(courseID="CS 361", name="Intro to SE", semester="F", year=2022)
-        # self.Course01.save()
-        self.Course02 = AppCourse(courseID="CS 337", name="Systems", semester="F", year=2022)
-        # self.Course02.save()
+        self.Course01 = AppCourse("CS 361", "Intro to SE", "F", 2022)
+        self.Course02 = AppCourse("CS 337", "Systems", "F", 2022)
 
         # create sections
         self.Course01.addSection("001")
@@ -230,60 +226,43 @@ class TestGetSections(TestCase):
         self.Course01.addSection("003")
 
     def test_successful_call(self):
-        listOfSections = self.getSections("CS 361")
-        self.assertIsInstance(listOfSections[0], Section, msg="Error creating instance")
+        listOfSections = self.Course01.getSections()
         self.assertEqual(listOfSections[0].sectionID, "001")
-        self.assertIsInstance(listOfSections[1], app_user, msg="Error creating instance")
         self.assertEqual(listOfSections[1].sectionID, "002")
-        self.assertIsInstance(listOfSections[2], app_user, msg="Error creating instance")
         self.assertEqual(listOfSections[2].sectionID, "003")
 
     def test_empty_list(self):
-        listOfSections = self.getSections("CS 337")
+        listOfSections = self.Course02.getSections()
         self.assertFalse(bool(listOfSections), msg="list is not empty")
 
     def test_invalid_course(self):
         with self.assertRaises(TypeError, msg="Course does not exist"):
             self.listOfSections = self.getSections("CS 250")
 
-    def test_invalid_course_Value(self):
-        with self.assertRaises(ValueError, msg="invalid argument passed into function"):
-            self.listOfSections = self.getSections("invalid")
-
-    def test_invalid_course_Type(self):
-        with self.assertRaises(TypeError, msg="invalid argument passed into function"):
-            self.listOfSections = self.getSections(123)
-
-    def test_getUsers_no_arg(self):
-        with self.assertRaises(TypeError, msg="no arguments given in function"):
-            self.listOfSections = self.getSections()
-
-    def test_getUsers_many_arg(self):
+    def test_getSections_many_arg(self):
         with self.assertRaises(TypeError, msg="too many arguments given in function"):
-            self.listOfSections = self.getSections("CS 361", "CS 337")
+            self.listOfSections = self.Course01.getSections("CS 361")
 
 
 class TestRemoveCourse(TestCase):
     def setUp(self):
         self.Course01 = AppCourse("CS 361", "Intro to SE", "F", 2022)
-        #self.Course01.save()
         self.Course02 = AppCourse("CS 337", "Systems Programming", "F", 2022)
-        #self.Course02.save()
 
-    def test_successful_remove_one_less_inDB(self):
+    def test_successful_remove(self):
         self.Course01.removeCourse()
         self.assertEqual(Course.objects.all().count(), 1, msg="course not removed")
+        self.Course02.removeCourse()
+        self.assertEqual(Course.objects.all().count(), 0, msg="course not removed")
 
-    def test_successful_remove_one_less_inDB2(self):
-        self.Course02.removeCourse("CS 337")
-        self.assertIsNone(Course.objects.get("CS 337"), msg="course not removed")
+    def test_repeated_remove(self):
+        self.Course01.removeCourse()
+        self.Course01.removeCourse()
+        self.assertEqual(Course.objects.all().count(), 1, msg="course was removed when it should not have")
 
     def test_remove_many_arg(self):
         with self.assertRaises(TypeError, msg="too many arguments given in function"):
             self.Course01.removeCourse("CS 361")
-
-
-
 
 
 #class CourseCreationTests(TestCase):

@@ -1,7 +1,6 @@
 import string
 import Scheduler
-from Scheduler.models import Course, UserCourse, AppUser
-from Scheduler.classes import app_user
+from Scheduler.models import Course, UserCourse, Section
 
 
 class AppCourse:
@@ -104,27 +103,45 @@ class AppCourse:
             myCourse = Course.objects.get(courseID=self.courseID)
             listOfUserCourse = UserCourse.objects.filter(course=myCourse)
             for i in listOfUserCourse:
-                listToReturn.append(i.user)
-                # listToReturn.append(listOfUserCourse[i])
+                listToReturn.append(i.user.pID)
         except Exception:
             raise ValueError
 
         return listToReturn
 
-
-
     def addSection(self, sid):
-        pass
+        if not isinstance(sid, str):
+            raise TypeError
+        if len(sid) > 3:
+            raise ValueError
+        #try:
+        #    myCourse = Course.objects.get(courseID=self.courseID)
+        #    newSection = Section(courseID=myCourse, sectionID=sid)
+        #    newSection.save()
+        #except Exception:
+        #    TypeError("Course does not exist")
+        try:
+            myCourse = Course.objects.get(courseID=self.courseID)
+        except Exception:
+            raise TypeError
+        try:
+            mySection = Section.objects.get(courseID=myCourse, sectionID=sid)
+        except Exception:
+            mySection = Section(courseID=myCourse, sectionID=sid)
+            mySection.save()
 
-    def getSections(self, cid):
-        pass
+    def getSections(self):
+        listToReturn = []
+        try:
+            myCourse = Course.objects.get(courseID=self.courseID)
+            listOfSections = Section.objects.filter(course=myCourse)
+            for i in listOfSections:
+                listToReturn.append(i.sectionID)
+        except Exception:
+            raise ValueError
 
     def removeCourse(self):
         try:
-            Course.objects.filter(courseID=self.courseID).delete() # course found, delete course
-        except Exception:  # course not found
+            Course.objects.filter(courseID=self.courseID).delete()  # course found, delete course
+        except Scheduler.models.Course.DoesNotExist:  # course not found
             raise TypeError("Course does not exist, unable to delete")
-
-
-
-
