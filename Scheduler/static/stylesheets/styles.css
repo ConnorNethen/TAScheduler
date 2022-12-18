@@ -19,7 +19,7 @@
     background-attachment: fixed;
     background-size: cover;
 }
-.container-md{
+#login-container-sm{
     background-color: gray;
     margin-top: 5%;
     margin-left: 15%;
@@ -27,7 +27,6 @@
     margin-bottom: 10%;
     width: 65%;
     padding: 10px;
-
 }
 .btn-login{
     background-color: goldenrod;
@@ -101,5 +100,27 @@
     margin-top: 0%;
     height: 100%;
     width: 100%;
+    background-color: green;
+}
+#createUser-container{
+    margin-top: 0%;
+    height: 100%;
+    width: 100%;
     background-color: grey;
+}
+#LastNameLabel {
+    width: 50%;
+    padding-bottom: 2%;
+}
+#FirstNameLabel{
+    width: 50%;
+    padding-bottom: 2%;
+}
+#EmailLabel {
+    width: 50%;
+    padding-bottom: 2%;
+}
+#PantherIDLabel{
+    width: 50%;
+    padding-bottom: 2%;
 }

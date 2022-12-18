@@ -3,5 +3,39 @@
 {% block title %}Create User - TA Scheduler{% endblock %}
 
 {% block body %}
-
+    <div class="container-fluid g-6" id="createUser-container">
+        <div class="row"></div>
+        <div class="container-md g-6" >
+            <h2>Create New User:</h2>
+            <form action="{% url "createUser" %}" method="post">
+                {% csrf_token %}
+                <div class="row g-3">
+                    <div class="col-auto" id="PantherIDLabel">
+                        <label for="inputPantherID" class="col-form-label">Panther ID</label>
+                        <input type="text" name="newPantherID" id="inputPantherID" class="form-control" placeholder="Panther ID" required>
+                    </div>
+                    <div class="col-auto" id="EmailLabel">
+                        <label for="inputEmail" class="col-form-label">Email</label>
+                        <input type="email" name="newEmail" id="inputEmail" class="form-control" placeholder="Email" required>
+                    </div>
+                </div>
+                <div class="row g-3">
+                    <div class="col-auto" id="FirstNameLabel">
+                        <label for="inputFirstName" class="col-form-label">First Name</label>
+                        <input type="text" name="newFirstName" id="inputFirstName" class="form-control" placeholder="First Name" required>
+                    </div>
+                    <div class="col-auto" id="LastNameLabel">
+                        <label for="inputLastName" class="col-form-label">Last Name</label>
+                        <input type="text" name="newLastName" id="inputLastName" class="form-control" placeholder="Last Name" required>
+                    </div>
+                </div>
+                <div class="row g-3">
+                    <div class="col-auto">
+                        <label for="inputPhone" class="col-form-label">Phone Number</label>
+                        <input type="text" name="newPhone" id="inputPhone" class="form-control" placeholder="Phone Number" required>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
 {% endblock %}

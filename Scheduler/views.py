@@ -34,8 +34,8 @@ def logout_view(request):
 
 
 def createCourse_view(request):
-    pass
+    return render(request, "Scheduler/createCourses.html")
 
 
 def createUser_view(request):
-    pass
+    return render(request, "Scheduler/createUser.html")

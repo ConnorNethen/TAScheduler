@@ -5,7 +5,7 @@
 {% block body %}
     <div class="container-fluid g-6" id="createCourse-container">
         <div class="row"></div>
-        <div class="container-md g-6" >
+        <div class="container-md" id="CreateCourseBox">
             <h2>Create New Course:</h2>
             <form action="{% url "createCourse" %}" method="post">
                 {% csrf_token %}
@@ -35,6 +35,5 @@
                 </div>
             </form>
         </div>
-
     </div>
 {% endblock %}
