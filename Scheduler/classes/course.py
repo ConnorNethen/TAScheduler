@@ -111,42 +111,44 @@ class AppCourse:
         return listToReturn
 
     def addSection(self, sid):
+        if not isinstance(sid, str):
+            raise TypeError
         if len(sid) > 3:
-            raise ValueError("Invalid Section ID")
-        for i in self.getSections():
-            if sid == i.getSectionID():
-                return TypeError("Section already exists!")  # not sure if its type error
-        AppSection(sid, self.courseID)
+            raise ValueError
 
-        #try:
-        #    myCourse = Course.objects.get(courseID=self.courseID)
-        #    newSection = Section(courseID=myCourse, sectionID=sid)
-        #    newSection.save()
-        #except Exception:
-        #    TypeError("Course does not exist")
-        #try:
-        #    myCourse = Course.objects.get(courseID=self.courseID)
-        #except Exception:
-        #    raise TypeError
-        #try:
-        #    mySection = Section.objects.get(courseID=myCourse, sectionID=sid)
-        #except Exception:
-        #    mySection = Section(courseID=myCourse, sectionID=sid)
-        #    mySection.save()
+        try:
+            myCourse = Course.objects.get(courseID=self.courseID)
+            Section.objects.get(courseID=myCourse, sectionID=sid)
+        except Exception:
+            AppSection(sid,self.courseID)
+            return
+        raise TypeError("Section Exists")
 
     def getSections(self):
         listToReturn = []
         try:
             myCourse = Course.objects.get(courseID=self.courseID)
-            listOfSections = Section.objects.filter(courseID=myCourse)
-            for i in listOfSections:
-                listToReturn.append(i)
+            listOfSections = Section.objects.filter(course=myCourse)
         except Exception:
-            raise ValueError
-        return listOfSections
+            return []
+        for i in listOfSections:
+            listToReturn.append(AppSection(i.sectionID,self.courseID))
+        return listToReturn
 
     def removeCourse(self):
         try:
             Course.objects.filter(courseID=self.courseID).delete()  # course found, delete course
         except Scheduler.models.Course.DoesNotExist:  # course not found
             raise TypeError("Course does not exist, unable to delete")
+    def removeSection(self, sid):
+        if not isinstance(sid, str):
+            return TypeError
+        for i in self.getSections():
+            if i.sectionID == sid:
+                Section.objects.get(sectionID=sid, courseID= self.courseID).delete()
+                i.sectionID == ""
+                i.courseID == ""
+                return
+        return ValueError("No Section Exists")
+
+
