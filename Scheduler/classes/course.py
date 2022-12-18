@@ -1,5 +1,6 @@
 import string
 import Scheduler
+from Scheduler.classes.section import AppSection
 from Scheduler.models import Course, UserCourse, Section
 
 
@@ -110,35 +111,39 @@ class AppCourse:
         return listToReturn
 
     def addSection(self, sid):
-        if not isinstance(sid, str):
-            raise TypeError
         if len(sid) > 3:
-            raise ValueError
+            raise ValueError("Invalid Section ID")
+        for i in self.getSections():
+            if sid == i.getSectionID():
+                return TypeError("Section already exists!")  # not sure if its type error
+        AppSection(sid, self.courseID)
+
         #try:
         #    myCourse = Course.objects.get(courseID=self.courseID)
         #    newSection = Section(courseID=myCourse, sectionID=sid)
         #    newSection.save()
         #except Exception:
         #    TypeError("Course does not exist")
-        try:
-            myCourse = Course.objects.get(courseID=self.courseID)
-        except Exception:
-            raise TypeError
-        try:
-            mySection = Section.objects.get(courseID=myCourse, sectionID=sid)
-        except Exception:
-            mySection = Section(courseID=myCourse, sectionID=sid)
-            mySection.save()
+        #try:
+        #    myCourse = Course.objects.get(courseID=self.courseID)
+        #except Exception:
+        #    raise TypeError
+        #try:
+        #    mySection = Section.objects.get(courseID=myCourse, sectionID=sid)
+        #except Exception:
+        #    mySection = Section(courseID=myCourse, sectionID=sid)
+        #    mySection.save()
 
     def getSections(self):
         listToReturn = []
         try:
             myCourse = Course.objects.get(courseID=self.courseID)
-            listOfSections = Section.objects.filter(course=myCourse)
+            listOfSections = Section.objects.filter(courseID=myCourse)
             for i in listOfSections:
-                listToReturn.append(i.sectionID)
+                listToReturn.append(i)
         except Exception:
             raise ValueError
+        return listOfSections
 
     def removeCourse(self):
         try:
