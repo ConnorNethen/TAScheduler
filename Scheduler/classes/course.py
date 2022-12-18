@@ -142,8 +142,6 @@ class AppCourse:
         except Scheduler.models.Course.DoesNotExist:
             raise ValueError("course does not exist")
 
-
-
     def removeSection(self, sid):
         if not isinstance(sid, str):
             raise TypeError
@@ -151,4 +149,3 @@ class AppCourse:
             Section.objects.get(sectionID=sid).delete()
         except Exception:
             raise ValueError("section does not exist")
-
