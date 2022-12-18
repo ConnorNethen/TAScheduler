@@ -238,7 +238,8 @@ class TestGetSections(TestCase):
         listOfSections = self.Course01.getSections()
         for i in listOfSections:
             self.assertIsInstance(i, AppSection, msg="not an instance of appSection")
-            self.assertEqual(i.courseID, "001" or "002" or "003", msg= "Section returned not in Course")
+            self.assertEqual(i.courseID, "001" or "002" or "003", msg="Section returned not in Course")
+
     def test_empty_list(self):
         listOfSections = self.Course02.getSections()
         self.assertFalse(bool(listOfSections), msg="list is not empty")
@@ -250,7 +251,6 @@ class TestGetSections(TestCase):
     def test_invalid_course_Type(self):
         with self.assertRaises(TypeError, msg="invalid argument passed into function"):
             self.listOfSections = self.Course01.getSections(123)
-
 
     def test_getUsers_many_arg(self):
         with self.assertRaises(TypeError, msg="too many arguments given in function"):
@@ -270,12 +270,54 @@ class TestRemoveCourse(TestCase):
 
     def test_repeated_remove(self):
         self.Course01.removeCourse()
-        self.Course01.removeCourse()
-        self.assertEqual(Course.objects.all().count(), 1, msg="course was removed when it should not have")
+        with self.assertRaises(ValueError, msg="course does not exist, cannot be removed"):
+            self.Course01.removeCourse()
 
     def test_remove_many_arg(self):
         with self.assertRaises(TypeError, msg="too many arguments given in function"):
             self.Course01.removeCourse("CS 361")
 
 
+class TestRemoveSection(TestCase):
+    def setUp(self):
+        # create a course
+        self.Course01 = AppCourse("CS 361", "Intro to SE", "F", 2022)
+        self.Course02 = AppCourse("CS 337", "Systems", "F", 2022)
+        a = Course.objects.get(courseID="CS 361")
 
+        # create connections
+        a1 = Section(sectionID="001", courseID=a)
+        a1.save()
+        b1 = Section(sectionID="002", courseID=a)
+        b1.save()
+        c1 = Section(sectionID="003", courseID=a)
+        c1.save()
+
+    def test_successful_call(self):
+        self.Course01.removeSection("001")
+        self.assertEqual(Section.objects.all().count(), 2, msg="course not removed")
+        self.Course01.removeSection("003")
+        self.assertEqual(Section.objects.all().count(), 1, msg="course not removed")
+        self.Course01.removeSection("002")
+        self.assertEqual(Section.objects.all().count(), 0, msg="course not removed")
+
+    def test_repeated_remove(self):
+        self.Course01.removeSection("001")
+        with self.assertRaises(ValueError, msg="section does not exist, cannot be removed"):
+            self.Course01.removeSection("001")
+
+    def test_remove_many_arg(self):
+        with self.assertRaises(TypeError, msg="too many arguments given in function"):
+            self.Course01.removeSection("001", "002")
+
+    def test_remove_no_arg(self):
+        with self.assertRaises(TypeError, msg="not enough arguments given in function"):
+            self.Course01.removeSection()
+
+    def test_remove_invalid_type(self):
+        with self.assertRaises(TypeError, msg="invalid argument given in function"):
+            self.Course01.removeSection(101)
+
+    def test_remove_invalid_value(self):
+        with self.assertRaises(ValueError, msg="section was not found, could not remove"):
+            self.Course01.removeSection("004")

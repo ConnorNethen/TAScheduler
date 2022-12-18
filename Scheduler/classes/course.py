@@ -137,18 +137,18 @@ class AppCourse:
 
     def removeCourse(self):
         try:
-            Course.objects.filter(courseID=self.courseID).delete()  # course found, delete course
-        except Scheduler.models.Course.DoesNotExist:  # course not found
-            raise TypeError("Course does not exist, unable to delete")
+            courseToDelete = Course.objects.get(courseID=self.courseID)
+            Course.objects.filter(courseID=self.courseID).delete()
+        except Scheduler.models.Course.DoesNotExist:
+            raise ValueError("course does not exist")
+
+
+
     def removeSection(self, sid):
         if not isinstance(sid, str):
-            return TypeError
-        for i in self.getSections():
-            if i.sectionID == sid:
-                Section.objects.get(sectionID=sid, courseID= self.courseID).delete()
-                i.sectionID == ""
-                i.courseID == ""
-                return
-        return ValueError("No Section Exists")
-
+            raise TypeError
+        try:
+            Section.objects.get(sectionID=sid).delete()
+        except Exception:
+            raise ValueError("section does not exist")
 
