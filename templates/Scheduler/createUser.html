@@ -3,20 +3,24 @@
 {% block title %}Create User - TA Scheduler{% endblock %}
 
 {% block body %}
-    <div class="container-fluid g-6" id="createUser-container">
+    <div class="container-fluid min-vh-80" id="createUser-container">
         <div class="row"></div>
-        <div class="container-md g-6" >
+        <div class="container-md g-6" id="createUser-container-sm">
             <h2>Create New User:</h2>
             <form action="{% url "createUser" %}" method="post">
                 {% csrf_token %}
                 <div class="row g-3">
-                    <div class="col-auto" id="PantherIDLabel">
+                    <div class="col" id="PantherIDLabel">
                         <label for="inputPantherID" class="col-form-label">Panther ID</label>
                         <input type="text" name="newPantherID" id="inputPantherID" class="form-control" placeholder="Panther ID" required>
                     </div>
-                    <div class="col-auto" id="EmailLabel">
+                    <div class="col" id="EmailLabel">
                         <label for="inputEmail" class="col-form-label">Email</label>
                         <input type="email" name="newEmail" id="inputEmail" class="form-control" placeholder="Email" required>
+                    </div>
+                    <div class="col" id="PasswordLabel">
+                        <label for="inputPassword" class="col-form-label">Password</label>
+                        <input type="text" name="newPassword" id="inputPassword" class="form-control" placeholder="Password" required>
                     </div>
                 </div>
                 <div class="row g-3">
@@ -28,11 +32,29 @@
                         <label for="inputLastName" class="col-form-label">Last Name</label>
                         <input type="text" name="newLastName" id="inputLastName" class="form-control" placeholder="Last Name" required>
                     </div>
-                </div>
-                <div class="row g-3">
-                    <div class="col-auto">
+                    <div class="col" id="PhoneLabel">
                         <label for="inputPhone" class="col-form-label">Phone Number</label>
                         <input type="text" name="newPhone" id="inputPhone" class="form-control" placeholder="Phone Number" required>
+                    </div>
+                </div>
+                <div class="row g-3">
+                    <div class="col" id="AddressLabel">
+                        <label for="inputAddress" class="col-form-label">Address</label>
+                        <input type="text" name="newAddress" id="inputAddress" class="form-control" placeholder="Address" required>
+                    </div>
+                </div>
+                <div class="row g-3">
+                    <div class="col" id="CityLabel">
+                        <label for="inputCity" class="col-form-label">City</label>
+                        <input type="text" name="newCity" id="inputCity" class="form-control" placeholder="City" required>
+                    </div>
+                    <div class="col" id="StateLabel">
+                        <label for="inputState" class="col-form-label">State</label>
+                        <input type="text" name="newState" id="inputState" class="form-control" placeholder="State" required>
+                    </div>
+                    <div class="col" id="ZipLabel">
+                        <label for="inputZip" class="col-form-label">Zip Code</label>
+                        <input type="text" name="newZip" id="inputZip" class="form-control" placeholder="Zip Code" required>
                     </div>
                 </div>
             </form>

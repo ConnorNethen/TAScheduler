@@ -3,12 +3,16 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 
+import Scheduler.classes.course
+
 
 # Create your views here.
 def index(request):
     if not request.user.is_authenticated:
         return HttpResponseRedirect(reverse('login'))
-    return render(request, 'Scheduler/index.html')
+    if request.method == 'GET':
+        return render(request, 'Scheduler/index.html')
+    return HttpResponseRedirect(reverse(request.POST['pageURL']))
 
 
 def login_view(request):
@@ -34,8 +38,28 @@ def logout_view(request):
 
 
 def createCourse_view(request):
-    return render(request, "Scheduler/createCourses.html")
+    if request.method == 'GET':
+        return render(request, "Scheduler/createCourses.html")
+    if request.method == 'POST':
+        courseNum = request.POST['newCourseID']
+        courseName = request.POST['newCourseName']
+        courseSemester = request.POST['newSemester']
+        courseYear = request.POST['newYear']
+        Scheduler.classes.course.AppCourse.__init__(courseNum, courseName, courseSemester, courseYear)
 
 
 def createUser_view(request):
-    return render(request, "Scheduler/createUser.html")
+    if request.method == 'GET':
+        return render(request, "Scheduler/createUser.html")
+    if request.method == 'POST':
+        pID = request.POST['newPantherID']
+        email = request.POST['newEmail']
+        password = request.POST['newPassword']
+        phone = request.POST['newPhone']
+        firstName = request.POST['newFirstName']
+        lastName = request.POST['newLastName']
+        address = request.POST['newAddress']
+        city = request.POST['newCity']
+        state = request.POST['newState']
+        zipCode = request.POST['newZip']
+        Scheduler.classes.app_user.__init__(pID, email, password, firstName, lastName, phone, address, city, state, zipCode)
