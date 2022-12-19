@@ -10,7 +10,7 @@
     height: 10%;
     background-color: goldenrod;
 }
-.container-fluid{
+#login-container{
     margin-top: 0%;
     height: 100%;
     width: 100%;
@@ -35,11 +35,31 @@
     background-color: goldenrod;
 }
 .btn-login:hover{
-    color: white !important;
-    background-color: white !important;
+    background-color: gold;
+    border: 2px solid black;
 }
 .footer{
     background-color: goldenrod;
     height: 60%;
 }
 
+#createSection-container{
+    padding-top: 8%;
+    width: 100%;
+    background-color: grey;
+}
+#createSection-container-sm{
+    background-color: goldenrod;
+    margin-top: 1%;
+    padding-bottom: 1%;
+}
+.btn-createSection{
+    background-color: grey;
+    width: 130px;
+    border: 1px solid black;
+}
+.btn-createSection:hover{
+    background-color: white;
+    color: black;
+    border: 1px solid black;
+}

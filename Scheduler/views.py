@@ -38,6 +38,7 @@ def logout_view(request):
         'message': "Logged out"
     })
 
+
 def allCourses_view(request):
     allAppCourse = []
     allCourses = Course.objects.all()
@@ -45,10 +46,21 @@ def allCourses_view(request):
         allAppCourse.append(Scheduler.classes.course.AppCourse(i))
     return render(request, "Scheduler/allCourses.html", {'courseList': allAppCourse})
 
+
 def allUsers_view(request):
     allUsers = AppUser.objects.all()
     return render(request, "Scheduler/allUsers.html", {'userList': allUsers})
 
+
 def user_view(request):
     allUsers = AppUser.objects.all()
     return render(request, "Scheduler/allCourses.html", {'userList': allUsers})
+
+
+def createSection_view(request):
+    if request.method == 'GET':
+        return render(request, "Scheduler/createSection.html")
+    if request.method == 'POST':
+        courseNum = request.POST['courseID']
+        sectionNum = request.POST['newSectionNumber']
+        Scheduler.classes.section.__init__(courseNum, sectionNum)
