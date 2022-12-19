@@ -1,0 +1,35 @@
+{% extends 'Scheduler/layout.html' %}
+
+{% block title %}TA Scheduler{% endblock %}
+
+{% block body %}
+    <div class="container-fluid min-vh-100">
+        <div class="row"></div>
+        <div class ="container-md">
+            <table class = "table table-striped">
+                <thead class = "thead-dark">
+                    <tr>
+                        <th scope="col">Course Number</th>
+                        <th scope="col">Course Name</th>
+                        <th scope="col">Semester</th>
+                        <th scope="col">year</th>
+                        <th scope="col">#of Sections</th>
+                    </tr>
+                </thead>
+                {% for i in courseList %}
+                    <div class="table">
+                        <tr>
+                            <th scope="row">{{ forloop.counter }}</th>
+                            <td><a class = "tableRow" href="Scheduler/urls/coursePage/{{ i.courseID }}">{{ i.courseID }}</a></td>
+                            <td><a class = "tableRow" href="Scheduler/urls/coursePage/{{ i.pID }}">{{ i.courseName }}</a></td>
+                            <td><a class = "tableRow" href="Scheduler/urls/coursePage/{{ i.pID }}">{{ i.semester }}</a></td>
+                            <td><a class = "tableRow" href="Scheduler/urls/coursePage/{{ i.pID }}">{{ i.year }}</a></td>
+                            <td><a class = "tableRow" href="Scheduler/urls/coursePage/{{ i.pID }}">3</a></td>
+                        </tr>
+                    </div>
+                {% endfor %}
+            </table>
+        </div>
+    <div class="row"></div>
+    </div>
+{% endblock %}
