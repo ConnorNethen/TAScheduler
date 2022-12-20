@@ -11,7 +11,7 @@ class CreateCourse(TestCase):
              ContactInfo("email@abc.com", "123456789", "street1"),
              Status("A"))
 
-    def test_courseCreatedSuccessfully(self):
+    def test_CourseCreatedSuccessfully(self):
         tester = Client()
         response = tester.post('login/', {"username": "username", "password": "password"}, follow=True)
         self.assertRedircts(response, 'index', msg="Did not redirect to home page")
@@ -23,7 +23,7 @@ class CreateCourse(TestCase):
         self.assertEqual(thisCourse.semester, "Fall", msg="Semester not correct in course")
         self.assertEqual(thisCourse.year, "2022", msg="year not correct for the course")
 
-    def test_badInputCourseNumber(self):
+    def test_BadInputCourseNumber(self):
         tester = Client()
         response = tester.post('login/', {"username": "username", "password": "password"}, follow=True)
         self.assertRedircts(response, 'index', msg="Did not redirect to home page")
@@ -35,7 +35,7 @@ class CreateCourse(TestCase):
                          "course number has incorrect format, Try 2 letters and three numbers!",
                          msg="error message not populated for bad format.")
 
-    def test_badInputSemester(self):
+    def test_BadInputSemester(self):
         tester = Client()
         response = tester.post('login/', {"username": "username", "password": "password"}, follow=True)
         self.assertRedircts(response, 'index', msg="Did not redirect to home page")
@@ -57,7 +57,7 @@ class CreateCourse(TestCase):
         self.assertEqual(response.context["message"], "incorrect year, choose a year form 2015-2023",
                          msg="error message not populated for bad format.")
 
-    def test_duplicate(self):
+    def test_Duplicate(self):
         tester = Client()
         Course("CS361", "Fall", "2022")
         response = tester.post('login/', {"username": "username", "password": "password"}, follow=True)

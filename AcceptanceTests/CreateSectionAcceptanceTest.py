@@ -11,7 +11,7 @@ class CreateSection(TestCase):
              ContactInfo("email@abc.com", "123456789", "street1"),
              Status("A"))
 
-    def test_sectionCreatedSuccessfully(self):
+    def test_SectionCreatedSuccessfully(self):
         tester = Client()
         response = tester.post('login/', {"username": "username", "password": "password"}, follow=True)
         self.assertRedircts(response, 'index', msg="Did not redirect to home page")
@@ -24,7 +24,7 @@ class CreateSection(TestCase):
         self.assertEqual(thisSection.course, "CS361", msg="Course not correct in section")
         self.assertEqual(thisSection.type, "Lab", msg="Lab not correct for the section")
 
-    def test_badInputSectionNumber(self):
+    def test_BadInputSectionNumber(self):
         tester = Client()
         response = tester.post('login/', {"username": "username", "password": "password"}, follow=True)
         self.assertRedircts(response, 'index', msg="Did not redirect to home page")
@@ -35,7 +35,7 @@ class CreateSection(TestCase):
         self.assertEqual(response.context["message"], "section number has incorrect format, Try three numbers!",
                          msg="error message not populated for bad format of section number.")
 
-    def test_badInputTime(self):
+    def test_BadInputTime(self):
         tester = Client()
         response = tester.post('login/', {"username": "username", "password": "password"}, follow=True)
         self.assertRedircts(response, 'index', msg="Did not redirect to home page")
@@ -46,7 +46,7 @@ class CreateSection(TestCase):
         self.assertEqual(response.context["message"], "incorrect Time format, Try (day, hour:minute)",
                          msg="error message not populated for bad format of time.")
 
-    def test_badInputTypeOfSection(self):
+    def test_BadInputTypeOfSection(self):
         tester = Client()
         response = tester.post('login/', {"username": "username", "password": "password"}, follow=True)
         self.assertRedircts(response, 'index', msg="Did not redirect to home page")
@@ -57,7 +57,7 @@ class CreateSection(TestCase):
         self.assertEqual(response.context["message"], "incorrect type of section, choose either Lab or Lecture",
                          msg="error message not populated for bad format of type of section.")
 
-    def test_duplicate(self):
+    def test_Duplicate(self):
         tester = Client()
         Course("CS361", "Fall", "2022")
         response = tester.post('login/', {"username": "username", "password": "password"}, follow=True)

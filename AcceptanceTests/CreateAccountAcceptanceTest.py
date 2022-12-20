@@ -5,7 +5,7 @@ from Scheduler.models import Course, UserCourse, Section, AppUser
 class CreateAccount(TestCase):
     tester = None
 
-    def setup(self):
+    def setUp(self):
         tester = Client()
         User("1234", "username", "password", "first", "last",
              ContactInfo("email@abc.com", "123456789", Address("street1", "street2", "city", "state", "12345")),
@@ -35,7 +35,7 @@ class CreateAccount(TestCase):
         self.assertEquals(userTest.ContactInfo.Address.status, "T", msg="status isn't T")
         self.assertRedircts('index/')
 
-    def test_pIDexists(self):
+    def test_pIDExists(self):
         tester = Client()
         tester.post('/login/', {"username": "username", "password": "password"}, follow=True)
         tester.post('/index/', {"Submit": "'users/new/'"}, follow=True)
@@ -48,7 +48,7 @@ class CreateAccount(TestCase):
                           msg="pID already exists, and message didnt populate")
         self.assertEquals(User.objects.all().count, 1, msg="user was created when it shouldn't have been.")
 
-    def test_emailExists(self):
+    def test_EmailExists(self):
         tester = Client()
         tester.post('/login/', {"username": "username", "password": "password"}, follow=True)
         tester.post('/index/', {"Submit": "'users/new/'"}, follow=True)
@@ -86,7 +86,7 @@ class CreateAccount(TestCase):
         self.assertEquals(resp.context["message"], "Access Denied",
                           msg="Instructor status attempted access create course page, and message didnt populate")
 
-    def test_TAaccess(self):
+    def test_TAAccess(self):
         tester = Client()
         User("123456TA", "usernameTA", "passwordTA", "firstTA", "lastTA",
              ContactInfo("emailTA@abc.com", "123456781", Address("street1", "street2", "city", "state", "12345")),

@@ -5,7 +5,7 @@ from Scheduler.models import Course, UserCourse, Section, AppUser
 class DeleteAccount(TestCase):
     tester = None
 
-    def setup(self):
+    def setUp(self):
         Address("street1", "street2", "city", "state", "12345")
         User("1234", "username", "password", "first", "last",
              ContactInfo("email@abc.com", "123456789", "street1"),
@@ -14,7 +14,7 @@ class DeleteAccount(TestCase):
              ContactInfo("emailTA@abc.com", "123456781", "street1"),
              Status("T"))
 
-    def test_successfulDeletion(self):
+    def test_SuccessfulDeletion(self):
         tester = Client()
         response = tester.post('login/', {"username": "username", "password": "password"}, follow=True)
         self.assertRedircts(response, 'index', msg="Did not redirect to home page")
@@ -29,7 +29,7 @@ class DeleteAccount(TestCase):
         self.assertEqual(response.context["message"], "Account Successfully Deleted")
         self.assertEqual(User.objects.all().count(), 1, msg="User not deleted out of database")
 
-    def test_adminDeleteItself(self):
+    def test_AdminDeleteItself(self):
         tester = Client()
         response = tester.post('login/', {"username": "username", "password": "password"}, follow=True)
         self.assertRedircts(response, 'index', msg="Did not redirect to home page")
