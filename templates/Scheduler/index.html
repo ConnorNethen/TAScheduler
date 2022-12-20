@@ -1,7 +1,33 @@
+
 {% extends 'Scheduler/layout.html' %}
 
 {% block title %}TA Scheduler{% endblock %}
 
 {% block body %}
-    hello world
+    <div class="container-fluid min-vh-100">
+        <div class="row"></div>
+        <div class ="container-md">
+            <form action= {% url 'index' %} method="post">
+                {% csrf_token %}
+                <div class = "row">
+                    <div class = "col">
+                        <div class = "card" style="height: 100px">
+                            <input type="submit" name="pageURL" class="btn btn-login form-control" value="All Courses" style="height: 100px">
+                        </div>
+                    </div>
+                    <div class = "col">
+                        <div class = "card" style="height: 100px">
+                            <input type="submit" class="btn btn-login form-control" name= "pageURL" value= "All Users" style="height: 100px">
+                        </div>
+                    </div>
+                    <div class = "col">
+                        <div class = "card" style="height: 100px">
+                            <input type="submit" class="btn btn-login form-control"  name= "pageURL" value= "My Info" style="height: 100px">
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    <div class="row"></div>
+    </div>
 {% endblock %}
