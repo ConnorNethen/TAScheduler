@@ -53,7 +53,6 @@ class Section(models.Model):
     sectionID = models.CharField(max_length=10, unique=True)
     user = models.ForeignKey(AppUser, on_delete=models.CASCADE, null= True)
 
-
     def __str__(self):
         return self.sectionID
 
