@@ -1,3 +1,4 @@
+import django.db.utils
 from django.test import TestCase
 from Scheduler.models import AppUser
 from Scheduler.models import UserCourse
@@ -38,6 +39,11 @@ class TestInit(TestCase):
         self.assertEqual(a.getFirstName(), b.getFirstName())
         self.assertEqual(a.getLastName(), b.getLastName())
         self.assertEqual(a.getEmail(), b.getEmail())
+
+    def test_unique_email(self):
+        a = AppUserClass("123", "string@email.com", "pass", "John", "Doe", "414")
+        with self.assertRaises(django.db.utils.IntegrityError, msg="Email must be unique"):
+            b = AppUserClass("456", "string@email.com", "pass", "John", "Doe", "414")
 
 
 class TestGetPID(TestCase):
@@ -94,6 +100,16 @@ class TestSetEmail(TestCase):
 
 class TestGetFirstName(TestCase):
     def setUp(self):
+        self.emptyUser = AppUserClass("333",
+                                      'empty@empty.com',
+                                      'foo',
+                                      '',
+                                      'Doe',
+                                      "1234567890",
+                                      "123 Main St",
+                                      "New York",
+                                      "NY",
+                                      "12345")
         self.user = AppUserClass("123456789",
                                  'user@user.com',
                                  'foo',
@@ -107,6 +123,10 @@ class TestGetFirstName(TestCase):
 
     def test_successful_call(self):
         self.assertEqual(self.user.getFirstName(), 'John')
+
+    def test_get_empty(self):
+        with self.assertRaises(TypeError, msg="Cannot fetch an empty name"):
+            self.emptyUser.getFirstName()
 
 
 class TestSetFirstName(TestCase):
@@ -129,6 +149,16 @@ class TestSetFirstName(TestCase):
 
 class TestGetLastName(TestCase):
     def setUp(self):
+        self.emptyUser = AppUserClass("333",
+                                      'empty@empty.com',
+                                      'foo',
+                                      'John',
+                                      '',
+                                      "1234567890",
+                                      "123 Main St",
+                                      "New York",
+                                      "NY",
+                                      "12345")
         self.user = AppUserClass("123456789",
                                  'user@user.com',
                                  'foo',
@@ -142,6 +172,10 @@ class TestGetLastName(TestCase):
 
     def test_successful_call(self):
         self.assertEqual(self.user.getLastName(), 'Doe')
+
+    def test_get_empty(self):
+        with self.assertRaises(TypeError, msg="Cannot fetch an empty name"):
+            self.emptyUser.getLastName()
 
 
 class TestSetLastName(TestCase):
@@ -164,6 +198,36 @@ class TestSetLastName(TestCase):
 
 class TestGetName(TestCase):
     def setUp(self):
+        self.emptyLast = AppUserClass("333",
+                                      'empty@empty.com',
+                                      'foo',
+                                      'John',
+                                      '',
+                                      "1234567890",
+                                      "123 Main St",
+                                      "New York",
+                                      "NY",
+                                      "12345")
+        self.emptyFirst = AppUserClass("444",
+                                       'empty2@empty.com',
+                                       'foo',
+                                       '',
+                                       'Doe',
+                                       "1234567890",
+                                       "123 Main St",
+                                       "New York",
+                                       "NY",
+                                       "12345")
+        self.emptyFull = AppUserClass("555",
+                                      'empty3@empty.com',
+                                      'foo',
+                                      '',
+                                      '',
+                                      "1234567890",
+                                      "123 Main St",
+                                      "New York",
+                                      "NY",
+                                      "12345")
         self.user = AppUserClass("123456789",
                                  'user@user.com',
                                  'foo',
@@ -177,6 +241,12 @@ class TestGetName(TestCase):
 
     def test_successful_call(self):
         self.assertEqual(self.user.getFullName(), 'John Doe')
+        self.assertEqual(self.emptyFirst.getFullName(), ' Doe')
+        self.assertEqual(self.emptyLast.getFullName(), 'John ')
+
+    def test_empty_get(self):
+        with self.assertRaises(TypeError, msg="Cannot get empty name"):
+            self.emptyFull.getFullName()
 
 
 class TestSetName(TestCase):
@@ -197,9 +267,23 @@ class TestSetName(TestCase):
         self.assertEqual(AppUser.objects.get(pID="123456789").first_name, 'Michael')
         self.assertEqual(AppUser.objects.get(pID="123456789").last_name, 'Smith')
 
+    def test_fail_name(self):
+        with self.assertRaises(TypeError, msg="Must provide a first and last name"):
+            self.user.setFullName('Michael')
+
 
 class TestGetPhone(TestCase):
     def setUp(self):
+        self.emptyPhone = AppUserClass("333",
+                                       'empty@empty.com',
+                                       'foo',
+                                       'John',
+                                       'Doe',
+                                       "",
+                                       "123 Main St",
+                                       "New York",
+                                       "NY",
+                                       "12345")
         self.user = AppUserClass("123456789",
                                  'user@user.com',
                                  'foo',
@@ -213,6 +297,10 @@ class TestGetPhone(TestCase):
 
     def test_successful_call(self):
         self.assertEqual(self.user.getPhone(), "1234567890")
+
+    def test_empty_phone(self):
+        with self.assertRaises(TypeError, msg="Cannot get empty phone number"):
+            self.emptyPhone.getPhone()
 
 
 class TestSetPhone(TestCase):
@@ -239,6 +327,16 @@ class TestSetPhone(TestCase):
 
 class TestGetAddress(TestCase):
     def setUp(self):
+        self.emptyAddress = AppUserClass("333",
+                                         'empty@empty.com',
+                                         'foo',
+                                         'John',
+                                         'Doe',
+                                         "1234567890",
+                                         "",
+                                         "New York",
+                                         "NY",
+                                         "12345")
         self.user = AppUserClass("123456789",
                                  'user@user.com',
                                  'foo',
@@ -252,6 +350,10 @@ class TestGetAddress(TestCase):
 
     def test_successful_call(self):
         self.assertEqual(self.user.getAddress(), '123 Main St')
+
+    def test_empty_address(self):
+        with self.assertRaises(TypeError, msg="Cannot get empty address"):
+            self.emptyAddress.getAddress()
 
 
 class TestSetAddress(TestCase):
@@ -274,6 +376,16 @@ class TestSetAddress(TestCase):
 
 class TestGetCity(TestCase):
     def setUp(self):
+        self.emptyCity = AppUserClass("333",
+                                      'empty@empty.com',
+                                      'foo',
+                                      'John',
+                                      'Doe',
+                                      "1234567890",
+                                      "123 Main St",
+                                      "",
+                                      "NY",
+                                      "12345")
         self.user = AppUserClass("123456789",
                                  'user@user.com',
                                  'foo',
@@ -287,6 +399,10 @@ class TestGetCity(TestCase):
 
     def test_successful_call(self):
         self.assertEqual(self.user.getCity(), 'New York')
+
+    def test_empty_city(self):
+        with self.assertRaises(TypeError, msg="Cannot get empty city"):
+            self.emptyCity.getCity()
 
 
 class TestSetCity(TestCase):
@@ -313,6 +429,16 @@ class TestSetCity(TestCase):
 
 class TestGetState(TestCase):
     def setUp(self):
+        self.emptyState = AppUserClass("333",
+                                       'empty@empty.com',
+                                       'foo',
+                                       'John',
+                                       'Doe',
+                                       "1234567890",
+                                       "123 Main St",
+                                       "New York",
+                                       "",
+                                       "12345")
         self.user = AppUserClass("123456789",
                                  'user@user.com',
                                  'foo',
@@ -326,6 +452,10 @@ class TestGetState(TestCase):
 
     def test_successful_call(self):
         self.assertEqual(self.user.getState(), 'NY')
+
+    def test_empty_state(self):
+        with self.assertRaises(TypeError, msg="Cannot get empty state"):
+            self.emptyState.getState()
 
 
 class TestSetState(TestCase):
@@ -352,6 +482,16 @@ class TestSetState(TestCase):
 
 class TestGetZip(TestCase):
     def setUp(self):
+        self.emptyZip = AppUserClass("333",
+                                     'empty@empty.com',
+                                     'foo',
+                                     'John',
+                                     'Doe',
+                                     "1234567890",
+                                     "123 Main St",
+                                     "New York",
+                                     "NY",
+                                     "")
         self.user = AppUserClass("123456789",
                                  'user@user.com',
                                  'foo',
@@ -365,6 +505,10 @@ class TestGetZip(TestCase):
 
     def test_successful_call(self):
         self.assertEqual(self.user.getZip(), '12345')
+
+    def test_empty_zip(self):
+        with self.assertRaises(TypeError, msg="Cannot get empty zip code"):
+            self.emptyZip.getZip()
 
 
 class TestSetZip(TestCase):
@@ -492,7 +636,6 @@ class TestGetSections(TestCase):
         self.user2 = AppUserClass("456", "user2@test.com", "pass")
         u2 = AppUser.objects.get(pID="456")
 
-
         # create a couple courses
         a = Course(courseID="CS 361 XX", name="Intro to SE", semester="F", year=2022)
         a.save()
@@ -525,7 +668,6 @@ class TestAddSection(TestCase):
 
         self.user2 = AppUserClass("456", "user2@test.com", "pass")
         u2 = AppUser.objects.get(pID="456")
-
 
         # create a couple courses
         a = Course(courseID="CS 361 XX", name="Intro to SE", semester="F", year=2022)
@@ -569,7 +711,6 @@ class TestRemoveSection(TestCase):
 
         self.user2 = AppUserClass("456", "user2@test.com", "pass")
         u2 = AppUser.objects.get(pID="456")
-
 
         # create a couple courses
         a = Course(courseID="CS 361 XX", name="Intro to SE", semester="F", year=2022)
