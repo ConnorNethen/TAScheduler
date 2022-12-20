@@ -27,19 +27,34 @@
                 {% if request.path != '/login/' %}
                     <div class="row">
                         <div class="col">
-                            <a href="" class="col btn btn-header-nav btn-sm"> Home</a>
+                            <form action={% url 'index' %} method="get">
+                                 <input type="submit" name="pageURL" class="btn btn-header-nav form-control" value="Home">
+                            </form>
                         </div>
                         <div class="col">
-                            <a href="" class="col btn btn-header-nav btn-sm"> Course</a>
+                            <form action={% url 'All Courses' %} method="get">
+                                 <input type="submit" name="pageURL" class="btn btn-header-nav form-control" value="All Courses">
+                            </form>
                         </div>
                         <div class="col">
-                            <a href="" class="col btn btn-header-nav btn-sm"> Section</a>
+                            <form action={% url 'All Users' %} method="get">
+                                 <input type="submit" name="pageURL" class="btn btn-header-nav form-control" value="All Users">
+                            </form>
                         </div>
                         <div class="col">
-                            <a href="" class="col btn btn-header-nav btn-sm"> User</a>
+                            <form action={% url 'index' %} method="get">
+                                 <input type="submit" name="pageURL" class="btn btn-header-nav form-control" value="Notifications">
+                            </form>
                         </div>
                         <div class="col">
-                            <a href="" class="col btn btn-header-nav btn-sm"> Notifications</a>
+                            <form action="myUserPage" method="get">
+                                 <input type="submit" name="pageURL" class="btn btn-header-nav form-control" value="My Info">
+                            </form>
+                        </div>
+                        <div class="col">
+                            <form action={% url 'logout' %} method="get">
+                                 <input type="submit" name="pageURL" class="btn btn-header-nav form-control" value="Logout">
+                            </form>
                         </div>
                     </div>
                 {% endif %}
@@ -49,8 +64,9 @@
     {% block body %}
     {% endblock %}
     <footer>
-        {% if request.path == '/login/' %}
-            <div class="footer">
+    <div class="fixed-bottom">
+        <div class="footer">
+            {% if request.path == '/login/' %}
                 <div class="container">
                     <div class="row">
                         <div class="col">
@@ -58,8 +74,21 @@
                         </div>
                     </div>
                 </div>
-            </div>
-        {% endif %}
+                {% else %}
+                <div class="container">
+                    <div class="row">
+                        <div class= "navbar-style">
+                            <div class="card text-red bg-warning">
+                                <div class="card-body">
+                                    {{ message }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
     </footer>
+</div>
 </body>
 </html>

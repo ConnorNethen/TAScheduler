@@ -181,7 +181,6 @@ class TestGetUsers(TestCase):
             self.listOfUsers = self.Course01.getUsers("CS 361")
 
 
-
 class TestAddSection(TestCase):
     def setUp(self):
         # create a course
@@ -219,11 +218,6 @@ class TestGetSections(TestCase):
         # create a course
         self.Course01 = AppCourse("CS 361", "Intro to SE", "F", 2022)
         self.Course02 = AppCourse("CS 337", "Systems", "F", 2022)
-
-        # create sections
-        #self.Course01.addSection("001")
-        #self.Course01.addSection("002")
-        #self.Course01.addSection("003")
         a = Course.objects.get(courseID="CS 361")
 
         # create connections
