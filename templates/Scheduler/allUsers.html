@@ -10,22 +10,25 @@
                 <thead class = "thead">
                     <tr>
                         <th scope="col"></th>
-                        <th scope="col">First Name</th>
-                        <th scope="col">Last Name</th>
-                        <th scope="col">Email</th>
-                        <th scope="col">Phone Number</th>
-                        <th scope="col">Address</th>
+                        <th scope="col" class="text-center">First Name</th>
+                        <th scope="col" class="text-center">Last Name</th>
+                        <th scope="col" class="text-center">Email</th>
+                        <th scope="col" class="text-center">Phone Number</th>
+                        <th scope="col" class="text-center">Address</th>
                     </tr>
                 </thead>
                 {% for i in userList %}
                     <div class="table">
                         <tr>
-                            <th scope="row">{{ forloop.counter }}</th>
-                            <td><a class = "tableRow" href="userPage">{{ i.first_name }}</a></td>
-                            <td><a class = "tableRow" href="userPage">{{ i.last_name }}</a></td>
-                            <td><a class = "tableRow" href="userPage">{{ i.email }}</a></td>
-                            <td><a class = "tableRow" href="userPage">{{ i.phone }}</a></td>
-                            <td><a class = "tableRow" href="userPage">{{ i.address }}</a></td>
+                            <form action= {% url 'All Users' %} method="POST"">
+                                {% csrf_token %}
+                                <th scope="row"><button name= "userNumber" class="btn" value="{{ forloop.counter0 }}">{{ forloop.counter }}</button></th>
+                                <td><button class = "btn text-warning" style="" name="userNumber" value="{{ forloop.counter0 }}">{{ i.first_name }}</button></td>
+                                <td><button class = "btn text-warning" name="userNumber" value="{{ forloop.counter0 }}">{{ i.last_name }}</button></td>
+                                <td><button class = "btn text-warning" name="userNumber" value="{{ forloop.counter0 }}">{{ i.email }}</button></td>
+                                <td><button class = "btn text-warning" name="userNumber" value="{{ forloop.counter0 }}">{{ i.phone }}</button></td>
+                                <td><button class = "btn text-warning" name="userNumber" value="{{ forloop.counter0 }}">{{ i.address }} {{ i.city }} {{ i.state }} {{ i.zip_code }}</button></td>
+                            </form>
                         </tr>
                     </div>
                 {% endfor %}

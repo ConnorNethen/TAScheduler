@@ -46,52 +46,61 @@ def allCourses_view(request):
 
 def allUsers_view(request):
     allUsers = AppUser.objects.all()
-    return render(request, "Scheduler/allUsers.html", {'userList': allUsers})
-
-def user_view(request):
-    isUser = False
-    message = ""
-    try:
-        pID = request.GET["pID"]
-        thisUser = AppUser.objects.get(pID=pID)
-        thisUser = AppUserClass(pID,thisUser.email,thisUser.password)
-        if thisUser.getEmail() == request.session['email']:
-            isUser == True
-    except Exception:
+    if request.method =="POST":
+        request.session['user'] = allUsers[int(request.POST['userNumber'])].pID
+        return HttpResponseRedirect(reverse('userPage'))
+    message = request.session.get("message")
+    request.session.delete("message")
+    if message == None:
         message = ""
-        thisUser = AppUser.objects.get(email=request.session['email'])
-        thisUser = AppUserClass(thisUser.pID,thisUser.email,thisUser.email)
-        isUser = True
+    return render(request, "Scheduler/allUsers.html", {'userList': allUsers, 'message': message})
+
+def user_view(request, userPID = ""):
+    isUser = edit = False
+    message = ""
+
     try:
-        options = request.GET['options']
-        if options == 'Edit':
-            edit = True
-        elif options == 'Delete':
-            thisUser.removeAccount()
-            return HttpResponseRedirect(reverse('index'), {"message": "User deleted Successfully"})
+        thisUser = AppUser.objects.get(pID=request.session.get('user'))
+        thisUser = AppUserClass(thisUser.pID, thisUser.email, thisUser.password)
     except Exception:
-        edit = False
+        request.session['message'] = "Error Finding User's Page"
+        return HttpResponseRedirect(reverse('All Users'))
+
+    options = request.GET.get('options')
+    if options == 'Delete':
+        thisUser.removeAccount()
+        return HttpResponseRedirect(reverse('index'), {"message": "User deleted Successfully"})
+    elif options == 'Edit':
+        edit = True
+
     if request.method == "POST":
-        try:
-            thisUser.setFirstName(request.POST['name'])
+        if not(request.POST['email'] == ""):
             thisUser.setEmail(request.POST['email'])
-            thisUser.setAddress(request.POST['address'])
+        else:
+            message += " Email"
+        if not (request.POST['street'] == ""):
+            thisUser.setAddress(request.POST['street'])
+        else:
+            message += " Address"
+        if not (request.POST['city'] == ""):
             thisUser.setCity(request.POST['city'])
+        else:
+            message += " City"
+        if not (request.POST['state'] == ""):
             thisUser.setState(request.POST['state'])
+        else:
+            message += " State"
+        if not (request.POST['zip'] == ""):
             thisUser.setZip(request.POST['zip'])
-        except Exception:
-            message = "User Failed to Update a parameter!"
+        else:
+            message += " Zip Code"
+        if message != "":
+            message = "User Failed to Update Parameters:" + message
     #isAdmin = False
     #if thisUser.isAdmin():
     #   isAdmin = True
     #for clarity
-    thisUser.setFullName("Christopher Faber")
-    thisUser.setPhone("1234567890")
-    thisUser.setAddress("6521 w mitchell st")
-    thisUser.setCity("west allis")
-    thisUser.setState("WI")
-    thisUser.setZip("53214")
     isAdmin = True
     #stop clarity
 
-    return render(request, "Scheduler/userPage.html", {'name':thisUser.getFullName(),'email': thisUser.getEmail(), 'phone':thisUser.getPhone(), 'street':thisUser.getAddress(), 'city':thisUser.getCity(), 'state':thisUser.getState(), 'zip':thisUser.getZip(), 'edit': edit, 'isAdmin':isAdmin, 'isUser': isUser,'message': message})
+    return render(request, "Scheduler/userPage.html", {'user':thisUser,'edit': edit, 'isAdmin':isAdmin, 'isUser': isUser,'message': message})
