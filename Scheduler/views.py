@@ -3,6 +3,8 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 
+import Scheduler.classes.course
+
 
 import Scheduler
 from Scheduler.models import Course, AppUser
@@ -39,6 +41,33 @@ def logout_view(request):
     })
 
 
+def createCourse_view(request):
+    if request.method == 'GET':
+        return render(request, "Scheduler/createCourses.html")
+    if request.method == 'POST':
+        courseNum = request.POST['newCourseID']
+        courseName = request.POST['newCourseName']
+        courseSemester = request.POST['newSemester']
+        courseYear = request.POST['newYear']
+        Scheduler.classes.course.AppCourse.__init__(courseNum, courseName, courseSemester, courseYear)
+
+
+def createUser_view(request):
+    if request.method == 'GET':
+        return render(request, "Scheduler/createUser.html")
+    if request.method == 'POST':
+        pID = request.POST['newPantherID']
+        email = request.POST['newEmail']
+        password = request.POST['newPassword']
+        phone = request.POST['newPhone']
+        firstName = request.POST['newFirstName']
+        lastName = request.POST['newLastName']
+        address = request.POST['newAddress']
+        city = request.POST['newCity']
+        state = request.POST['newState']
+        zipCode = request.POST['newZip']
+        Scheduler.classes.app_user.__init__(pID, email, password, firstName, lastName, phone, address, city, state, zipCode)
+
 def allCourses_view(request):
     allAppCourse = []
     allCourses = Course.objects.all()
@@ -64,3 +93,4 @@ def createSection_view(request):
         courseNum = request.POST['courseID']
         sectionNum = request.POST['newSectionNumber']
         Scheduler.classes.section.__init__(courseNum, sectionNum)
+
