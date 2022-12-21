@@ -24,7 +24,7 @@
                     <h2> W.A.G.S.</h2>
                     <p> We Are Groot Scheduler</p>
                 </div>
-                {% if request.path != '/login/' %}
+                {% if request.path != '/login/' and request.path != '/logout/'%}
                     <div class="row">
                         <div class="col">
                             <form action={% url 'index' %} method="get">
@@ -63,33 +63,33 @@
     </header>
     {% block body %}
     {% endblock %}
+
     <footer>
-    <div class="fixed-bottom">
-        <div class="footer">
-            {% if request.path == '/login/' %}
-                <div class="container">
-                    <div class="row">
-                        <div class="col">
-                            <a> <img height="100px" class="logoUWM" src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fuwm.edu%2Fmavrc%2Fwp-content%2Fuploads%2Fsites%2F158%2F2016%2F01%2Fuwm-logo.png&f=1&nofb=1&ipt=08363adc0e5a40c3038e0fc6a66d8af4eb75be127278d1de28ebfbafb45647c7&ipo=images"> </a>
+        <div class="fixed-bottom">
+            <div class="footer">
+                {% if request.path == '/login/' %}
+                    <div class="container">
+                        <div class="row">
+                            <div class="col">
+                                <a> <img height="100px" class="logoUWM" src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fuwm.edu%2Fmavrc%2Fwp-content%2Fuploads%2Fsites%2F158%2F2016%2F01%2Fuwm-logo.png&f=1&nofb=1&ipt=08363adc0e5a40c3038e0fc6a66d8af4eb75be127278d1de28ebfbafb45647c7&ipo=images"> </a>
+                            </div>
                         </div>
                     </div>
-                </div>
                 {% else %}
-                <div class="container">
-                    <div class="row">
-                        <div class= "navbar-style">
-                            <div class="card text-red bg-warning">
-                                <div class="card-body">
-                                    {{ message }}
+                    <div class="container" id="messageBox">
+                        <div class="row">
+                            <div class= "navbar-style">
+                                <div class="card text-red bg-warning">
+                                    <div class="card-body">
+                                          {{ message }}
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            {% endif %}
-        </div>
+                {% endif %}
+            </div>
     </footer>
-</div>
 </body>
 </html>
 

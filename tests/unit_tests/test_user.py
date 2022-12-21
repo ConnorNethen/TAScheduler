@@ -1,3 +1,4 @@
+import django.db.utils
 from django.test import TestCase
 from Scheduler.models import AppUser
 from Scheduler.models import UserCourse
@@ -33,9 +34,16 @@ class TestInit(TestCase):
             a = AppUserClass("invalid ID")
 
     def test_repeated_id(self):
-        a = AppUserClass("123", "string@email.com", "pass")
-        with self.assertRaises(TypeError, msg="ID is not unique"):
-            b = AppUserClass("123", "string2@email.com", "pass")
+        a = AppUserClass("123", "string@email.com", "pass", "John", "Doe", "414")
+        b = AppUserClass("123")
+        self.assertEqual(a.getFirstName(), b.getFirstName())
+        self.assertEqual(a.getLastName(), b.getLastName())
+        self.assertEqual(a.getEmail(), b.getEmail())
+
+    def test_unique_email(self):
+        a = AppUserClass("123", "string@email.com", "pass", "John", "Doe", "414")
+        with self.assertRaises(django.db.utils.IntegrityError, msg="Email must be unique"):
+            b = AppUserClass("456", "string@email.com", "pass", "John", "Doe", "414")
 
 
 class TestGetPID(TestCase):
@@ -52,7 +60,7 @@ class TestGetPID(TestCase):
                                  "12345")
 
     def test_successful_call(self):
-        self.assertEqual(self.user.getPID, "123456789")
+        self.assertEqual(self.user.getPID(), "123456789")
 
 
 class TestGetEmail(TestCase):
@@ -69,7 +77,7 @@ class TestGetEmail(TestCase):
                                  "12345")
 
     def test_successful_call(self):
-        self.assertEqual(self.user.getEmail, 'user@user.com')
+        self.assertEqual(self.user.getEmail(), 'user@user.com')
 
 
 class TestSetEmail(TestCase):
@@ -92,6 +100,16 @@ class TestSetEmail(TestCase):
 
 class TestGetFirstName(TestCase):
     def setUp(self):
+        self.emptyUser = AppUserClass("333",
+                                      'empty@empty.com',
+                                      'foo',
+                                      '',
+                                      'Doe',
+                                      "1234567890",
+                                      "123 Main St",
+                                      "New York",
+                                      "NY",
+                                      "12345")
         self.user = AppUserClass("123456789",
                                  'user@user.com',
                                  'foo',
@@ -104,7 +122,11 @@ class TestGetFirstName(TestCase):
                                  "12345")
 
     def test_successful_call(self):
-        self.assertEqual(self.user.getFirstName, 'John')
+        self.assertEqual(self.user.getFirstName(), 'John')
+
+    def test_get_empty(self):
+        with self.assertRaises(TypeError, msg="Cannot fetch an empty name"):
+            self.emptyUser.getFirstName()
 
 
 class TestSetFirstName(TestCase):
@@ -127,6 +149,16 @@ class TestSetFirstName(TestCase):
 
 class TestGetLastName(TestCase):
     def setUp(self):
+        self.emptyUser = AppUserClass("333",
+                                      'empty@empty.com',
+                                      'foo',
+                                      'John',
+                                      '',
+                                      "1234567890",
+                                      "123 Main St",
+                                      "New York",
+                                      "NY",
+                                      "12345")
         self.user = AppUserClass("123456789",
                                  'user@user.com',
                                  'foo',
@@ -139,7 +171,11 @@ class TestGetLastName(TestCase):
                                  "12345")
 
     def test_successful_call(self):
-        self.assertEqual(self.user.getLastName, 'Doe')
+        self.assertEqual(self.user.getLastName(), 'Doe')
+
+    def test_get_empty(self):
+        with self.assertRaises(TypeError, msg="Cannot fetch an empty name"):
+            self.emptyUser.getLastName()
 
 
 class TestSetLastName(TestCase):
@@ -162,6 +198,36 @@ class TestSetLastName(TestCase):
 
 class TestGetName(TestCase):
     def setUp(self):
+        self.emptyLast = AppUserClass("333",
+                                      'empty@empty.com',
+                                      'foo',
+                                      'John',
+                                      '',
+                                      "1234567890",
+                                      "123 Main St",
+                                      "New York",
+                                      "NY",
+                                      "12345")
+        self.emptyFirst = AppUserClass("444",
+                                       'empty2@empty.com',
+                                       'foo',
+                                       '',
+                                       'Doe',
+                                       "1234567890",
+                                       "123 Main St",
+                                       "New York",
+                                       "NY",
+                                       "12345")
+        self.emptyFull = AppUserClass("555",
+                                      'empty3@empty.com',
+                                      'foo',
+                                      '',
+                                      '',
+                                      "1234567890",
+                                      "123 Main St",
+                                      "New York",
+                                      "NY",
+                                      "12345")
         self.user = AppUserClass("123456789",
                                  'user@user.com',
                                  'foo',
@@ -174,7 +240,13 @@ class TestGetName(TestCase):
                                  "12345")
 
     def test_successful_call(self):
-        self.assertEqual(self.user.getFullName, 'John Doe')
+        self.assertEqual(self.user.getFullName(), 'John Doe')
+        self.assertEqual(self.emptyFirst.getFullName(), ' Doe')
+        self.assertEqual(self.emptyLast.getFullName(), 'John ')
+
+    def test_empty_get(self):
+        with self.assertRaises(TypeError, msg="Cannot get empty name"):
+            self.emptyFull.getFullName()
 
 
 class TestSetName(TestCase):
@@ -195,9 +267,23 @@ class TestSetName(TestCase):
         self.assertEqual(AppUser.objects.get(pID="123456789").first_name, 'Michael')
         self.assertEqual(AppUser.objects.get(pID="123456789").last_name, 'Smith')
 
+    def test_fail_name(self):
+        with self.assertRaises(TypeError, msg="Must provide a first and last name"):
+            self.user.setFullName('Michael')
+
 
 class TestGetPhone(TestCase):
     def setUp(self):
+        self.emptyPhone = AppUserClass("333",
+                                       'empty@empty.com',
+                                       'foo',
+                                       'John',
+                                       'Doe',
+                                       "",
+                                       "123 Main St",
+                                       "New York",
+                                       "NY",
+                                       "12345")
         self.user = AppUserClass("123456789",
                                  'user@user.com',
                                  'foo',
@@ -210,7 +296,11 @@ class TestGetPhone(TestCase):
                                  "12345")
 
     def test_successful_call(self):
-        self.assertEqual(self.user.getPhone, '1234567890')
+        self.assertEqual(self.user.getPhone(), "1234567890")
+
+    def test_empty_phone(self):
+        with self.assertRaises(TypeError, msg="Cannot get empty phone number"):
+            self.emptyPhone.getPhone()
 
 
 class TestSetPhone(TestCase):
@@ -228,7 +318,7 @@ class TestSetPhone(TestCase):
 
     def test_successful_set(self):
         self.user.setPhone('4140001111')
-        self.assertEqual(AppUser.objects.get(pID="123456789").phone_number, '4140001111')
+        self.assertEqual(AppUser.objects.get(pID="123456789").phone, '4140001111')
 
     def test_invalid_number(self):
         with self.assertRaises(TypeError, msg="Invalid phone number"):
@@ -237,6 +327,16 @@ class TestSetPhone(TestCase):
 
 class TestGetAddress(TestCase):
     def setUp(self):
+        self.emptyAddress = AppUserClass("333",
+                                         'empty@empty.com',
+                                         'foo',
+                                         'John',
+                                         'Doe',
+                                         "1234567890",
+                                         "",
+                                         "New York",
+                                         "NY",
+                                         "12345")
         self.user = AppUserClass("123456789",
                                  'user@user.com',
                                  'foo',
@@ -249,7 +349,11 @@ class TestGetAddress(TestCase):
                                  "12345")
 
     def test_successful_call(self):
-        self.assertEqual(self.user.getAddress, '123 Main St')
+        self.assertEqual(self.user.getAddress(), '123 Main St')
+
+    def test_empty_address(self):
+        with self.assertRaises(TypeError, msg="Cannot get empty address"):
+            self.emptyAddress.getAddress()
 
 
 class TestSetAddress(TestCase):
@@ -272,6 +376,16 @@ class TestSetAddress(TestCase):
 
 class TestGetCity(TestCase):
     def setUp(self):
+        self.emptyCity = AppUserClass("333",
+                                      'empty@empty.com',
+                                      'foo',
+                                      'John',
+                                      'Doe',
+                                      "1234567890",
+                                      "123 Main St",
+                                      "",
+                                      "NY",
+                                      "12345")
         self.user = AppUserClass("123456789",
                                  'user@user.com',
                                  'foo',
@@ -284,7 +398,11 @@ class TestGetCity(TestCase):
                                  "12345")
 
     def test_successful_call(self):
-        self.assertEqual(self.user.getCity, 'New York')
+        self.assertEqual(self.user.getCity(), 'New York')
+
+    def test_empty_city(self):
+        with self.assertRaises(TypeError, msg="Cannot get empty city"):
+            self.emptyCity.getCity()
 
 
 class TestSetCity(TestCase):
@@ -311,6 +429,16 @@ class TestSetCity(TestCase):
 
 class TestGetState(TestCase):
     def setUp(self):
+        self.emptyState = AppUserClass("333",
+                                       'empty@empty.com',
+                                       'foo',
+                                       'John',
+                                       'Doe',
+                                       "1234567890",
+                                       "123 Main St",
+                                       "New York",
+                                       "",
+                                       "12345")
         self.user = AppUserClass("123456789",
                                  'user@user.com',
                                  'foo',
@@ -323,7 +451,11 @@ class TestGetState(TestCase):
                                  "12345")
 
     def test_successful_call(self):
-        self.assertEqual(self.user.getState, 'NY')
+        self.assertEqual(self.user.getState(), 'NY')
+
+    def test_empty_state(self):
+        with self.assertRaises(TypeError, msg="Cannot get empty state"):
+            self.emptyState.getState()
 
 
 class TestSetState(TestCase):
@@ -350,6 +482,16 @@ class TestSetState(TestCase):
 
 class TestGetZip(TestCase):
     def setUp(self):
+        self.emptyZip = AppUserClass("333",
+                                     'empty@empty.com',
+                                     'foo',
+                                     'John',
+                                     'Doe',
+                                     "1234567890",
+                                     "123 Main St",
+                                     "New York",
+                                     "NY",
+                                     "")
         self.user = AppUserClass("123456789",
                                  'user@user.com',
                                  'foo',
@@ -362,7 +504,11 @@ class TestGetZip(TestCase):
                                  "12345")
 
     def test_successful_call(self):
-        self.assertEqual(self.user.getZip, '12345')
+        self.assertEqual(self.user.getZip(), '12345')
+
+    def test_empty_zip(self):
+        with self.assertRaises(TypeError, msg="Cannot get empty zip code"):
+            self.emptyZip.getZip()
 
 
 class TestSetZip(TestCase):
@@ -387,60 +533,60 @@ class TestGetCourses(TestCase):
     def setUp(self):
         # create a couple users
         self.user = AppUserClass("123", "user@test.com", "pass")
-        self.user2 = AppUserClass("456", "user2@test.com", "pass")
+        u = AppUser.objects.get(pID="123")
 
         # create a couple courses
-        a = Course(courseID="CS 361 XX", name="Intro to SE", semester="F", year=2022)
-        a.save()
+        self.a = Course(courseID="CS 361 XX", name="Intro to SE", semester="F", year=2022)
+        self.a.save()
 
-        b = Course(courseID="CS 337 XX", name="System Programming", semester="F", year=2022)
-        b.save()
+        self.b = Course(courseID="CS 337 XX", name="System Programming", semester="F", year=2022)
+        self.b.save()
 
         c = Course(courseID="CS 361 X", name="Intro to SE", semester="F", year=2022)
         c.save()
 
         # create some connections between them
-        a = UserCourse(user="123", course="CS 361 XX")
-        a.save()
+        d = UserCourse(user=u, course=self.a)
+        d.save()
 
-        b = UserCourse(user="123", course="CS 337 XX")
-        b.save()
+        e = UserCourse(user=u, course=self.b)
+        e.save()
 
     def test_successful_call(self):
         list = self.user.getCourses()
-        self.assertEqual(list[0], "CS 361 XX")
-        self.assertEqual(list[1], "CS 337 XX")
+        self.assertEqual(list[0], self.a)
+        self.assertEqual(list[1], self.b)
 
 
 class TestAddCourse(TestCase):
     def setUp(self):
         # create a couple users
         self.user = AppUserClass("123", "user@test.com", "pass")
-        self.user2 = AppUserClass("456", "user2@test.com", "pass")
+        u = AppUser.objects.get(pID="123")
 
         # create a couple courses
-        a = Course(courseID="CS 361 XX", name="Intro to SE", semester="F", year=2022)
-        a.save()
+        self.a = Course(courseID="CS 361 XX", name="Intro to SE", semester="F", year=2022)
+        self.a.save()
 
-        b = Course(courseID="CS 337 XX", name="System Programming", semester="F", year=2022)
-        b.save()
+        self.b = Course(courseID="CS 337 XX", name="System Programming", semester="F", year=2022)
+        self.b.save()
 
-        c = Course(courseID="CS 361 X", name="Intro to SE", semester="F", year=2022)
-        c.save()
+        self.c = Course(courseID="CS 361 X", name="Intro to SE", semester="F", year=2022)
+        self.c.save()
 
         # create some connections between them
-        a = UserCourse(user="123", course="CS 361 XX")
-        a.save()
+        d = UserCourse(user=u, course=self.a)
+        d.save()
 
-        b = UserCourse(user="123", course="CS 337 XX")
-        b.save()
+        e = UserCourse(user=u, course=self.b)
+        e.save()
 
     def test_successful_add(self):
-        self.user.addCourse("CS 317 XX")
+        self.user.addCourse("CS 361 X")
         list = self.user.getCourses()
-        self.assertEqual(list[0], "CS 361 XX")
-        self.assertEqual(list[1], "CS 337 XX")
-        self.assertEqual(list[2], "CS 317 XX")
+        self.assertEqual(list[0], self.a)
+        self.assertEqual(list[1], self.b)
+        self.assertEqual(list[2], self.c)
 
     def test_invalid_course(self):
         with self.assertRaises(TypeError, msg="Invalid section"):
@@ -451,30 +597,30 @@ class TestRemoveCourse(TestCase):
     def setUp(self):
         # create a couple users
         self.user = AppUserClass("123", "user@test.com", "pass")
-        self.user2 = AppUserClass("456", "user2@test.com", "pass")
+        u = AppUser.objects.get(pID="123")
 
         # create a couple courses
         a = Course(courseID="CS 361 XX", name="Intro to SE", semester="F", year=2022)
         a.save()
 
-        b = Course(courseID="CS 337 XX", name="System Programming", semester="F", year=2022)
-        b.save()
+        self.b = Course(courseID="CS 337 XX", name="System Programming", semester="F", year=2022)
+        self.b.save()
 
         c = Course(courseID="CS 361 X", name="Intro to SE", semester="F", year=2022)
         c.save()
 
         # create some connections between them
-        a = UserCourse(user="123", course="CS 361 XX")
-        a.save()
+        d = UserCourse(user=u, course=a)
+        d.save()
 
-        b = UserCourse(user="123", course="CS 337 XX")
-        b.save()
+        e = UserCourse(user=u, course=self.b)
+        e.save()
 
     def test_successful_remove(self):
         self.user.removeCourse("CS 361 XX")
         list = self.user.getCourses()
-        self.assertEqual(list.len(), 1)
-        self.assertEqual(list[0], "CS 337 XX")
+        self.assertEqual(len(list), 1)
+        self.assertEqual(list[0], self.b)
 
     def test_invalid_course(self):
         with self.assertRaises(TypeError, msg="Invalid section"):
@@ -485,7 +631,10 @@ class TestGetSections(TestCase):
     def setUp(self):
         # create a couple users
         self.user = AppUserClass("123", "user@test.com", "pass")
-        self.use2 = AppUserClass("456", "user2@test.com", "pass")
+        u = AppUser.objects.get(pID="123")
+
+        self.user2 = AppUserClass("456", "user2@test.com", "pass")
+        u2 = AppUser.objects.get(pID="456")
 
         # create a couple courses
         a = Course(courseID="CS 361 XX", name="Intro to SE", semester="F", year=2022)
@@ -498,22 +647,27 @@ class TestGetSections(TestCase):
         c.save()
 
         # create a couple sections
-        d = Section(sectionID="CS 361 802", courseID="CS 361 XX", user="123")
-        e = Section(sectionID="CS 337 801", courseID="CS 337 XX", user="123")
-        f = Section(sectionID="CS 361 803", courseID="CS 361 XX", user=456)
+        self.d = Section(sectionID="CS 361 802", courseID=a, user=u)
+        self.d.save()
+        self.e = Section(sectionID="CS 337 801", courseID=b, user=u)
+        self.e.save()
+        f = Section(sectionID="CS 361 803", courseID=a, user=u2)
+        f.save()
 
     def test_successful_call(self):
-        # assumes getSections works
         list = self.user.getSections()
-        self.assertEqual(list[0], "CS 361 802")
-        self.assertEqual(list[1], "CS 337 801")
+        self.assertEqual(list[0], self.d)
+        self.assertEqual(list[1], self.e)
 
 
 class TestAddSection(TestCase):
     def setUp(self):
         # create a couple users
         self.user = AppUserClass("123", "user@test.com", "pass")
-        self.use2 = AppUserClass("456", "user2@test.com", "pass")
+        u = AppUser.objects.get(pID="123")
+
+        self.user2 = AppUserClass("456", "user2@test.com", "pass")
+        u2 = AppUser.objects.get(pID="456")
 
         # create a couple courses
         a = Course(courseID="CS 361 XX", name="Intro to SE", semester="F", year=2022)
@@ -526,19 +680,23 @@ class TestAddSection(TestCase):
         c.save()
 
         # create a couple sections
-        d = Section(sectionID="CS 361 802", courseID="CS 361 XX", user="123")
-        e = Section(sectionID="CS 337 801", courseID="CS 337 XX", user="123")
-        f = Section(sectionID="CS 361 803", courseID="CS 361 XX", user=456)
-        g = Section(sectionID="CS 337 802", courseID="CS 337 XX", user=None)
+        self.d = Section(sectionID="CS 361 802", courseID=a, user=u)
+        self.d.save()
+        self.e = Section(sectionID="CS 337 801", courseID=b, user=u)
+        self.e.save()
+        f = Section(sectionID="CS 361 803", courseID=a, user=u2)
+        f.save()
+        self.g = Section(sectionID="CS 337 802", courseID=b, user=None)
+        self.g.save()
 
     def test_successful_add(self):
         self.user.addSection("CS 337 802")
         # assumes getSections() works
         list = self.user.getSections()
-        self.assertEqual(list.len(), 3)
-        self.assertEqual(list[0], "CS 361 802")
-        self.assertEqual(list[1], "CS 337 801")
-        self.assertEqual(list[2], "CS 337 802")
+        self.assertEqual(len(list), 3)
+        self.assertEqual(list[0], self.d)
+        self.assertEqual(list[1], self.e)
+        self.assertEqual(list[2], self.g)
 
     def test_invalid_section(self):
         with self.assertRaises(TypeError, msg="Invalid section"):
@@ -549,7 +707,10 @@ class TestRemoveSection(TestCase):
     def setUp(self):
         # create a couple users
         self.user = AppUserClass("123", "user@test.com", "pass")
-        self.use2 = AppUserClass("456", "user2@test.com", "pass")
+        u = AppUser.objects.get(pID="123")
+
+        self.user2 = AppUserClass("456", "user2@test.com", "pass")
+        u2 = AppUser.objects.get(pID="456")
 
         # create a couple courses
         a = Course(courseID="CS 361 XX", name="Intro to SE", semester="F", year=2022)
@@ -562,18 +723,30 @@ class TestRemoveSection(TestCase):
         c.save()
 
         # create a couple sections
-        d = Section(sectionID="CS 361 802", courseID="CS 361 XX", user=123)
-        e = Section(sectionID="CS 337 801", courseID="CS 337 XX", user=123)
-        f = Section(sectionID="CS 361 803", courseID="CS 361 XX", user=456)
+        self.d = Section(sectionID="CS 361 802", courseID=a, user=u)
+        self.d.save()
+        self.e = Section(sectionID="CS 337 801", courseID=b, user=u)
+        self.e.save()
+        f = Section(sectionID="CS 361 803", courseID=a, user=u2)
+        f.save()
 
     def test_successful_remove(self):
-        self.user.removeSection("CS 361 802")
+        self.user.removeSection(self.d)
         # assumes getSections() works
         list = self.user.getSections()
-        self.assertEqual(list.len(), 1)
-        self.assertEqual(list[0], "CS 337 801")
+        self.assertEqual(len(list), 1)
+        self.assertEqual(list[0], self.e)
 
     def test_invalid_section(self):
         with self.assertRaises(TypeError, msg="Invalid section"):
             self.user.removeSection("Something")
 
+
+class TestRemoveAccount(TestCase):
+    def setUp(self):
+        self.user = AppUserClass("123", "test@test.com", "password")
+
+    def test_successful_remove(self):
+        self.user.removeAccount()
+        with self.assertRaises(AppUser.DoesNotExist, msg="Account does not exist"):
+            a = AppUser.objects.get(pID="123")

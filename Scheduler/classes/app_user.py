@@ -98,13 +98,13 @@ class AppUserClass:
     def getFullName(self):
         name = self.first_name + " " + self.last_name
         if name == " ":
-            return TypeError("User does not have a name.")
+            raise TypeError("User does not have a name.")
         return name
 
     def setFullName(self, name):
         words = name.split()
         if len(words) != 2:
-            return TypeError("Invalid name")
+            raise TypeError("Invalid name")
         user = AppUser.objects.get(pID=self.pID)
         user.first_name = words[0]
         user.last_name = words[1]
@@ -160,7 +160,7 @@ class AppUserClass:
 
     def setState(self, state):
         if not isinstance(state, str):
-            raise TypeError("City must be a string")
+            raise TypeError("State must be a string")
         user = AppUser.objects.get(pID=self.pID)
         user.state = state
         self.state = state
@@ -223,3 +223,4 @@ class AppUserClass:
 
     def removeAccount(self):
         AppUser.objects.get(pID=self.pID).delete()
+

@@ -6,6 +6,8 @@ from django.urls import reverse
 import Scheduler
 from Scheduler.classes.app_user import AppUserClass
 from Scheduler.models import AppUser, Course
+import Scheduler.classes.course
+
 
 
 # Create your views here.
@@ -14,7 +16,8 @@ def index(request):
         return HttpResponseRedirect(reverse('login'))
     if request.method == 'GET':
         return render(request, 'Scheduler/index.html')
-    return  HttpResponseRedirect(reverse(request.POST['pageURL']))
+    return HttpResponseRedirect(reverse(request.POST['pageURL']))
+
 
 def login_view(request):
     if request.method == 'POST':
@@ -37,12 +40,43 @@ def logout_view(request):
     return render(request, "Scheduler/login.html", {
         'message': "Logged out"
     })
+
+
+def createCourse_view(request):
+    if request.method == 'GET':
+        return render(request, "Scheduler/createCourses.html")
+    if request.method == 'POST':
+        courseNum = request.POST['newCourseID']
+        courseName = request.POST['newCourseName']
+        courseSemester = request.POST['newSemester']
+        courseYear = request.POST['newYear']
+        Scheduler.classes.course.AppCourse.__init__(courseNum, courseName, courseSemester, courseYear)
+
+
+def createUser_view(request):
+    if request.method == 'GET':
+        return render(request, "Scheduler/createUser.html")
+    if request.method == 'POST':
+        pID = request.POST['newPantherID']
+        email = request.POST['newEmail']
+        password = request.POST['newPassword']
+        phone = request.POST['newPhone']
+        firstName = request.POST['newFirstName']
+        lastName = request.POST['newLastName']
+        address = request.POST['newAddress']
+        city = request.POST['newCity']
+        state = request.POST['newState']
+        zipCode = request.POST['newZip']
+        Scheduler.classes.app_user.__init__(pID, email, password, firstName, lastName, phone, address, city, state, zipCode)
+
+
 def allCourses_view(request):
     allAppCourse = []
     allCourses = Course.objects.all()
     for i in allCourses:
         allAppCourse.append(Scheduler.classes.course.AppCourse(i))
     return render(request, "Scheduler/allCourses.html", {'courseList': allAppCourse})
+
 
 def allUsers_view(request):
     allUsers = AppUser.objects.all()
