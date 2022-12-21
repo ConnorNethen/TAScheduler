@@ -122,3 +122,23 @@
     padding-bottom: 10%;
 }
 
+#createSection-container{
+    padding-top: 8%;
+    width: 100%;
+    background-color: grey;
+}
+#createSection-container-sm{
+    background-color: goldenrod;
+    margin-top: 1%;
+    padding-bottom: 1%;
+}
+.btn-createSection{
+    background-color: grey;
+    width: 130px;
+    border: 1px solid black;
+}
+.btn-createSection:hover{
+    background-color: white;
+    color: black;
+    border: 1px solid black;
+}
