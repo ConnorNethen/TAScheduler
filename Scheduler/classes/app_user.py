@@ -223,3 +223,4 @@ class AppUserClass:
 
     def removeAccount(self):
         AppUser.objects.get(pID=self.pID).delete()
+
