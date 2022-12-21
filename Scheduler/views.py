@@ -69,7 +69,6 @@ def createUser_view(request):
         zipCode = request.POST['newZip']
         Scheduler.classes.app_user.__init__(pID, email, password, firstName, lastName, phone, address, city, state, zipCode)
 
-
 def allCourses_view(request):
     allAppCourse = []
     allCourses = Course.objects.all()
@@ -138,3 +137,17 @@ def user_view(request, userPID = ""):
     #stop clarity
 
     return render(request, "Scheduler/userPage.html", {'user':thisUser,'edit': edit, 'isAdmin':isAdmin, 'isUser': isUser,'message': message})
+
+
+def user_view(request):
+    allUsers = AppUser.objects.all()
+    return render(request, "Scheduler/allCourses.html", {'userList': allUsers})
+
+
+def createSection_view(request):
+    if request.method == 'GET':
+        return render(request, "Scheduler/createSection.html")
+    if request.method == 'POST':
+        courseNum = request.POST['courseID']
+        sectionNum = request.POST['newSectionNumber']
+        Scheduler.classes.section.__init__(courseNum, sectionNum)
