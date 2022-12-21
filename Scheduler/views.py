@@ -6,6 +6,10 @@ from django.urls import reverse
 import Scheduler.classes.course
 
 
+import Scheduler
+from Scheduler.models import Course, AppUser
+
+
 # Create your views here.
 def index(request):
     if not request.user.is_authenticated:
@@ -63,3 +67,22 @@ def createUser_view(request):
         state = request.POST['newState']
         zipCode = request.POST['newZip']
         Scheduler.classes.app_user.__init__(pID, email, password, firstName, lastName, phone, address, city, state, zipCode)
+
+
+def allCourses_view(request):
+    allAppCourse = []
+    allCourses = Course.objects.all()
+    for i in allCourses:
+        allAppCourse.append(Scheduler.classes.course.AppCourse(i))
+    return render(request, "Scheduler/allCourses.html", {'courseList': allAppCourse})
+
+
+def allUsers_view(request):
+    allUsers = AppUser.objects.all()
+    return render(request, "Scheduler/allUsers.html", {'userList': allUsers})
+
+
+def user_view(request):
+    allUsers = AppUser.objects.all()
+    return render(request, "Scheduler/allCourses.html", {'userList': allUsers})
+
