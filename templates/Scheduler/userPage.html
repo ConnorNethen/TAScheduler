@@ -1,0 +1,114 @@
+{% extends 'Scheduler/layout.html' %}
+
+{% block title %}TA Scheduler{% endblock %}
+
+{% block body %}
+    <div class="container-fluid" id="userPage-container">
+        <div class="row"></div>
+        <div class ="container-md">
+            {% csrf_token %}
+                <div class = "row">
+                    <div class = "col">
+                        <div class = "card bg-warning d-flex-shrink" style="min-height: 150px; min-width: 150px" id="userPage-card-left">
+                            <h4 class="card-header">{{ user.first_name}} {{ user.last_name }}</h4>
+                            {% if edit %}
+                                <p class="card-text">
+                                    <form action='{% url 'My Info' %}' method="post">
+                                        {% csrf_token %}
+                                        <div class="col-auto">
+                                            <label for="inputEmail">Email:</label>
+                                            <input type="email" name="email" id="inputEmail" class="form" placeholder={{ user.email }}>
+                                        </div>
+                                        <div class="mb-3">
+                                            <div class="col-auto">
+                                                <label for="inputPhone" class="col-form-label">Phone Number:</label>
+                                                <input type="text" name="phone" id="inputPhone" class="form" placeholder={{ user.phone_number }}>
+                                            </div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <div class="col-auto">
+                                                <label for="inputStreet" class="col-form-label">Street:</label>
+                                                <input type="text" name="street" id="inputStreet" class="form" placeholder={{ user.address }}>
+                                            </div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <div class="col-auto">
+                                                <label for="inputCity" class="col-form-label">City:</label>
+                                                <input type="text" name="city" id="inputCity" class="form" placeholder={{ user.city }}>
+                                            </div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <div class="col-auto">
+                                                <label for="inputState" class="col-form-label">State:</label>
+                                                <input type="text" name="state" id="inputState" class="form" placeholder={{ user.state }}>
+                                            </div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <div class="col-auto">
+                                                <label for="inputZip" class="col-form-label">Zip Code:</label>
+                                                <input type="text" name="zip" id="inputZip" class="form" placeholder={{ user.zip_code }}>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12 float-right">
+                                            <input type="submit" class="btn btn-login" value="Submit">
+                                            {% if isAdmin %}
+                                                <input type="submit" name="options" class="btn btn-login" value="Delete">
+                                            {% endif %}
+                                        </div>
+                                    </form>
+                                </p>
+                            {% else %}
+                                <p class="card-text">
+                                    <div class ="mb-3" style="alignment: left">
+                                        <div class="col-auto">  Email: {{ user.email }}</div>
+                                    </div>
+                                    <div class ="mb-3" style="alignment: left">
+                                        <div class="col-auto">  Phone Number: {{ user.phone_number }}</div>
+                                    </div>
+                                    <div class ="mb-3" style="alignment: left">
+                                        <div class="col-auto">  Street: {{ user.address }}</div>
+                                    </div>
+                                    <div class ="mb-3" style="alignment: left">
+                                        <div class="col-auto">  City: {{ user.city }}</div>
+                                    </div>
+                                    <div class ="mb-3" style="alignment: left">
+                                        <div class="col-auto">  State: {{ user.state }}</div>
+                                    </div>
+                                    <div class ="mb-3" style="alignment: left">
+                                        <div class="col-auto">  Zip Code: {{ user.zip_code }}</div>
+                                    </div>
+                                    {% if isUser or isAdmin %}
+                                        <div class ="row" style="alignment: right">
+                                            <form action="{% url 'userPage' %}" method= "GET">
+                                                <input type="submit" class="btn btn-login" name="options" class="btn btn-login" value="Edit">
+                                            </form>
+                                        </div>
+                                    {% endif %}
+                                </p>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class = "col">
+                        <div class="card bg-warning" style="min-height: 100px" id="userPage-card-right">
+                            <h5 class = "card-header">Courses:</h5>
+                            <form action= {% url 'index' %} method="post">
+                                <p class="card-text">
+                                    {% for course in userCourses %}
+                                        <div class ="row">
+                                            <div class = "card">
+                                                <input type="submit" name="pageURL" class="btn btn-login form-control"  style="height: 100px">
+                                                    {{ course.courseID }}
+                                                    {{ course.name }}
+                                                    {{ course.getSections.count }}
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                </p>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+        </div>
+        <div class = "row"></div>
+    </div>
+{% endblock %}

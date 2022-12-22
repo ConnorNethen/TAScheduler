@@ -1,0 +1,41 @@
+{% extends 'Scheduler/layout.html' %}
+
+{% block title %}TA Scheduler{% endblock %}
+
+{% block body %}
+    <div class="container-fluid min-vh-100" xmlns="http://www.w3.org/1999/html" id="allUsers-container">
+        <div class="row"></div>
+        <div class ="container-md g-6">
+            <table class = "table table-striped" id="allUsers-striped">
+                <thead class = "thead">
+                    <tr>
+                        <th scope="col"></th>
+                        <th scope="col" class="text-center">First Name</th>
+                        <th scope="col" class="text-center">Last Name</th>
+                        <th scope="col" class="text-center">Email</th>
+                        <th scope="col" class="text-center">Phone Number</th>
+                        <th scope="col" class="text-center">Address</th>
+
+                    </tr>
+                </thead>
+                {% for i in userList %}
+                    <div class="table">
+                        <tr>
+                            <form action= {% url 'All Users' %} method="POST"">
+                                {% csrf_token %}
+                                <th scope="row"><button name= "userNumber" class="btn" value="{{ forloop.counter0 }}">{{ forloop.counter }}</button></th>
+                                <td><button class = "btn text-warning" style="" name="userNumber" value="{{ forloop.counter0 }}">{{ i.first_name }}</button></td>
+                                <td><button class = "btn text-warning" name="userNumber" value="{{ forloop.counter0 }}">{{ i.last_name }}</button></td>
+                                <td><button class = "btn text-warning" name="userNumber" value="{{ forloop.counter0 }}">{{ i.email }}</button></td>
+                                <td><button class = "btn text-warning" name="userNumber" value="{{ forloop.counter0 }}">{{ i.phone }}</button></td>
+                                <td><button class = "btn text-warning" name="userNumber" value="{{ forloop.counter0 }}">{{ i.address }} {{ i.city }} {{ i.state }} {{ i.zip_code }}</button></td>
+                            </form>
+                        </tr>
+                    </div>
+                {% endfor %}
+            </table>
+        </div>
+        <div class="row"></div>
+    </div>
+{% endblock %}
+

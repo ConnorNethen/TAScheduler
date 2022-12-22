@@ -1,0 +1,189 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+.header{
+    height: 10%;
+}
+.navbar-style{
+    box-shadow: 0 5px 10px black;
+    height: 10%;
+    background-color: goldenrod;
+}
+#login-container{
+    margin-top: 0%;
+    height: 100%;
+    width: 100%;
+    margin-bottom: 0%;
+    background-image: url("https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fuwm.edu%2Fchancellor%2Fwp-content%2Fuploads%2Fsites%2F290%2F2020%2F06%2F20190724_IMC_EH_0010-scaled.jpg&f=1&nofb=1&ipt=8e2e768e3d305154b1777793360c6dcdaeb2bd26c16020afc1a439ef451f64f1&ipo=images");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    padding-bottom: 10px;
+}
+#login-container-sm{
+    background-color: gray;
+    margin-top: 5%;
+    margin-left: 15%;
+    margin-right: 15%;
+    margin-bottom: 10%;
+    width: 65%;
+    padding: 10px;
+}
+.btn-login{
+    background-color: goldenrod;
+    transition-duration: 0.1s;
+    border: 2px solid black;
+}
+.btn-login:hover{
+    background-color: gold;
+    border: 2px solid black;
+}
+.footer{
+    background-color: goldenrod;
+    height: 60%;
+}
+.btn-header-nav{
+    background-color: grey;
+    width: 130px;
+    border: 1px solid black;
+}
+.btn-header-nav:hover{
+    background-color: white;
+    color: black;
+    border: 1px solid black;
+}
+.btn-home-lg{
+    display: inline-flex;
+    align-items: center;
+    vertical-align: baseline;
+    align-content: center;
+    justify-content: center;
+    height: 200px;
+    width: 300px;
+    background-color: goldenrod;
+    color: black;
+    border: 2px solid black;
+    margin: 20px;
+    font-size: 25px;
+    font-weight: bold;
+}
+.btn-home-lg:hover{
+    background-color: gold;
+    color: black;
+    border: 2px solid black;
+}
+.btn-home-sm{
+    display: inline-flex;
+    align-items: center;
+    vertical-align: baseline;
+    align-content: center;
+    justify-content: center;
+    height: 60px;
+    width: 300px;
+    background-color: goldenrod;
+    color: black;
+    border: 2px solid black;
+    margin: 20px;
+    font-size: 20px;
+    font-weight: bold;
+}
+.btn-home-sm:hover{
+    background-color: gold;
+    color: black;
+    border: 2px solid black;
+}
+#home-container{
+    background-color: grey;
+    padding-bottom: 12%;
+    padding-top: 6.5%;
+}
+#createCourse-container{
+    padding-top: 5%;
+    padding-bottom: 8%;
+    width: 100%;
+    background-color: grey;
+}
+#createUser-container{
+    padding-top: 5%;
+    padding-bottom: 5%;
+    width: 100%;
+    background-color: grey;
+}
+#createCourse-container-sm{
+    margin-top: 0.5%;
+    background-color: goldenrod;
+    padding-bottom: 2%;
+}
+#createUser-container-sm{
+    margin-top: 0.5%;
+    background-color: goldenrod;
+    padding-bottom: 2%;
+}
+
+#createSection-container{
+    padding-top: 8%;
+    width: 100%;
+    background-color: grey;
+}
+#createSection-container-sm{
+    background-color: goldenrod;
+    margin-top: 1%;
+    padding-bottom: 1%;
+}
+.btn-createSection{
+    background-color: grey;
+    width: 130px;
+    border: 1px solid black;
+}
+.btn-createSection:hover{
+    background-color: white;
+    color: black;
+    border: 1px solid black;
+}
+.btn-createCourse{
+    margin-top: 15px;
+    background-color: grey;
+    width: 130px;
+    border: 1px solid black;
+}
+.btn-createCourse:hover{
+    background-color: white;
+    color: black;
+    border: 1px solid black;
+}
+.btn-createUser{
+    margin-top: 15px;
+    background-color: grey;
+    width: 130px;
+    border: 1px solid black;
+}
+.btn-createUser:hover{
+    background-color: white;
+    color: black;
+    border: 1px solid black;
+}
+#userPage-container{
+    background-color: grey;
+    padding-bottom: 20%;
+}
+#userPage-card-left{
+    margin-top: 25px;
+    padding-left: 2%;
+}
+#userPage-card-right{
+    margin-top: 25px;
+    padding-left: 2%;
+}
+#allCourses-container{
+    background-color: grey;
+}
+#allCourses-striped{
+    background-color: white;
+}
+#allUsers-container{
+    background-color: grey;
+}
+#allUsers-striped{
+    background-color: white;
+}

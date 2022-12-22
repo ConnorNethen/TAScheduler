@@ -1,0 +1,30 @@
+{% extends 'Scheduler/layout.html' %}
+
+{% block title %}Create Section - TA Scheduler{% endblock %}
+
+{% block body %}
+    <div class="container-fluid g-6 min-vh-100" id="createSection-container">
+        <div class="row"></div>
+        <div class="container-md" id="createSection-container-sm">
+            <h2>Create New Section:</h2>
+            <form action="{% url "createSection" %}" method="post">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <div class="col-auto">
+                        <label for="inputCourseID" class="col-form-label">Course ID</label>
+                        <input type="text" name="courseID" id="inputCourseID" class="form-control" placeholder="Course ID" required>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <div class="col-auto">
+                        <label for="inputSectionNumber" class="col-form-label">Section Number</label>
+                        <input type="text" name="newSectionNumber" id="inputSectionNumber" class="form-control" placeholder="Section Number" required>
+                    </div>
+                </div>
+                <div class="col-auto">
+                    <input type="submit" class="btn btn-createSection" value="Submit">
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}
