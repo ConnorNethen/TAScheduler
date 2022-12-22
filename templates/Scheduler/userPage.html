@@ -13,7 +13,7 @@
                             <h4 class="card-header">{{ user.first_name}} {{ user.last_name }}</h4>
                             {% if edit %}
                                 <p class="card-text">
-                                    <form action='{% url 'My Info' %}' method="post">
+                                    <form action='{% url 'userPage' %}' method="post">
                                         {% csrf_token %}
                                         <div class="col-auto">
                                             <label for="inputEmail">Email:</label>
