@@ -3,9 +3,9 @@
 {% block title %}Create Course - TA Scheduler{% endblock %}
 
 {% block body %}
-    <div class="container-fluid g-6 min-vh-100" id="createCourse-container">
+    <div class="container-fluid g-6" id="createCourse-container">
         <div class="row"></div>
-        <div class="container-md" id="CreateCourseBox">
+        <div class="container-md" id="createCourse-container-sm">
             <h2>Create New Course:</h2>
             <form action="{% url "createCourse" %}" method="post">
                 {% csrf_token %}
@@ -21,14 +21,12 @@
                         <input type="text" name="newCourseName" id="inputCourseName" class="form-control" placeholder="Course Name" required>
                     </div>
                 </div>
-                <div class="mb-3">
-                    <div class="col-auto">
+                <div class="row g-2">
+                    <div class="col">
                         <label for="inputSemester" class="col-form-label">Semester</label>
                         <input type="text" name="newSemester" id="inputSemester" class="form-control" placeholder="Semester" list=Scheduler.models.Course.SEMESTER_CHOICES required>
                     </div>
-                </div>
-                <div class="mb-3">
-                    <div class="col-auto">
+                    <div class="col">
                         <label for="inputYear" class="col-form-label">Year</label>
                         <input type="text" name="newYear" id="inputYear" class="form-control" placeholder="Year" required>
                     </div>

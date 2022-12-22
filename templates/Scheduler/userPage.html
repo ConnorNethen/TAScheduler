@@ -3,13 +3,13 @@
 {% block title %}TA Scheduler{% endblock %}
 
 {% block body %}
-    <div class="container-fluid min-vh-100">
+    <div class="container-fluid" id="userPage-container">
         <div class="row"></div>
         <div class ="container-md">
             {% csrf_token %}
                 <div class = "row">
                     <div class = "col">
-                        <div class = "card bg-warning d-flex-shrink" style="min-height: 150px; min-width: 150px">
+                        <div class = "card bg-warning d-flex-shrink" style="min-height: 150px; min-width: 150px" id="userPage-card-left">
                             <h4 class="card-header">{{ user.first_name}} {{ user.last_name }}</h4>
                             {% if edit %}
                                 <p class="card-text">
@@ -63,7 +63,7 @@
                                         <div class="col-auto">  Email: {{ user.email }}</div>
                                     </div>
                                     <div class ="mb-3" style="alignment: left">
-                                        <div class="col-auto">  Phone Number: {{ user.getPhone }}</div>
+                                        <div class="col-auto">  Phone Number: {{ user.phone_number }}</div>
                                     </div>
                                     <div class ="mb-3" style="alignment: left">
                                         <div class="col-auto">  Street: {{ user.address }}</div>
@@ -89,7 +89,7 @@
                         </div>
                     </div>
                     <div class = "col">
-                        <div class="card bg-warning" style="min-height: 100px">
+                        <div class="card bg-warning" style="min-height: 100px" id="userPage-card-right">
                             <h5 class = "card-header">Courses:</h5>
                             <form action= {% url 'index' %} method="post">
                                 <p class="card-text">
