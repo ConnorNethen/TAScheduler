@@ -18,7 +18,7 @@ class CreateAccount(TestCase):
                     {"pID": "pantherID", "email": "myEmail@abc.com", "password": "myPassword", "first_name": "fName",
                      "last_name": "lName", "phone_number": "0123456789", "address": "myStreet", "city": "myCity",
                      "state": "myState", "zipCode": "12345"})
-        userTest = AppUser.get("pID")
+        userTest = AppUser.objects.get("pID")
         self.assertEquals(userTest.pID, "pantherID", msg="pID isn't pantherID")
         self.assertEquals(userTest.email, "myEmail@abc.com", msg="email isn't myEmail@abc.com")
         self.assertEquals(userTest.password, "myPassword", msg="password isn't myPassword")
@@ -29,7 +29,7 @@ class CreateAccount(TestCase):
         self.assertEquals(userTest.city, "myCity", msg="city isn't myCity")
         self.assertEquals(userTest.state, "myState", msg="state isn't myState")
         self.assertEquals(userTest.zip, "12345", msg="zip isn't 12345")
-        self.assertRedircts('index/')
+        self.assertRedirects('index/')
 
     def test_pIDExists(self):
         tester = Client()
