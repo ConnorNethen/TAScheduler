@@ -1,6 +1,6 @@
 import unittest
-from classes.login import Login
-from Scheduler.models import Login
+
+from django.contrib.auth import login, authenticate
 
 
 class TestLoginInit(unittest.TestCase):
@@ -10,7 +10,8 @@ class TestLoginInit(unittest.TestCase):
         self.database = {"one": "onePass", "two": "twoPass"}
 
         for i in self.database:
-            temp = Login(name=i.keys(), password=i.values())
+            #temp = Login(name=i.keys(), password=i.values())
+            temp = authenticate(request, email=email, password=password)
             temp.save()
 
     def test_correctName(self):
