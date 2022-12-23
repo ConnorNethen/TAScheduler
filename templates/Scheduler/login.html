@@ -3,9 +3,9 @@
 {% block title %}Login - TA Scheduler{% endblock %}
 
 {% block body %}
-    <div class="container-fluid min-vh-100">
+    <div class="container-fluid min-vh-100" id="login-container">
         <div class="row"></div>
-        <div class="container-md g-6" >
+        <div class="container-md g-6" id="login-container-sm" >
             <h2>Login:</h2>
             <form action="{% url "login" %}" method="post">
                 {% csrf_token %}
@@ -29,5 +29,4 @@
         </div>
         <div class="row"></div>
     </div>
-
 {% endblock %}
