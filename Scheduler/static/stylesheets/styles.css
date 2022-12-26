@@ -122,13 +122,13 @@
 }
 
 #createSection-container{
-    padding-top: 8%;
+    padding-top: 1%;
     width: 100%;
     background-color: grey;
 }
 #createSection-container-sm{
     background-color: goldenrod;
-    margin-top: 1%;
+    margin-top: 0.5%;
     padding-bottom: 1%;
 }
 .btn-createSection{
